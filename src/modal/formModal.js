@@ -24,31 +24,15 @@ import CheckedField from "../helper/CheckedField";
 
 const initialValues = {
   profile_name: "",
-  position: "",
-  link: "",
-  date: "",
-  note: "",
 };
 const initialSelectValues = {
-  profile_name: "",
-  position: "",
-  link: "",
-  date: "",
-  note: "",
+  
 };
 const initialRadioValues = {
-  profile_name: "",
-  position: "",
-  link: "",
-  date: "",
-  note: "",
+ 
 };
 const initialCheckValues = {
-  profile_name: "",
-  position: "",
-  link: "",
-  date: "",
-  note: "",
+  
 };
 
 const FormModal = () => {
