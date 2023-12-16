@@ -14,10 +14,10 @@ import {
 const RadioInputField = () => {
   return (
     <RadioGroup value="">
-      <FormLabel>Security Clearance</FormLabel>
+      <FormLabel fontSize={'14px'}>Security Clearance</FormLabel>
       <Stack direction="row">
-        <Radio value="1">Yes</Radio>
-        <Radio value="2">No</Radio>
+        <Radio fontSize={'14px'}  value="1">Yes</Radio>
+        <Radio fontSize={'14px'} value="2">No</Radio>
       </Stack>
     </RadioGroup>
   );

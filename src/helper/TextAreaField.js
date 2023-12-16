@@ -10,8 +10,8 @@ import {
 const TextAreaField = ({ label, placeholder }) => {
   return (
     <FormControl isRequired mb={4}>
-      <FormLabel>{label}</FormLabel>
-      <Textarea placeholder={placeholder} />
+      <FormLabel fontSize={'14px'}>{label}</FormLabel>
+      <Textarea placeholder={placeholder} fontSize={'14px'}/>
     </FormControl>
   );
 };

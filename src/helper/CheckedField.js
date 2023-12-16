@@ -8,11 +8,11 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 
-const CheckedField = () => {
+const CheckedField = ({checkText}) => {
   return (
-    <Box>
-      <Checkbox colorScheme="red" defaultChecked>
-        Permanent Contact Details Same As Above
+    <Box pt={2} pb={2}>
+      <Checkbox colorScheme="blue" defaultChecked fontSize={'14px'}>
+        {checkText}
       </Checkbox>
     </Box>
   );

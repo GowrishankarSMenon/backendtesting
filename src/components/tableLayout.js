@@ -24,6 +24,8 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
 import FormModal from "../modal/formModal";
+import JobForm from "../modal/JobForm";
+import ObjectForm from "../modal/ObjectForm";
 
 const TableLayout = ({ tableView, tableName, details }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -125,20 +127,9 @@ const TableLayout = ({ tableView, tableName, details }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent maxW={"55rem"} p={[4, 8]}>
-          {tableView === "profile" ? (
-            <Box>
-              <Text>* Indicates Mandatory Fields</Text>
-              <ModalHeader>Personal Info (Optional)</ModalHeader>
-              <Box>
-                <Text as={"span"}>Last Modified Date</Text>
-                <Text as={"span"}>4/6/2022 5:02:36 AM</Text>
-              </Box>
-            </Box>
-          ) : null}
-
           <ModalCloseButton />
           <ModalBody mt={2}>
-            {tableView === "profile" ? <FormModal /> : null}
+            {tableView === "profile" ? <FormModal /> : tableView === "job-profile"? <JobForm/> : <ObjectForm/> }
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>

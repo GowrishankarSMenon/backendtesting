@@ -10,9 +10,8 @@ import {
   FormLabel,
   RadioGroup,
   Stack,
-  Divider
+  Divider,
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/react";
 import TextInputField from "../helper/TextInputField";
 import SelectInputField from "../helper/SelectInputField";
 import TextAreaField from "../helper/TextAreaField";
@@ -24,11 +23,16 @@ const FormModal = () => {
     <Box>
       <Box>
         <Box>
-          <Text as={"span"}></Text>
+          <Text as={"span"} color="red" fontSize={"12px"}>
+            * Indicates Mandatory Fields
+          </Text>
         </Box>
-        <Heading as={"h3"}></Heading>
-        <Box>
-          <Text as={"span"}></Text>
+        <Heading as={"h4"} fontSize={"20px"} pt={2} pb={2}>
+          Personal Info (Optional)
+        </Heading>
+        <Box fontSize={"14px"} mb={4}>
+          <Text as={"span"}>Last Modified Date: </Text>
+          <Text as={"span"}>4/6/2022 5:02:36 AM</Text>
         </Box>
       </Box>
       <TextInputField
@@ -119,7 +123,9 @@ const FormModal = () => {
         Required={true}
       />
       <Box>
-        <Heading as={"h3"}>Contact Details</Heading>
+        <Heading as={"h4"} fontSize={"20px"} pt={2} pb={2}>
+          Contact Details
+        </Heading>
       </Box>
       <SelectInputField
         label="Contact Preference"
@@ -173,7 +179,7 @@ const FormModal = () => {
         placeholder="22556567"
         Required={true}
       />
-      <CheckedField/>
+      <CheckedField checkText={"Permanent Contact Details Same As Above"} />
       <SelectInputField label="Career Level" placeholder="Country" />
       <SelectInputField label="Total Experience" placeholder="Country" />
       <TextInputField
@@ -191,12 +197,8 @@ const FormModal = () => {
       <SelectInputField label="" placeholder="Country" />
       <SelectInputField label="" placeholder="Country" />
       <SelectInputField label="Authorization To Work" placeholder="Country" />
-      <RadioInputField/>
-      <Box>
-        <Checkbox colorScheme="red" defaultChecked>
-          Immediate Start Indicator
-        </Checkbox>
-      </Box>
+      <RadioInputField />
+      <CheckedField checkText={"Immediate Start Indicator"} />
       <TextInputField
         type="text"
         label="Legal Identification Number"
@@ -204,7 +206,9 @@ const FormModal = () => {
         Required={true}
       />
       <Box>
-        <Heading as={"h3"}>Preferences</Heading>
+        <Heading as={"h4"} fontSize={"20px"} pt={2} pb={2}>
+          Preferences
+        </Heading>
       </Box>
       <TextInputField
         type="text"
@@ -215,11 +219,14 @@ const FormModal = () => {
       <SelectInputField label="" placeholder="Select From List" />
       <SelectInputField label="" placeholder="Select From List" />
       <SelectInputField label="Desired Salary" placeholder="<10000" />
-      <SelectInputField label="Desired Job Term" placeholder="All of the above" />
-      <RadioInputField label='Willing to Relocate'/>
+      <SelectInputField
+        label="Desired Job Term"
+        placeholder="All of the above"
+      />
+      <RadioInputField label="Willing to Relocate" />
       <TextAreaField label="Relocation Comments" placeholder="Comments..." />
       <Text>(Maximum limit is 1000 characters)</Text>
-      <Divider orientation='horizontal' mt={4} mb={4}/>
+      <Divider orientation="horizontal" mt={4} mb={4} />
       <Box>
         <Flex>
           <Box>
