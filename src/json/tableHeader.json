@@ -1,0 +1,39 @@
+[
+  {
+    "table": "Applied",
+    "header": [
+      { "radio": true, "head_Title": "Reference #" },
+      { "radio": true, "head_Title": "Title" },
+      { "radio": true, "head_Title": "Location" },
+      { "radio": true, "head_Title": "Date Applied" },
+      { "radio": true, "head_Title": "Job Category" },
+      { "radio": true, "head_Title": "Job Type" },
+      { "radio": true, "head_Title": "Resume" },
+      { "radio": true, "head_Title": "Status" }
+    ]
+  },
+  {
+    "table": "Save",
+    "header": [
+      { "radio": true, "head_Title": "Reference #" },
+      { "radio": true, "head_Title": "Position Title" },
+      { "radio": true, "head_Title": "Job Category" },
+      { "radio": true, "head_Title": "Job Term" },
+      { "radio": true, "head_Title": "Location" },
+      { "radio": true, "head_Title": "Duration" },
+      { "radio": true, "head_Title": "Date Added" }
+    ]
+  },
+  {
+    "table": "Respository",
+    "header": [
+      { "radio": false, "head_Title": "Requisition" },
+      { "radio": false, "head_Title": "Position" },
+      { "radio": false, "head_Title": "Attachment" },
+      { "radio": false, "head_Title": "Attachment Type" },
+      { "radio": false, "head_Title": "Added Date" },
+      { "radio": false, "head_Title": "Acceptance Status" },
+      { "radio": false, "head_Title": "Acceptance" }
+    ]
+  }
+]

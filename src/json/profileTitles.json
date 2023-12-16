@@ -1,0 +1,121 @@
+[
+  {
+    "table": "profile",
+    "details": [
+      {
+        "title": "Personal Details",
+        "data": [
+          { "formField": "Profile Name", "value": "" },
+          { "formField": "Salutation", "value": "" },
+          { "formField": "First Name", "value": "" },
+          { "formField": "Last Name", "value": "" },
+          { "formField": "Middle Name/Initial", "value": "" },
+          { "formField": "Known As", "value": "" },
+          { "formField": "E-mail", "value": "" },
+          { "formField": "Mother's Name'", "value": "" },
+          { "formField": "Country", "value": "" },
+          { "formField": "State/Province", "value": "" },
+          { "formField": "City", "value": "" },
+          { "formField": "Address", "value": "" },
+          { "formField": "Zip/Postal Code", "value": "" },
+          { "formField": "Gender", "value": "" },
+          { "formField": "Marital Status", "value": "" },
+          { "formField": "Birth Place", "value": "" },
+          { "formField": "Birth Date", "value": "" },
+          { "formField": "Nationality", "value": "" },
+          { "formField": "Residency Country", "value": "" },
+          { "formField": "Citizenship Country", "value": "" },
+          { "formField": "Legal Identification Number", "value": "" }
+        ]
+      },
+      {
+        "title": "Contact Details",
+        "data": [
+          { "formField": "Contact Preference", "value": "" },
+          { "formField": "Phone #", "value": "" },
+          { "formField": "Alt.Phone #", "value": "" },
+          { "formField": "Mobile #", "value": "" },
+          { "formField": "Business Phone #", "value": "" },
+          { "formField": "Fax #", "value": "" },
+          { "formField": "Pager #", "value": "" },
+          { "formField": "Ext #", "value": "" },
+          { "formField": "Web Site", "value": "" }
+        ]
+      },
+      {
+        "title": "Professional Details",
+        "data": [
+          { "formField": "Career Level", "value": "" },
+          { "formField": "Total Experience", "value": "" },
+          { "formField": "Current Position Title", "value": "" },
+          { "formField": "Current Salary/Rate", "value": "" },
+          { "formField": "Authorization To Work", "value": "" },
+          { "formField": "Security Clearance", "value": "" },
+          { "formField": "Immediate Start Indicator", "value": "" }
+        ]
+      },
+      {
+        "title": "Referral Details",
+        "data": [
+          { "formField": "Referral Source", "value": "" },
+          { "formField": "Specific Source", "value": "" }
+        ]
+      }
+    ]
+  },
+  {
+    "table": "job-profile",
+    "details": [
+      {
+        "title": "",
+        "data": [
+          { "formField": "Desired Position Title", "value": "" },
+          { "formField": "Alternate Position Title", "value": "" },
+          { "formField": "Availability", "value": "" },
+          { "formField": "Or Date Available", "value": "" },
+          { "formField": "Term of Notice", "value": "" },
+          { "formField": "Desired Career Level", "value": "" },
+          { "formField": "Desired Salary", "value": "" },
+          { "formField": "Desired Wage", "value": "" },
+          { "formField": "Desired Location", "value": "" },
+          { "formField": "Desired Job Category", "value": "" },
+          { "formField": "Desired Job Type", "value": "" },
+          { "formField": "Desired Job Term", "value": "" },
+          { "formField": "Desired Work Type", "value": "" },
+          { "formField": "Willing to TeleCommute", "value": "" },
+          { "formField": "Willing To Commute", "value": "" },
+          { "formField": "Ideal Company Category", "value": "" },
+          { "formField": "Preferred Company Size", "value": "" },
+          { "formField": "Ideal Company Summary", "value": "" },
+          { "formField": "Industry Experience", "value": "" },
+          { "formField": "Shift", "value": "" },
+          { "formField": "Work Style", "value": "" },
+          { "formField": "Dress Code ", "value": "" },
+          { "formField": "Travel Applicable", "value": "" },
+          { "formField": "Travel Frequency", "value": "" },
+          { "formField": "Travel Consideration", "value": "" },
+          { "formField": "Willing To Relocate", "value": "" },
+          { "formField": "Relocation Comments", "value": "" },
+          { "formField": "Preferred Language", "value": "" },
+          { "formField": "Commute", "value": "" },
+          { "formField": "Commute", "value": "" },
+          { "formField": "Commute Comments", "value": "" },
+          { "formField": "Additional Info", "value": "" }
+        ]
+      }
+    ]
+  },
+  {
+    "table": "objective",
+    "details": [
+      {
+        "title": "Personal Details",
+        "data": [
+          { "formField": "Profile Name", "value": "" },
+          { "formField": "Salutation", "value": "" },
+          { "formField": "First Name", "value": "" }
+        ]
+      }
+    ]
+  }
+]

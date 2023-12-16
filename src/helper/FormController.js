@@ -10,13 +10,13 @@ import {
 } from '@chakra-ui/react'
 import PasswordInput from './PasswordInput'
 
-const FormController = ({ lable, placeholder }) => {
-  console.log(placeholder, 'ff');
+const FormController = ({ lable, placeholder, handleChange }) => {
+  //console.log(placeholder, 'ff');
   return (
     <>
       <FormControl isRequired my='1em'>
         <FormLabel>{lable}</FormLabel>
-        <Input placeholder={placeholder} />
+        <Input placeholder={placeholder} onChange={handleChange}/>
       </FormControl>
 
     </>
