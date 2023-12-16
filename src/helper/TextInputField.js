@@ -7,17 +7,25 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 
-const TextInputField = ({label, type, placeholder, Required}) => {
+const TextInputField = ({ label, type, placeholder, Required, id, name, value, handleInputChange }) => {
   const [input, setInput] = useState("");
 
-  const handleInputChange = (e) => setInput(e.target.value);
+  // const handleInputChange = (e) => setInput(e.target.value);
 
   const isError = input === "";
 
   return (
     <FormControl isRequired={Required} mb={4}>
-      <FormLabel fontSize={'14px'}>{label}</FormLabel>
-      <Input type={type} value={input} onChange={handleInputChange} placeholder={placeholder} fontSize={'14px'}/>
+      <FormLabel fontSize={"14px"}>{label}</FormLabel>
+      <Input
+        type={type}
+        onChange={handleInputChange}
+        placeholder={placeholder}
+        fontSize={"14px"}
+        id={id}
+        name={name}
+        value={value}
+      />
     </FormControl>
   );
 };

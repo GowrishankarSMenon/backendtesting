@@ -553,10 +553,6 @@ td.css-xumdn4 button {
   padding: 4px 3px;
 }
 
-input.chakra-input, select {
-  font-size: 15px !important;
-}
-
 ::placeholder{
   color: #a3a3a3;
 }

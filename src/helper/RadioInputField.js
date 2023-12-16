@@ -11,13 +11,17 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-const RadioInputField = () => {
+const RadioInputField = ({id, name, value}) => {
   return (
-    <RadioGroup value="">
-      <FormLabel fontSize={'14px'}>Security Clearance</FormLabel>
+    <RadioGroup value="" mb={2}>
+      <FormLabel fontSize={"14px"}>Security Clearance</FormLabel>
       <Stack direction="row">
-        <Radio fontSize={'14px'}  value="1">Yes</Radio>
-        <Radio fontSize={'14px'} value="2">No</Radio>
+        <Radio value="yes">
+          <Text fontSize={"14px"}>Yes</Text>
+        </Radio>
+        <Radio value="no">
+          <Text fontSize={"14px"}>No</Text>
+        </Radio>
       </Stack>
     </RadioGroup>
   );

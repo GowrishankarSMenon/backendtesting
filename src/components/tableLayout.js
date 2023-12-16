@@ -129,14 +129,14 @@ const TableLayout = ({ tableView, tableName, details }) => {
         <ModalContent maxW={"55rem"} p={[4, 8]}>
           <ModalCloseButton />
           <ModalBody mt={2}>
-            {tableView === "profile" ? <FormModal /> : tableView === "job-profile"? <JobForm/> : <ObjectForm/> }
+            {tableView === "profile" ? (
+              <FormModal />
+            ) : tableView === "job-profile" ? (
+              <JobForm />
+            ) : (
+              <ObjectForm />
+            )}
           </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
