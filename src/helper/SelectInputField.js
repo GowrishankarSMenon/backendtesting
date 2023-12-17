@@ -8,9 +8,9 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-const SelectInputField = ({ label, placeholder, id, name, value }) => {
+const SelectInputField = ({ label, placeholder, id, name, value, option, handleInputChange }) => {
   return (
-    <FormControl isRequired mb={4}>
+    <FormControl isRequired mb={5}>
       {label != "" ? <FormLabel fontSize={"14px"}>{label}</FormLabel> : null}
       <Select
         placeholder={placeholder}
@@ -18,9 +18,11 @@ const SelectInputField = ({ label, placeholder, id, name, value }) => {
         id={id}
         name={name}
         value={value}
+        onChange={handleInputChange}
       >
-        <option>United Arab Emirates</option>
-        <option>Nigeria</option>
+        {option.map((option, i) => {
+          return <option key={i+1} value={option.value}>{option.title}</option>;
+        })}
       </Select>
     </FormControl>
   );

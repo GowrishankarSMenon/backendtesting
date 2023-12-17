@@ -5,11 +5,19 @@ import {
   FormErrorMessage,
   FormHelperText,
   Textarea,
+  Text,
 } from "@chakra-ui/react";
 
-const TextAreaField = ({ label, placeholder, id, name, value }) => {
+const TextAreaField = ({
+  label,
+  placeholder,
+  id,
+  name,
+  value,
+  handleInputChange,
+}) => {
   return (
-    <FormControl isRequired mb={4}>
+    <FormControl isRequired mb={5}>
       <FormLabel fontSize={"14px"}>{label}</FormLabel>
       <Textarea
         placeholder={placeholder}
@@ -17,7 +25,13 @@ const TextAreaField = ({ label, placeholder, id, name, value }) => {
         id={id}
         name={name}
         value={value}
+        onChange={handleInputChange}
       />
+      {label != "Address" ? (
+        <Text fontSize={"12px"} mt={0}>
+          (Maximum limit is 1000 characters)
+        </Text>
+      ) : null}
     </FormControl>
   );
 };

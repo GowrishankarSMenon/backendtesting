@@ -24,35 +24,64 @@ import CheckedField from "../helper/CheckedField";
 
 const initialValues = {
   profile_name: "",
-};
-const initialSelectValues = {
-  
-};
-const initialRadioValues = {
- 
-};
-const initialCheckValues = {
-  
+  salutation: "",
+  first_name: "",
+  last_name: "",
+  middle_name: "",
+  know_as: "",
+  email: "",
+  mother_name: "",
+  country: "",
+  state: "",
+  city: "",
+  address: "",
+  zip_code: "",
+  gender: "",
+  marital_status: "",
+  birth_place: "",
+  birth_date: "",
+  nationality: "",
+  residency_country: "",
+  citizenship_country: "",
+  identification_number: "",
+  contact_preference: "",
+  phone: "",
+  mobile: "",
+  alt_phone: "",
+  business_phone: "",
+  pager: "",
+  extension: "",
+  fax_num: "",
+  website: "",
+  career_level: "",
+  total_experience: "",
+  current_position: "",
+  current_salary: "",
+  salary_Currency_Code: "",
+  salaryMode: "",
+  authorize_work: "",
+  willingRelocate: "",
+  legal_identification_number: "",
+  current_rate: "",
+  desiredWage_currency_code: "",
+  desiredWage_Type: "",
+  desiredSalary: "",
+  desired_job: "",
+  willing_relocate: "",
+  relocateComment: "",
 };
 
 const FormModal = () => {
   const [input, setInput] = useState(initialValues);
-  const [select, setSelect] = useState(initialSelectValues);
-  const [radio, setRadio] = useState(initialRadioValues);
-  const [checked, setChecked] = useState(initialCheckValues);
 
-  const onHandleChange = (e) => {
-    // setInput(e.target.value);
-    console.log(e);
+  const onHandleChange = (event) => {
+    const { name, value } = event.target;
+    setInput((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  const onHandleSelectChange = (e) => {
-    // setInput(e.target.value);
-    console.log(e);
-  };
-  const onHandleRadioChange = (e) => {
-    // setInput(e.target.value);
-    console.log(e);
-  };
+
   const onHandleCheckChange = (e) => {
     // setInput(e.target.value);
     console.log(e);
@@ -79,28 +108,37 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="profile_name"
-        id="profile"
-        value={input}
+        id="profile_name"
+        value={input.profile_name}
         label="Profile Name"
         placeholder="Profile Name"
-        Required={true}
+        Required={false}
         handleInputChange={(e) => onHandleChange(e)}
       />
-      <TextInputField
+      <SelectInputField
         type="text"
         name="salutation"
-        id="salute"
-        value={input}
+        id="salutation"
+        value={input.salutation}
         label="Salutation"
-        placeholder="Salutation"
+        placeholder="Select From List"
         Required={true}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "dr", title: "Dr." },
+          { value: "miss", title: "Miss" },
+          { value: "mr", title: "Mr." },
+          { value: "mrs", title: "Mrs." },
+          { value: "ms", title: "Ms." },
+          { value: "prof", title: "Prof." },
+        ]}
         handleInputChange={(e) => onHandleChange(e)}
       />
       <TextInputField
         type="text"
         name="first_name"
-        id="firstName"
-        value={input}
+        id="first_name"
+        value={input.first_name}
         label="First Name"
         placeholder="First Name"
         Required={true}
@@ -109,8 +147,8 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="last_name"
-        id="lastName"
-        value={input}
+        id="last_name"
+        value={input.last_name}
         label="Last Name"
         placeholder="Last Name"
         Required={true}
@@ -119,8 +157,8 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="middle_name"
-        id="middleName"
-        value={input}
+        id="middle_name"
+        value={input.middle_name}
         label="Middle Name/Initial"
         placeholder="Middle Name/Initial"
         Required={true}
@@ -129,8 +167,8 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="know_as"
-        id="knowAs"
-        value={input}
+        id="know_as"
+        value={input.know_as}
         label="Know as"
         placeholder="Know as"
         Required={false}
@@ -139,8 +177,8 @@ const FormModal = () => {
       <TextInputField
         type="email"
         name="email"
-        id="e-mail"
-        value={input}
+        id="email"
+        value={input.email}
         label="Email"
         placeholder="Email address"
         Required={true}
@@ -149,8 +187,8 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="mother_name"
-        id="motherName"
-        value={input}
+        id="mother_name"
+        value={input.mother_name}
         label="Mother's Name"
         placeholder="Mother's Name"
         Required={false}
@@ -159,24 +197,38 @@ const FormModal = () => {
       <SelectInputField
         name="country"
         id="country"
-        value={input}
+        value={input.country}
         label="Country"
         placeholder="Country"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        Required={false}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "CM", title: "Cameroon" },
+          { value: "HK", title: "Hong Kong" },
+          { value: "IN", title: "India " },
+          { value: "OM", title: "Oman" },
+          { value: "QA", title: "Qatar" },
+          { value: "AE", title: "UAE" },
+          { value: "GB", title: "UK" },
+          { value: "US", title: "USA" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
         name="state"
         id="state"
-        value={input}
+        value={input.state}
         label="State/Proviance"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
         placeholder="State"
+        Required={false}
+        option={[{ value: "dr", title: "Dr." }]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <TextInputField
         type="text"
         name="city"
         id="city"
-        value={input}
+        value={input.city}
         label="City"
         placeholder="City"
         handleInputChange={(e) => onHandleChange(e)}
@@ -185,15 +237,15 @@ const FormModal = () => {
         label="Address"
         name="address"
         id="address"
-        value={input}
+        value={input.address}
         placeholder="Address..."
         handleInputChange={(e) => onHandleChange(e)}
       />
       <TextInputField
         type="text"
-        name="zipcode"
+        name="zip_code"
         id="zip_code"
-        value={input}
+        value={input.zip_code}
         label="Zip/Postal Code"
         placeholder="Zip/Postal Code"
         Required={true}
@@ -203,23 +255,41 @@ const FormModal = () => {
         label="Gender"
         name="gender"
         id="gender"
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.gender}
         placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "identify", title: "Decline to Identify" },
+          { value: "male", title: "Male" },
+          { value: "female", title: "Female" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
         label="Marital Status"
-        name="marital"
+        name="marital_status"
         id="marital_status"
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.marital_status}
         placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: 0, title: "Select From List" },
+          { value: 1, title: "Domestic Partner" },
+          { value: 2, title: "Divorced" },
+          { value: 3, title: "Married" },
+          { value: 4, title: "Unreported" },
+          { value: 5, title: "Separated" },
+          { value: 6, title: "Unmarried" },
+          { value: 7, title: "Widowed" },
+          { value: 8, title: "Legally Separated " },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <TextInputField
         type="text"
-        name="birthPlace"
+        name="birth_place"
         id="birth_place"
-        value={input}
+        value={input.birth_place}
         label="Birth Place"
         placeholder="Birth Place"
         Required={false}
@@ -227,9 +297,9 @@ const FormModal = () => {
       />
       <TextInputField
         type="text"
-        name="birthDate"
+        name="birth_date"
         id="birth_date"
-        value={input}
+        value={input.birth_date}
         label="Birth Date"
         placeholder="Birth Date"
         Required={true}
@@ -238,32 +308,518 @@ const FormModal = () => {
       <SelectInputField
         label=" Nationality"
         name="nationality"
-        id="national"
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        id="nationality"
+        value={input.nationality}
         placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "AF", title: "Afghani" },
+          { value: "AL", title: "Albania" },
+          { value: "DZ", title: "Algeria" },
+          { value: "US", title: "American" },
+          { value: "AD", title: "Andorian" },
+          { value: "AO", title: "Angolian" },
+          { value: "AI", title: "Anguillan" },
+          { value: "AQ", title: "Antarctic" },
+          { value: "AG", title: "Antigua and Barbuda" },
+          { value: "AR", title: "Argentine" },
+          { value: "AM", title: "Armenian" },
+          { value: "AW", title: "Arubian" },
+          { value: "AU", title: "Australian" },
+          { value: "AS", title: "Austrian" },
+          { value: "BS", title: "Bahameese" },
+          { value: "BH", title: "Bahrainian" },
+          { value: "BD", title: "Bangladeshi" },
+          { value: "BA", title: "Bangladeshi" },
+          { value: "BB", title: "Barbadian" },
+          { value: "BY", title: "Belarusian" },
+          { value: "BE", title: "Belgian" },
+          { value: "BZ", title: "Belizean" },
+          { value: "BJ", title: "Benin" },
+          { value: "BM", title: "Bermuda" },
+          { value: "BT", title: "Bhutanese" },
+          { value: "BO", title: "Bolivian" },
+          { value: "BW", title: "Botswana" },
+          { value: "BV", title: "Bouvet Island" },
+          { value: "BR", title: "Brazilian" },
+          { value: "GB", title: "British" },
+          { value: "IO", title: "British Indian Ocean Territory" },
+          { value: "BN", title: "Brunei" },
+          { value: "BG", title: "Bulgaria" },
+          { value: "BF", title: "Burkina Faso" },
+          { value: "BI", title: "Burundi" },
+          { value: "KH", title: "Cambodia" },
+          { value: "CM", title: "Cambodian" },
+          { value: "CA", title: "Canadian" },
+          { value: "CV", title: "CAPE VERDEAN" },
+          { value: "KY", title: "Caymanian" },
+          { value: "CF", title: "Central African" },
+          { value: "TD", title: "Chadian" },
+          { value: "CL", title: "Chilean" },
+          { value: "CN", title: "Chinese" },
+          { value: "HK", title: "Chinese" },
+          { value: "CH", title: "Chinese" },
+          { value: "CO", title: "Columbian" },
+          { value: "KM", title: "Comoran" },
+          { value: "CG", title: "Congolese" },
+          { value: "CD", title: "Congolese" },
+          { value: "CU", title: "Cuban" },
+          { value: "CY", title: "Cypriot" },
+          { value: "CR", title: "Czech" },
+          { value: "CZ", title: "Czech" },
+          { value: "DK", title: "Danish" },
+          { value: "DJ", title: "Djibouti" },
+          { value: "DM", title: "Dominican" },
+          { value: "DO", title: "Dominican" },
+          { value: "NL", title: "Dutch" },
+          { value: "TL", title: "East Timorese" },
+          { value: "EC", title: "Ecuadorean" },
+          { value: "EG", title: "Egyptian" },
+          { value: "AE", title: "Emirian" },
+          { value: "ER", title: "Eritrean" },
+          { value: "EE", title: "Estonian" },
+          { value: "ET", title: "Ethiopian" },
+          { value: "FJ", title: "Fijian" },
+          { value: "PH", title: "Filipino" },
+          { value: "FI", title: "Finnish" },
+          { value: "FR", title: "French" },
+          { value: "GE", title: "Georgian" },
+          { value: "DE", title: "German" },
+          { value: "GH", title: "Ghanaian" },
+          { value: "GR", title: "Greek" },
+          { value: "GN", title: "Guinean" },
+          { value: "GY", title: "Guyanese" },
+          { value: "HU", title: "Hungarian" },
+          { value: "IN", title: "Indian" },
+          { value: "ID", title: "Indonesian" },
+          { value: "IR", title: "Iranian" },
+          { value: "IQ", title: "Iraqi" },
+          { value: "IE", title: "Irish" },
+          { value: "IS", title: "Israeli" },
+          { value: "IT", title: "Italian" },
+          { value: "IV", title: "Ivory Coastion" },
+          { value: "JM", title: "Jamaican" },
+          { value: "JP", title: "Japanese" },
+          { value: "JO", title: "Jordanian" },
+          { value: "KZ", title: "Kazakhstani" },
+          { value: "KE", title: "Kenyan" },
+          { value: "KW", title: "Kuwaiti" },
+          { value: "LB", title: "Lebanese" },
+          { value: "LT", title: "Lithunian" },
+          { value: "LU", title: "Luxembourger" },
+          { value: "MO", title: "Macau" },
+          { value: "MY", title: "Malaysian" },
+          { value: "MV", title: "Maldivan" },
+          { value: "MU", title: "Mauritian" },
+          { value: "MM", title: "Mayanmarese" },
+          { value: "MC", title: "Monacan" },
+          { value: "MN", title: "Mongolian" },
+          { value: "MA", title: "Moroccan" },
+          { value: "NA", title: "Namibian" },
+          { value: "NP", title: "Nepalese" },
+          { value: "NZ", title: "New Zealander" },
+          { value: "NG", title: "Nigerian" },
+          { value: "NO", title: "Norwegian" },
+          { value: "OM", title: "Omani" },
+          { value: "PK", title: "Pakistani" },
+          { value: "PA", title: "Panamanian" },
+          { value: "PY", title: "Paraguayan" },
+          { value: "PE", title: "Peruvian" },
+          { value: "PT", title: "Portugees" },
+          { value: "QA", title: "Qatari" },
+          { value: "RO", title: "Romanian" },
+          { value: "RU", title: "Russian" },
+          { value: "SV", title: "Salvadorean" },
+          { value: "SA", title: "Saudi Arabian" },
+          { value: "SN", title: "Senegalese" },
+          { value: "SC", title: "Seychellois" },
+          { value: "SG", title: "Singaporean" },
+          { value: "SK", title: "Slovakian" },
+          { value: "SO", title: "Somali" },
+          { value: "ZA", title: "South African" },
+          { value: "LK", title: "Sri Lankan" },
+          { value: "SD", title: "Sudan" },
+          { value: "SR", title: "Surinami" },
+          { value: "SJ", title: "Svalbard and Jan Mayen Islandish" },
+          { value: "SZ", title: "Swazilandish" },
+          { value: "SE", title: "Swedish" },
+          { value: "SY", title: "Syriai" },
+          { value: "TW", title: "Taiwanese" },
+          { value: "TJ", title: "Tajikisthani" },
+          { value: "TZ", title: "Tanzanian" },
+          { value: "TH", title: "Thai" },
+          { value: "TG", title: "Togo" },
+          { value: "TK", title: "Tokelaui" },
+          { value: "TO", title: "Tongai" },
+          { value: "TT", title: "Trinidad and Tobago" },
+          { value: "TN", title: "Tunisian" },
+          { value: "TR", title: "Turkish" },
+          { value: "TM", title: "Turkmenistani" },
+          { value: "TC", title: "Turks and Caicos Islandish" },
+          { value: "TV", title: "Tuvalu" },
+          { value: "UG", title: "Ugandan" },
+          { value: "UA", title: "Ukrainian" },
+          { value: "UM", title: "United States Minor Outlying Islandish" },
+          { value: "UY", title: "Uruguayan" },
+          { value: "UZ", title: "Uzbekistani" },
+          { value: "VU", title: "Vanuatu" },
+          { value: "VE", title: "Venezuelan" },
+          { value: "VN", title: "Vietnamese" },
+          { value: "VI", title: "Virgin Islandish" },
+          { value: "WA", title: "Wallis and Futuna Islandish" },
+          { value: "YE", title: "Yemeni" },
+          { value: "YU", title: "Yugoslavian" },
+          { value: "ZM", title: "Zambian" },
+          { value: "ZW", title: "Zimbabwean" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
         label="Residency Country"
-        name="residencyCountry"
+        name="residency_country"
         id="residency_country"
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.residency_country}
         placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "AF", title: "Afghani" },
+          { value: "AL", title: "Albania" },
+          { value: "DZ", title: "Algeria" },
+          { value: "US", title: "American" },
+          { value: "AD", title: "Andorian" },
+          { value: "AO", title: "Angolian" },
+          { value: "AI", title: "Anguillan" },
+          { value: "AQ", title: "Antarctic" },
+          { value: "AG", title: "Antigua and Barbuda" },
+          { value: "AR", title: "Argentine" },
+          { value: "AM", title: "Armenian" },
+          { value: "AW", title: "Arubian" },
+          { value: "AU", title: "Australian" },
+          { value: "AS", title: "Austrian" },
+          { value: "BS", title: "Bahameese" },
+          { value: "BH", title: "Bahrainian" },
+          { value: "BD", title: "Bangladeshi" },
+          { value: "BA", title: "Bangladeshi" },
+          { value: "BB", title: "Barbadian" },
+          { value: "BY", title: "Belarusian" },
+          { value: "BE", title: "Belgian" },
+          { value: "BZ", title: "Belizean" },
+          { value: "BJ", title: "Benin" },
+          { value: "BM", title: "Bermuda" },
+          { value: "BT", title: "Bhutanese" },
+          { value: "BO", title: "Bolivian" },
+          { value: "BW", title: "Botswana" },
+          { value: "BV", title: "Bouvet Island" },
+          { value: "BR", title: "Brazilian" },
+          { value: "GB", title: "British" },
+          { value: "IO", title: "British Indian Ocean Territory" },
+          { value: "BN", title: "Brunei" },
+          { value: "BG", title: "Bulgaria" },
+          { value: "BF", title: "Burkina Faso" },
+          { value: "BI", title: "Burundi" },
+          { value: "KH", title: "Cambodia" },
+          { value: "CM", title: "Cambodian" },
+          { value: "CA", title: "Canadian" },
+          { value: "CV", title: "CAPE VERDEAN" },
+          { value: "KY", title: "Caymanian" },
+          { value: "CF", title: "Central African" },
+          { value: "TD", title: "Chadian" },
+          { value: "CL", title: "Chilean" },
+          { value: "CN", title: "Chinese" },
+          { value: "HK", title: "Chinese" },
+          { value: "CH", title: "Chinese" },
+          { value: "CO", title: "Columbian" },
+          { value: "KM", title: "Comoran" },
+          { value: "CG", title: "Congolese" },
+          { value: "CD", title: "Congolese" },
+          { value: "CU", title: "Cuban" },
+          { value: "CY", title: "Cypriot" },
+          { value: "CR", title: "Czech" },
+          { value: "CZ", title: "Czech" },
+          { value: "DK", title: "Danish" },
+          { value: "DJ", title: "Djibouti" },
+          { value: "DM", title: "Dominican" },
+          { value: "DO", title: "Dominican" },
+          { value: "NL", title: "Dutch" },
+          { value: "TL", title: "East Timorese" },
+          { value: "EC", title: "Ecuadorean" },
+          { value: "EG", title: "Egyptian" },
+          { value: "AE", title: "Emirian" },
+          { value: "ER", title: "Eritrean" },
+          { value: "EE", title: "Estonian" },
+          { value: "ET", title: "Ethiopian" },
+          { value: "FJ", title: "Fijian" },
+          { value: "PH", title: "Filipino" },
+          { value: "FI", title: "Finnish" },
+          { value: "FR", title: "French" },
+          { value: "GE", title: "Georgian" },
+          { value: "DE", title: "German" },
+          { value: "GH", title: "Ghanaian" },
+          { value: "GR", title: "Greek" },
+          { value: "GN", title: "Guinean" },
+          { value: "GY", title: "Guyanese" },
+          { value: "HU", title: "Hungarian" },
+          { value: "IN", title: "Indian" },
+          { value: "ID", title: "Indonesian" },
+          { value: "IR", title: "Iranian" },
+          { value: "IQ", title: "Iraqi" },
+          { value: "IE", title: "Irish" },
+          { value: "IS", title: "Israeli" },
+          { value: "IT", title: "Italian" },
+          { value: "IV", title: "Ivory Coastion" },
+          { value: "JM", title: "Jamaican" },
+          { value: "JP", title: "Japanese" },
+          { value: "JO", title: "Jordanian" },
+          { value: "KZ", title: "Kazakhstani" },
+          { value: "KE", title: "Kenyan" },
+          { value: "KW", title: "Kuwaiti" },
+          { value: "LB", title: "Lebanese" },
+          { value: "LT", title: "Lithunian" },
+          { value: "LU", title: "Luxembourger" },
+          { value: "MO", title: "Macau" },
+          { value: "MY", title: "Malaysian" },
+          { value: "MV", title: "Maldivan" },
+          { value: "MU", title: "Mauritian" },
+          { value: "MM", title: "Mayanmarese" },
+          { value: "MC", title: "Monacan" },
+          { value: "MN", title: "Mongolian" },
+          { value: "MA", title: "Moroccan" },
+          { value: "NA", title: "Namibian" },
+          { value: "NP", title: "Nepalese" },
+          { value: "NZ", title: "New Zealander" },
+          { value: "NG", title: "Nigerian" },
+          { value: "NO", title: "Norwegian" },
+          { value: "OM", title: "Omani" },
+          { value: "PK", title: "Pakistani" },
+          { value: "PA", title: "Panamanian" },
+          { value: "PY", title: "Paraguayan" },
+          { value: "PE", title: "Peruvian" },
+          { value: "PT", title: "Portugees" },
+          { value: "QA", title: "Qatari" },
+          { value: "RO", title: "Romanian" },
+          { value: "RU", title: "Russian" },
+          { value: "SV", title: "Salvadorean" },
+          { value: "SA", title: "Saudi Arabian" },
+          { value: "SN", title: "Senegalese" },
+          { value: "SC", title: "Seychellois" },
+          { value: "SG", title: "Singaporean" },
+          { value: "SK", title: "Slovakian" },
+          { value: "SO", title: "Somali" },
+          { value: "ZA", title: "South African" },
+          { value: "LK", title: "Sri Lankan" },
+          { value: "SD", title: "Sudan" },
+          { value: "SR", title: "Surinami" },
+          { value: "SJ", title: "Svalbard and Jan Mayen Islandish" },
+          { value: "SZ", title: "Swazilandish" },
+          { value: "SE", title: "Swedish" },
+          { value: "SY", title: "Syriai" },
+          { value: "TW", title: "Taiwanese" },
+          { value: "TJ", title: "Tajikisthani" },
+          { value: "TZ", title: "Tanzanian" },
+          { value: "TH", title: "Thai" },
+          { value: "TG", title: "Togo" },
+          { value: "TK", title: "Tokelaui" },
+          { value: "TO", title: "Tongai" },
+          { value: "TT", title: "Trinidad and Tobago" },
+          { value: "TN", title: "Tunisian" },
+          { value: "TR", title: "Turkish" },
+          { value: "TM", title: "Turkmenistani" },
+          { value: "TC", title: "Turks and Caicos Islandish" },
+          { value: "TV", title: "Tuvalu" },
+          { value: "UG", title: "Ugandan" },
+          { value: "UA", title: "Ukrainian" },
+          { value: "UM", title: "United States Minor Outlying Islandish" },
+          { value: "UY", title: "Uruguayan" },
+          { value: "UZ", title: "Uzbekistani" },
+          { value: "VU", title: "Vanuatu" },
+          { value: "VE", title: "Venezuelan" },
+          { value: "VN", title: "Vietnamese" },
+          { value: "VI", title: "Virgin Islandish" },
+          { value: "WA", title: "Wallis and Futuna Islandish" },
+          { value: "YE", title: "Yemeni" },
+          { value: "YU", title: "Yugoslavian" },
+          { value: "ZM", title: "Zambian" },
+          { value: "ZW", title: "Zimbabwean" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
-        name="citizenshipCountry"
+        name="citizenship_country"
         id="citizenship_country"
-        value={input}
         label="Citizenship Country"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.citizenship_country}
         placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "AF", title: "Afghani" },
+          { value: "AL", title: "Albania" },
+          { value: "DZ", title: "Algeria" },
+          { value: "US", title: "American" },
+          { value: "AD", title: "Andorian" },
+          { value: "AO", title: "Angolian" },
+          { value: "AI", title: "Anguillan" },
+          { value: "AQ", title: "Antarctic" },
+          { value: "AG", title: "Antigua and Barbuda" },
+          { value: "AR", title: "Argentine" },
+          { value: "AM", title: "Armenian" },
+          { value: "AW", title: "Arubian" },
+          { value: "AU", title: "Australian" },
+          { value: "AS", title: "Austrian" },
+          { value: "BS", title: "Bahameese" },
+          { value: "BH", title: "Bahrainian" },
+          { value: "BD", title: "Bangladeshi" },
+          { value: "BA", title: "Bangladeshi" },
+          { value: "BB", title: "Barbadian" },
+          { value: "BY", title: "Belarusian" },
+          { value: "BE", title: "Belgian" },
+          { value: "BZ", title: "Belizean" },
+          { value: "BJ", title: "Benin" },
+          { value: "BM", title: "Bermuda" },
+          { value: "BT", title: "Bhutanese" },
+          { value: "BO", title: "Bolivian" },
+          { value: "BW", title: "Botswana" },
+          { value: "BV", title: "Bouvet Island" },
+          { value: "BR", title: "Brazilian" },
+          { value: "GB", title: "British" },
+          { value: "IO", title: "British Indian Ocean Territory" },
+          { value: "BN", title: "Brunei" },
+          { value: "BG", title: "Bulgaria" },
+          { value: "BF", title: "Burkina Faso" },
+          { value: "BI", title: "Burundi" },
+          { value: "KH", title: "Cambodia" },
+          { value: "CM", title: "Cambodian" },
+          { value: "CA", title: "Canadian" },
+          { value: "CV", title: "CAPE VERDEAN" },
+          { value: "KY", title: "Caymanian" },
+          { value: "CF", title: "Central African" },
+          { value: "TD", title: "Chadian" },
+          { value: "CL", title: "Chilean" },
+          { value: "CN", title: "Chinese" },
+          { value: "HK", title: "Chinese" },
+          { value: "CH", title: "Chinese" },
+          { value: "CO", title: "Columbian" },
+          { value: "KM", title: "Comoran" },
+          { value: "CG", title: "Congolese" },
+          { value: "CD", title: "Congolese" },
+          { value: "CU", title: "Cuban" },
+          { value: "CY", title: "Cypriot" },
+          { value: "CR", title: "Czech" },
+          { value: "CZ", title: "Czech" },
+          { value: "DK", title: "Danish" },
+          { value: "DJ", title: "Djibouti" },
+          { value: "DM", title: "Dominican" },
+          { value: "DO", title: "Dominican" },
+          { value: "NL", title: "Dutch" },
+          { value: "TL", title: "East Timorese" },
+          { value: "EC", title: "Ecuadorean" },
+          { value: "EG", title: "Egyptian" },
+          { value: "AE", title: "Emirian" },
+          { value: "ER", title: "Eritrean" },
+          { value: "EE", title: "Estonian" },
+          { value: "ET", title: "Ethiopian" },
+          { value: "FJ", title: "Fijian" },
+          { value: "PH", title: "Filipino" },
+          { value: "FI", title: "Finnish" },
+          { value: "FR", title: "French" },
+          { value: "GE", title: "Georgian" },
+          { value: "DE", title: "German" },
+          { value: "GH", title: "Ghanaian" },
+          { value: "GR", title: "Greek" },
+          { value: "GN", title: "Guinean" },
+          { value: "GY", title: "Guyanese" },
+          { value: "HU", title: "Hungarian" },
+          { value: "IN", title: "Indian" },
+          { value: "ID", title: "Indonesian" },
+          { value: "IR", title: "Iranian" },
+          { value: "IQ", title: "Iraqi" },
+          { value: "IE", title: "Irish" },
+          { value: "IS", title: "Israeli" },
+          { value: "IT", title: "Italian" },
+          { value: "IV", title: "Ivory Coastion" },
+          { value: "JM", title: "Jamaican" },
+          { value: "JP", title: "Japanese" },
+          { value: "JO", title: "Jordanian" },
+          { value: "KZ", title: "Kazakhstani" },
+          { value: "KE", title: "Kenyan" },
+          { value: "KW", title: "Kuwaiti" },
+          { value: "LB", title: "Lebanese" },
+          { value: "LT", title: "Lithunian" },
+          { value: "LU", title: "Luxembourger" },
+          { value: "MO", title: "Macau" },
+          { value: "MY", title: "Malaysian" },
+          { value: "MV", title: "Maldivan" },
+          { value: "MU", title: "Mauritian" },
+          { value: "MM", title: "Mayanmarese" },
+          { value: "MC", title: "Monacan" },
+          { value: "MN", title: "Mongolian" },
+          { value: "MA", title: "Moroccan" },
+          { value: "NA", title: "Namibian" },
+          { value: "NP", title: "Nepalese" },
+          { value: "NZ", title: "New Zealander" },
+          { value: "NG", title: "Nigerian" },
+          { value: "NO", title: "Norwegian" },
+          { value: "OM", title: "Omani" },
+          { value: "PK", title: "Pakistani" },
+          { value: "PA", title: "Panamanian" },
+          { value: "PY", title: "Paraguayan" },
+          { value: "PE", title: "Peruvian" },
+          { value: "PT", title: "Portugees" },
+          { value: "QA", title: "Qatari" },
+          { value: "RO", title: "Romanian" },
+          { value: "RU", title: "Russian" },
+          { value: "SV", title: "Salvadorean" },
+          { value: "SA", title: "Saudi Arabian" },
+          { value: "SN", title: "Senegalese" },
+          { value: "SC", title: "Seychellois" },
+          { value: "SG", title: "Singaporean" },
+          { value: "SK", title: "Slovakian" },
+          { value: "SO", title: "Somali" },
+          { value: "ZA", title: "South African" },
+          { value: "LK", title: "Sri Lankan" },
+          { value: "SD", title: "Sudan" },
+          { value: "SR", title: "Surinami" },
+          { value: "SJ", title: "Svalbard and Jan Mayen Islandish" },
+          { value: "SZ", title: "Swazilandish" },
+          { value: "SE", title: "Swedish" },
+          { value: "SY", title: "Syriai" },
+          { value: "TW", title: "Taiwanese" },
+          { value: "TJ", title: "Tajikisthani" },
+          { value: "TZ", title: "Tanzanian" },
+          { value: "TH", title: "Thai" },
+          { value: "TG", title: "Togo" },
+          { value: "TK", title: "Tokelaui" },
+          { value: "TO", title: "Tongai" },
+          { value: "TT", title: "Trinidad and Tobago" },
+          { value: "TN", title: "Tunisian" },
+          { value: "TR", title: "Turkish" },
+          { value: "TM", title: "Turkmenistani" },
+          { value: "TC", title: "Turks and Caicos Islandish" },
+          { value: "TV", title: "Tuvalu" },
+          { value: "UG", title: "Ugandan" },
+          { value: "UA", title: "Ukrainian" },
+          { value: "UM", title: "United States Minor Outlying Islandish" },
+          { value: "UY", title: "Uruguayan" },
+          { value: "UZ", title: "Uzbekistani" },
+          { value: "VU", title: "Vanuatu" },
+          { value: "VE", title: "Venezuelan" },
+          { value: "VN", title: "Vietnamese" },
+          { value: "VI", title: "Virgin Islandish" },
+          { value: "WA", title: "Wallis and Futuna Islandish" },
+          { value: "YE", title: "Yemeni" },
+          { value: "YU", title: "Yugoslavian" },
+          { value: "ZM", title: "Zambian" },
+          { value: "ZW", title: "Zimbabwean" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <TextInputField
         type="number"
-        name="identificationNumber"
+        name="identification_number"
         id="identification_number"
-        value={input}
+        value={input.identification_number}
         label="Legal Identification Number"
         placeholder="22556567"
         Required={true}
@@ -275,18 +831,24 @@ const FormModal = () => {
         </Heading>
       </Box>
       <SelectInputField
-        name="contactPreference"
+        name="contact_preference"
         id="contact_preference"
-        value={input}
         label="Contact Preference"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.contact_preference}
         placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: 0, title: "Select From List" },
+          { value: 1, title: "Telephone" },
+          { value: 2, title: "E-Mail" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <TextInputField
         type="tel"
         name="phone"
         id="phone"
-        value={input}
+        value={input.phone}
         label="Phone #"
         placeholder="22556567"
         Required={false}
@@ -296,7 +858,7 @@ const FormModal = () => {
         type="tel"
         name="mobile"
         id="mobile"
-        value={input}
+        value={input.mobile}
         label="Mobile #"
         placeholder="22556567"
         Required={true}
@@ -305,8 +867,8 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="alt_phone"
-        id="alternatNumber"
-        value={input}
+        id="alt_phone"
+        value={input.alt_phone}
         label="Alt.Phone #"
         placeholder="22556567"
         Required={true}
@@ -314,9 +876,9 @@ const FormModal = () => {
       />
       <TextInputField
         type="text"
-        name="businessNumber"
+        name="business_phone"
         id="business_phone"
-        value={input}
+        value={input.business_phone}
         label="Business Phone #"
         placeholder="22556567"
         Required={true}
@@ -326,7 +888,7 @@ const FormModal = () => {
         type="text"
         name="pager"
         id="pager"
-        value={input}
+        value={input.pager}
         label="Pager #"
         placeholder="22556567"
         Required={true}
@@ -335,8 +897,8 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="extension"
-        id="ext"
-        value={input}
+        id="extension"
+        value={input.extension}
         label="Ext #"
         placeholder="22556567"
         Required={true}
@@ -344,9 +906,9 @@ const FormModal = () => {
       />
       <TextInputField
         type="text"
-        name="faxNum"
+        name="fax_num"
         id="fax_num"
-        value={input}
+        value={input.fax_num}
         label="Fax #"
         placeholder="22556567"
         Required={true}
@@ -355,8 +917,8 @@ const FormModal = () => {
       <TextInputField
         type="text"
         name="website"
-        id="web_site"
-        value={input}
+        id="website"
+        value={input.website}
         label="Web Site"
         placeholder="22556567"
         Required={true}
@@ -369,26 +931,47 @@ const FormModal = () => {
         name=""
       />
       <SelectInputField
-        name="career"
+        name="career_level"
         id="career_level"
-        value={input}
         label="Career Level"
-        placeholder="Country"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.career_level}
+        placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "1", title: "Senior Executive" },
+          { value: "2", title: "Executive" },
+          { value: "3", title: "Management" },
+          { value: "4", title: "Intermediate" },
+          { value: "5", title: "Entry Level" },
+          { value: "6", title: "Intern" },
+          { value: "7", title: "Student" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
-        name="experience"
+        name="total_experience"
         id="total_experience"
-        value={input}
         label="Total Experience"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
-        placeholder="Country"
+        value={input.total_experience}
+        placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "0", title: "Select From List" },
+          { value: "1", title: "Less than 1 year" },
+          { value: "2", title: "Between 1 to 2 years" },
+          { value: "3", title: "Between 2 to 4 years" },
+          { value: "4", title: "Between 4 to 7 years" },
+          { value: "5", title: "Between 7 to 10 years" },
+          { value: "6", title: "More than 10 years" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <TextInputField
         type="text"
-        name="position"
+        name="current_position"
         id="current_position"
-        value={input}
+        value={input.current_position}
         label="Current Position Title"
         placeholder="22556567"
         Required={true}
@@ -396,43 +979,68 @@ const FormModal = () => {
       />
       <TextInputField
         type="text"
-        name="salary"
+        name="current_salary"
         id="current_salary"
-        value={input}
+        value={input.current_salary}
         label="Current Salary/Rate"
         placeholder="0.00"
         Required={true}
         handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
-        name=""
-        id=""
-        value={input}
+        name="salary_Currency_Code"
+        id="salary_Currency_Code"
         label=""
-        placeholder="Country"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.salary_Currency_Code}
+        placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "0", title: "Select From List" },
+          { value: "AED", title: "AE - Dirhams" },
+          {
+            value: "XAF",
+            title: "CM - Communauté Financière Africaine Francs (BEAC)",
+          },
+          { value: "GBP", title: "GB - Pounds" },
+          { value: "HKD", title: "HK - Dollars" },
+          { value: "INR", title: "IN - Rupees" },
+          { value: "OMR", title: "OM - Rials" },
+          { value: "QAR", title: "QA - Rials" },
+          { value: "USD", title: "US - United States Dollars" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
-        name=""
-        id=""
-        value={input}
+        name="salaryMode"
+        id="salaryMode"
         label=""
-        placeholder="Country"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.salaryMode}
+        placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "3", title: "Per Day" },
+          { value: "2", title: "Per Year" },
+          { value: "1", title: "Per Week" },
+          { value: "0", title: "Per Hour" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
         name="authorize_work"
-        id="to_work"
-        value={input}
+        id="authorize_work"
         label="Authorization To Work"
-        placeholder="Country"
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        value={input.authorize_work}
+        placeholder="Select from list"
+        Required={false}
+        option={[{ value: "", title: "Select From List" }]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <RadioInputField
         name="willingRelocate"
-        id="willing_relocate"
-        value={radio}
-        handleRadioChange={(e) => onHandleRadioChange(e)}
+        id="willingRelocate"
+        value={input.willingRelocate}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <CheckedField
         checkText={"Immediate Start Indicator"}
@@ -442,9 +1050,9 @@ const FormModal = () => {
       />
       <TextInputField
         type="text"
-        name="legalIdentificationNumber"
+        name="legal_identification_number"
         id="legal_identification_number"
-        value={input}
+        value={input.legal_identification_number}
         label="Legal Identification Number"
         placeholder="22556567"
         Required={true}
@@ -457,64 +1065,111 @@ const FormModal = () => {
       </Box>
       <TextInputField
         type="text"
-        name="currentSalary"
+        name="current_rate"
         id="current_rate"
-        value={input}
+        value={input.current_rate}
         label="Current Salary/Rate"
         placeholder="0.00"
         Required={true}
         handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
-        name=""
-        id=""
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        name="desiredWage_currency_code"
+        id="desiredWage_currency_code"
         label=""
-        placeholder="Select From List"
+        value={input.desiredWage_currency_code}
+        placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "0", title: "Select From List" },
+          { value: "AED", title: "AE - Dirhams" },
+          {
+            value: "XAF",
+            title: "CM - Communauté Financière Africaine Francs (BEAC)",
+          },
+          { value: "GBP", title: "GB - Pounds" },
+          { value: "HKD", title: "HK - Dollars" },
+          { value: "INR", title: "IN - Rupees" },
+          { value: "OMR", title: "OM - Rials" },
+          { value: "QAR", title: "QA - Rials" },
+          { value: "USD", title: "US - United States Dollars" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
-        name=""
-        id=""
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        name="desiredWage_Type"
+        id="desiredWage_Type"
         label=""
-        placeholder="Select From List"
+        value={input.desiredWage_Type}
+        placeholder="Select from list"
+        Required={false}
+        option={[
+          { value: "0", title: "Select From List" },
+          { value: "1", title: "Hour" },
+          { value: "2", title: "Day" },
+          { value: "3", title: "Week" },
+          { value: "4", title: "BiWeek" },
+          { value: "5", title: "Month" },
+          { value: "6", title: "Year" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
         name="desiredSalary"
-        id="desired_salary"
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
+        id="desiredSalary"
         label="Desired Salary"
-        placeholder="<10000"
+        placeholder="Select From List"
+        value={input.desiredSalary}
+        Required={false}
+        option={[
+          { value: "0", title: "<10,000" },
+          { value: "1", title: "between 10,000 and 20,000" },
+          { value: "2", title: "between 20,000 and 30,000" },
+          { value: "3", title: "between 30,000 and 40,000" },
+          { value: "4", title: "between 40,000 and 50,000" },
+          { value: "5", title: "between 50,000 and 60,000" },
+          { value: "6", title: "between 60,000 and 70,000" },
+          { value: "7", title: "between 70,000 and 80,000" },
+          { value: "8", title: "between 80,000 and 90,000" },
+          { value: "9", title: "between 90,000 and 100,000" },
+          { value: "10", title: ">100,000" },
+          { value: "11", title: ">150,000" },
+          { value: "12", title: ">200,000" },
+          { value: "13", title: "No Preference" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <SelectInputField
-        name="desiredJob"
+        name="desired_job"
         id="desired_job"
-        value={input}
-        handleSelectChange={(e) => onHandleSelectChange(e)}
         label="Desired Job Term"
         placeholder="All of the above"
+        value={input.desired_job}
+        Required={false}
+        option={[
+          { value: "", title: "Select From List" },
+          { value: "0", title: "All of the above" },
+          { value: "1", title: "Contract" },
+          { value: "2", title: "Contract to Hire" },
+          { value: "3", title: "Permanent" },
+        ]}
+        handleInputChange={(e) => onHandleChange(e)}
       />
       <RadioInputField
-        name="willingRelocate"
+        name="willing_relocate"
         id="willing_relocate"
-        value={radio}
-        handleRadioChange={(e) => onHandleRadioChange(e)}
+        value={input.willing_relocate}
+        handleInputChange={(e) => onHandleChange(e)}
         label="Willing to Relocate"
       />
       <TextAreaField
         name="relocateComment"
-        id="relocate_comment"
-        value={input}
+        id="relocateComment"
+        value={input.relocateComment}
         handleInputChange={(e) => onHandleChange(e)}
         label="Relocation Comments"
         placeholder="Comments..."
       />
-      <Text fontSize={"12px"} mt={-1}>
-        (Maximum limit is 1000 characters)
-      </Text>
       <Divider orientation="horizontal" mt={4} mb={4} />
       <Box>
         <Flex justifyContent={"flex-start"} alignItems={"center"} gap={4}>

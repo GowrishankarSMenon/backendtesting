@@ -72,6 +72,8 @@ const TableLayout = ({ tableView, tableName, details }) => {
                                     textAlign={"left"}
                                     fontSize={"20px"}
                                     pl={1}
+                                    pt={3}
+                                    pb={2}
                                     mt={0}
                                   >
                                     <Box>
@@ -85,22 +87,23 @@ const TableLayout = ({ tableView, tableName, details }) => {
                                       ? item.data.map((list, num) => {
                                           return (
                                             <Tr key={num + 1}>
-                                              <Td pb={1}>
+                                              <Td pb={2} w={'25%'}>
                                                 <Box>
                                                   <Text
                                                     as={"span"}
                                                     fontSize={14}
                                                     fontWeight={"500"}
                                                   >
-                                                    {list.formField} :{" "}
+                                                    {list.formField}
                                                   </Text>
                                                 </Box>
                                               </Td>
-                                              <Td pb={1}>
+                                              <Td w={'10%'} pb={2}><Box>:</Box></Td>
+                                              <Td pb={2}>
                                                 <Box>
                                                   <Text
                                                     as={"span"}
-                                                    ontSize={14}
+                                                    fontSize={14}
                                                   >
                                                     {list.value}
                                                   </Text>

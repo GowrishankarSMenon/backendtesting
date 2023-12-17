@@ -11,9 +11,9 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-const RadioInputField = ({id, name, value}) => {
+const RadioInputField = ({id, name, value, handleInputChange}) => {
   return (
-    <RadioGroup value="" mb={2}>
+    <RadioGroup value="" mb={5}>
       <FormLabel fontSize={"14px"}>Security Clearance</FormLabel>
       <Stack direction="row">
         <Radio value="yes">
