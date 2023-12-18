@@ -20,9 +20,12 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Divider
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
+
+/* components */
 import FormModal from "../modal/formModal";
 import JobForm from "../modal/JobForm";
 import ObjectForm from "../modal/ObjectForm";
@@ -35,32 +38,12 @@ const TableLayout = ({ tableView, tableName, details }) => {
         <Table border={0} title={tableName}>
           <Tbody>
             <Tr>
-              <Td textAlign="right" pt={2} pb={2}>
-                <Button onClick={onOpen}>
-                  <EditIcon fontSize="12px" />
-                </Button>
-              </Td>
+              <Td textAlign="right" pt={2} pb={2}></Td>
             </Tr>
             <Tr>
               <Td textAlign="left">
                 <Table border={0}>
                   <Tbody>
-                    {tableView === "profile" ? (
-                      <Tr>
-                        <Td textAlign="left">
-                          <Table border={0}>
-                            <Tbody>
-                              <Tr>
-                                <Td>
-                                  This candidate was last updated on 4/6/2022
-                                  5:02:36 AM
-                                </Td>
-                              </Tr>
-                            </Tbody>
-                          </Table>
-                        </Td>
-                      </Tr>
-                    ) : null}
                     {details.length > 0
                       ? details.map((item, i) => {
                           return (
@@ -69,25 +52,46 @@ const TableLayout = ({ tableView, tableName, details }) => {
                                 <Table border={0}>
                                   <TableCaption
                                     placement={"top"}
-                                    textAlign={"left"}
-                                    fontSize={"20px"}
                                     pl={1}
-                                    pt={3}
-                                    pb={2}
+                                    pr={1}
+                                    pt={0}
+                                    pb={0}
                                     mt={0}
+                                    mb={1}
                                   >
-                                    <Box>
-                                      <Heading as={"h4"} fontSize={18}>
-                                        {item.title}
-                                      </Heading>
-                                    </Box>
+                                    <Flex
+                                      justifyContent={"space-between"}
+                                      alignItems={"center"}
+                                      pt={1}
+                                      pb={2}
+                                    >
+                                      <Box>
+                                        <Heading as={"h4"} fontSize={18}>
+                                          {item.title}
+                                        </Heading>
+                                      </Box>
+                                      {i == 0 ? (
+                                        <Button
+                                          onClick={onOpen}
+                                          minW={8}
+                                          h={8}
+                                          pl={1}
+                                          pr={1}
+                                          bg={"#2d43b3"}
+                                          color="#fff"
+                                        >
+                                          <EditIcon fontSize="14px" />
+                                        </Button>
+                                      ) : null}
+                                    </Flex>
+                                    <Divider orientation='horizontal' bg={'#a3a3a3'}/>
                                   </TableCaption>
                                   <Tbody>
                                     {item.data.length > 0
                                       ? item.data.map((list, num) => {
                                           return (
                                             <Tr key={num + 1}>
-                                              <Td pb={2} w={'25%'}>
+                                              <Td pb={2} w={"25%"}>
                                                 <Box>
                                                   <Text
                                                     as={"span"}
@@ -98,7 +102,9 @@ const TableLayout = ({ tableView, tableName, details }) => {
                                                   </Text>
                                                 </Box>
                                               </Td>
-                                              <Td w={'10%'} pb={2}><Box>:</Box></Td>
+                                              <Td w={"10%"} pb={2}>
+                                                <Box>:</Box>
+                                              </Td>
                                               <Td pb={2}>
                                                 <Box>
                                                   <Text

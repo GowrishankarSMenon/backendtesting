@@ -16,6 +16,7 @@ import TableLayout from "../components/tableLayout";
 import jobList from "../json/jobListData.json";
 import table_head from "../json/tableHeader.json";
 import profiles from "../json/profileTitles.json";
+import HeadTableLayout from "../components/HeadTableLayout";
 
 const AccordianInput = ({ title, head, index, layout, table, view }) => {
   // console.log("====================================");
@@ -45,24 +46,38 @@ const AccordianInput = ({ title, head, index, layout, table, view }) => {
                   )}
                 </AccordionButton>
               </h3>
-              <AccordionPanel pb={4} className="inner_content">
-                {head === false
-                  ? profiles.length > 0
-                    ? profiles.map((data, i) => {
-                        return (
-                          <Box key={i + 1}>
-                            {view === data.table ? (
-                              <TableLayout
-                                tableView={view}
-                                tableName={data.table}
-                                details={data.details}
-                              />
-                            ) : null}
-                          </Box>
-                        );
-                      })
-                    : null
-                  : "No Data Found"}
+              <AccordionPanel
+                pb={4}
+                pl={1.5}
+                pr={1.5}
+                className="inner_content"
+              >
+                {head === false ? (
+                  profiles.length > 0 ? (
+                    profiles.map((data, i) => {
+                      return (
+                        <Box key={i + 1}>
+                          {view === data.table ? (
+                            <TableLayout
+                              tableView={view}
+                              tableName={data.table}
+                              details={data.details}
+                            />
+                          ) : null}
+                        </Box>
+                      );
+                    })
+                  ) : null
+                ) : (
+                  <HeadTableLayout
+                    title={title}
+                    tableView={view}
+                    table_head={head}
+                    table={table}
+                    tableLayout={layout}
+                    index={index}
+                  />
+                )}
               </AccordionPanel>
             </>
           )}
@@ -117,7 +132,12 @@ const AccordianInput = ({ title, head, index, layout, table, view }) => {
                   )}
                 </AccordionButton>
               </h3>
-              <AccordionPanel pb={4} className="inner_content">
+              <AccordionPanel
+                pb={4}
+                pl={1.5}
+                pr={1.5}
+                className="inner_content"
+              >
                 <JobTable
                   jobList={jobList}
                   table_head={table_head}

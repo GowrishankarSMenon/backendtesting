@@ -506,7 +506,7 @@ td.css-xumdn4 button {
 .main-header--layout.nested-bg {
   position: sticky;
   z-index: 20;
-  background-color: rgba(239, 241, 255, 1);
+  background-color: #f0f5ff;
 }
 
 .header_nav ul {
@@ -531,7 +531,7 @@ td.css-xumdn4 button {
 
 /* Accordian Profile css */
 .chakra-collapse .inner_content {
-  background: rgba(0, 0, 0, 0.04);
+  background: #fafcff;
 }
 
 .chakra-collapse .inner_content {
@@ -540,7 +540,7 @@ td.css-xumdn4 button {
 }
 .chakra-accordion__item {
   /* border: none; */
-  background-color: #eff1ff;
+  background-color: #fafcff;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
 }
@@ -559,6 +559,10 @@ td.css-xumdn4 button {
 
 .chakra-select__wrapper option:checked {
   color: blue !important;
+}
+
+.profile_container .page-width {
+    background-color: #f0f5ff;
 }
 
 /* Responsive */

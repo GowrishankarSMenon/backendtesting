@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, } from "react-router-dom";
 
 // components
 import Registration from "../pages/registration";
@@ -16,9 +16,11 @@ import RepositoryPage from "../pages/repositoryPage";
 import SaveJobsPage from "../pages/saveJobsPage";
 import Protected from "../components/Protected";
 import { HomePage } from "../pages/Home";
+import AcademicPage from "../pages/academicPage";
 
 export default function AllRoutes() {
   //localStorage.removeItem("login");
+  
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -54,6 +56,10 @@ export default function AllRoutes() {
       <Route
         path="/repository"
         element={<Protected Component={RepositoryPage} />}
+      />
+      <Route
+        path={`/my-profile/:title`}
+        element={<Protected Component={AcademicPage} />}
       />
     </Routes>
   );
