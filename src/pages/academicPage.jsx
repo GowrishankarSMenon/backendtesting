@@ -35,12 +35,41 @@ const AcademicPage = () => {
   return (
     <Box className="academic_Container">
       <Box className="page-width">
-        <Box>
-          <Box>
-            <Button></Button>
-            <Button></Button>
-            <Button></Button>
-          </Box>
+        <Flex
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          mt={4}
+          mb={4}
+        >
+          <Flex justifyContent={"flex-start"} alignItems={"center"}>
+            <Button
+              mr={2}
+              color={"#fff"}
+              bg={"blue"}
+              fontSize={13}
+              textTransform={"uppercase"}
+            >
+              Save
+            </Button>
+            <Button
+              mr={2}
+              color={"#fff"}
+              bg={"red"}
+              fontSize={13}
+              textTransform={"uppercase"}
+            >
+              Update
+            </Button>
+            <Button
+              mr={2}
+              color={"#fff"}
+              bg={"black"}
+              fontSize={13}
+              textTransform={"uppercase"}
+            >
+              Clear
+            </Button>
+          </Flex>
           <Box>
             <Button
               onClick={onOpen}
@@ -54,7 +83,7 @@ const AcademicPage = () => {
               <EditIcon fontSize="14px" />
             </Button>
           </Box>
-        </Box>
+        </Flex>
         <>
           {multiGrid.length > 0
             ? multiGrid.map((view, i) => {
@@ -108,6 +137,13 @@ const AcademicPage = () => {
             : null}
         </>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent maxW={"55rem"} p={[4, 8]}>
+          <ModalCloseButton />
+          <ModalBody mt={2}></ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
