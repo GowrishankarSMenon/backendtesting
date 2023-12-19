@@ -1,5 +1,9 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import ReactPaginate from "react-paginate"; // for pagination
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"; // icons form react-icons
+import { IconContext } from "react-icons"; // for customizing icons
+import { useEffect, useState } from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
+/*Chakar UI*/
 import {
   Box,
   Button,
@@ -9,6 +13,7 @@ import {
   Table,
   Thead,
   Tbody,
+  Tfoot,
   Tr,
   Th,
   Td,
@@ -28,10 +33,30 @@ import { useDisclosure } from "@chakra-ui/react";
 // json
 import multiGrid from "../json/multiGridData.json";
 
-const AcademicPage = () => {
+const AcademicPage = (props) => {
+  
+  const location = useLocation()
+  // const { from } = location.state
   const { isOpen, onOpen, onClose } = useDisclosure();
   const params = useParams();
   const nav_title = params.title;
+
+  console.log('====================================');
+  console.log("params: ", location);
+  console.log('====================================');
+
+  const [page, setPage] = useState(0);
+  const [filterData, setFilterData] = useState([]);
+  const n = 5;
+
+  useEffect(() => {
+    setFilterData(
+      multiGrid[0].table_body.filter((item, index) => {
+        return (index >= page * n) & (index < (page + 1) * n);
+      })
+    );
+  }, [page]);
+
   return (
     <Box className="academic_Container">
       <Box className="page-width">
@@ -106,9 +131,9 @@ const AcademicPage = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {view.table_body.length > 0
-                          ? view.table_body.map((body, i) => {
-                              if (i < 2) {
+                        {filterData.length > 0
+                          ? filterData.map((body, i) => {
+                              if (i < 5) {
                                 return (
                                   <Tr key={i + 1}>
                                     {body.tbody.length > 0
@@ -130,6 +155,52 @@ const AcademicPage = () => {
                             })
                           : null}
                       </Tbody>
+                      <Tfoot>
+                        <Tr>
+                          <Th w={"100%"} colSpan="7">
+                            <Box>
+                              <Box
+                                display={"flex"}
+                                justifyContent={"flex-start"}
+                                alignItems={"center"}
+                                flexDirection={"column"}
+                              >
+                                {/* <ul>
+                                  {filterData &&
+                                    filterData.map((item, index) => (
+                                      <li>Item #{item}</li>
+                                    ))}
+                                </ul> */}
+
+                                <ReactPaginate
+                                  containerClassName={"pagination"}
+                                  pageClassName={"page-item"}
+                                  activeClassName={"active"}
+                                  onPageChange={(event) =>
+                                    setPage(event.selected)
+                                  }
+                                  pageCount={Math.ceil(view.table_body.length / n)}
+                                  breakLabel="..."
+                                  previousLabel={
+                                    <IconContext.Provider
+                                      value={{ color: "#B8C1CC", size: "36px" }}
+                                    >
+                                      <AiFillLeftCircle />
+                                    </IconContext.Provider>
+                                  }
+                                  nextLabel={
+                                    <IconContext.Provider
+                                      value={{ color: "#B8C1CC", size: "36px" }}
+                                    >
+                                      <AiFillRightCircle />
+                                    </IconContext.Provider>
+                                  }
+                                />
+                              </Box>
+                            </Box>
+                          </Th>
+                        </Tr>
+                      </Tfoot>
                     </Table>
                   </TableContainer>
                 ) : null;

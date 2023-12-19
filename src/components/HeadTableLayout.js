@@ -38,6 +38,11 @@ const HeadTableLayout = ({
   index,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dashboardData = {
+    component: "Dashboard page",
+    content: "Data is sent from profile component",
+    timestamp: Date.now(),
+  };
   return (
     <>
       {multiGrid.length > 0
@@ -60,7 +65,13 @@ const HeadTableLayout = ({
                       pt={1}
                       pb={2}
                     >
-                      <Link to={`/my-profile/${tableView.toLowerCase()}`}>
+                      <Link
+                        to={{
+                          pathname: `/my-profile/${tableView.toLowerCase()}`,
+                          search: `?index=${i}`,
+                          state: dashboardData,
+                        }}
+                      >
                         <Button
                           minW={8}
                           h={8}

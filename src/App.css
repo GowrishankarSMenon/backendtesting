@@ -565,6 +565,35 @@ td.css-xumdn4 button {
     background-color: #f0f5ff;
 }
 
+/* Pagination Style */
+.pagination {
+  list-style: none;
+  height: 31.5px;
+  width: 31.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.pagination .active {
+  background-color: #1e50ff;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.page-item {
+  list-style: none;
+  padding: 2px 12px;
+  height: 31.5px;
+  width: 31.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
+
 /* Responsive */
 @media (max-width: 749px) {
   .page-width {
