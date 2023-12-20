@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import {  Outlet, Link } from "react-router-dom";
 
 // json
 import multiGrid from "../json/multiGridData.json";
@@ -130,6 +130,8 @@ const HeadTableLayout = ({
             ) : null;
           })
         : null}
+        {/* Outlet is used to render child routes */}
+        <Outlet />
     </>
   );
 };

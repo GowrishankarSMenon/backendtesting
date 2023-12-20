@@ -26,24 +26,30 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Divider,
+  Radio,
+  RadioGroup,
+  Checkbox,
+  CheckboxGroup,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
 // json
 import multiGrid from "../json/multiGridData.json";
+import AllFormModal from "../modal/allFormModal";
 
 const AcademicPage = (props) => {
-  
-  const location = useLocation()
-  // const { from } = location.state
+  const location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const params = useParams();
   const nav_title = params.title;
+  const search = location.search;
+  const num = search.split("=");
+  const count = num[num.length - 1];
+  const [value, setValue] = useState(0);
 
-  console.log('====================================');
-  console.log("params: ", location);
-  console.log('====================================');
+  console.log("====================================");
+  console.log("State", value);
+  console.log("====================================");
 
   const [page, setPage] = useState(0);
   const [filterData, setFilterData] = useState([]);
@@ -51,7 +57,7 @@ const AcademicPage = (props) => {
 
   useEffect(() => {
     setFilterData(
-      multiGrid[0].table_body.filter((item, index) => {
+      multiGrid[parseInt(count)].table_body.filter((item, index) => {
         return (index >= page * n) & (index < (page + 1) * n);
       })
     );
@@ -68,46 +74,39 @@ const AcademicPage = (props) => {
         >
           <Flex justifyContent={"flex-start"} alignItems={"center"}>
             <Button
+              w={24}
+              h={10}
               mr={2}
               color={"#fff"}
               bg={"blue"}
               fontSize={13}
               textTransform={"uppercase"}
             >
-              Save
+              Add
             </Button>
             <Button
+              w={24}
+              h={10}
               mr={2}
               color={"#fff"}
               bg={"red"}
               fontSize={13}
               textTransform={"uppercase"}
             >
-              Update
+              Delete
             </Button>
             <Button
+              w={24}
+              h={10}
               mr={2}
               color={"#fff"}
               bg={"black"}
               fontSize={13}
               textTransform={"uppercase"}
             >
-              Clear
+              Back
             </Button>
           </Flex>
-          <Box>
-            <Button
-              onClick={onOpen}
-              minW={8}
-              h={8}
-              pl={1}
-              pr={1}
-              bg={"#2d43b3"}
-              color="#fff"
-            >
-              <EditIcon fontSize="14px" />
-            </Button>
-          </Box>
         </Flex>
         <>
           {multiGrid.length > 0
@@ -117,6 +116,7 @@ const AcademicPage = (props) => {
                     <Table variant="simple">
                       <Thead>
                         <Tr>
+                          <Th></Th>
                           {view.table_head.length > 0
                             ? view.table_head.map((head, i) => {
                                 return (
@@ -128,6 +128,12 @@ const AcademicPage = (props) => {
                                 );
                               })
                             : null}
+                          <Th>
+                            <Box>
+                              <Text as={"span"}>Summary</Text>
+                            </Box>
+                          </Th>
+                          <Th></Th>
                         </Tr>
                       </Thead>
                       <Tbody>
@@ -136,6 +142,19 @@ const AcademicPage = (props) => {
                               if (i < 5) {
                                 return (
                                   <Tr key={i + 1}>
+                                    <Td>
+                                      <Box>
+                                        <Checkbox
+                                          colorScheme="blue"
+                                          id=""
+                                          value={i + 1}
+                                          name=""
+                                          onChange={(e) =>
+                                            setValue(e.target.value)
+                                          }
+                                        ></Checkbox>
+                                      </Box>
+                                    </Td>
                                     {body.tbody.length > 0
                                       ? body.tbody.map((items, i) => {
                                           return (
@@ -149,6 +168,23 @@ const AcademicPage = (props) => {
                                           );
                                         })
                                       : null}
+                                    <Td></Td>
+                                    <Td>
+                                      <Box className="edit_Btn">
+                                        <Button
+                                          borderRadius={'10px'}
+                                          onClick={onOpen}
+                                          minW={8}
+                                          h={8}
+                                          pl={1}
+                                          pr={1}
+                                          bg={"#2d43b3"}
+                                          color="#fff"
+                                        >
+                                          <EditIcon fontSize="14px" />
+                                        </Button>
+                                      </Box>
+                                    </Td>
                                   </Tr>
                                 );
                               }
@@ -157,21 +193,14 @@ const AcademicPage = (props) => {
                       </Tbody>
                       <Tfoot>
                         <Tr>
-                          <Th w={"100%"} colSpan="7">
+                          <Th w={"100%"} colSpan="9">
                             <Box>
                               <Box
                                 display={"flex"}
                                 justifyContent={"flex-start"}
-                                alignItems={"center"}
+                                alignItems={"flex-end"}
                                 flexDirection={"column"}
                               >
-                                {/* <ul>
-                                  {filterData &&
-                                    filterData.map((item, index) => (
-                                      <li>Item #{item}</li>
-                                    ))}
-                                </ul> */}
-
                                 <ReactPaginate
                                   containerClassName={"pagination"}
                                   pageClassName={"page-item"}
@@ -179,7 +208,9 @@ const AcademicPage = (props) => {
                                   onPageChange={(event) =>
                                     setPage(event.selected)
                                   }
-                                  pageCount={Math.ceil(view.table_body.length / n)}
+                                  pageCount={Math.ceil(
+                                    view.table_body.length / n
+                                  )}
                                   breakLabel="..."
                                   previousLabel={
                                     <IconContext.Provider
@@ -212,7 +243,9 @@ const AcademicPage = (props) => {
         <ModalOverlay />
         <ModalContent maxW={"55rem"} p={[4, 8]}>
           <ModalCloseButton />
-          <ModalBody mt={2}></ModalBody>
+          <ModalBody mt={2}>
+            <AllFormModal title={nav_title} numValue={count}/>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </Box>

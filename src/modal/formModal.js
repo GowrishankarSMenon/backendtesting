@@ -5,11 +5,6 @@ import {
   Flex,
   Text,
   Heading,
-  Checkbox,
-  Radio,
-  FormLabel,
-  RadioGroup,
-  Stack,
   Divider,
 } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";

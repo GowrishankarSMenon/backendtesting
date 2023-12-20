@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { Box, Flex, Accordion, Text } from "@chakra-ui/react";
 import AccordianInput from "../helper/AccordianInput";
 
@@ -43,7 +44,7 @@ const inputGrid = [
     title: "Relocation Preferences",
     table_head: true,
     layout: "Profile",
-    tableView: "relocation-Preferences",
+    tableView: "relocation-preferences",
   },
   {
     title: "References",
@@ -79,6 +80,11 @@ const inputGrid = [
 ];
 
 const ProfilePage = () => {
+  const location = useLocation();
+
+  console.log("====================================");
+  console.log("params: ", location);
+  console.log("====================================");
   return (
     <Box w={"100%"} className="profile_container">
       <Box w={"100%"} bg={"#fafcff"}>

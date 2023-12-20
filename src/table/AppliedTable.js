@@ -3,25 +3,20 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
-  TableContainer,
   Box,
-  Input,
   Text,
   Link,
   Button,
-  Radio,
-  RadioGroup,
+  Checkbox,
 } from "@chakra-ui/react";
 
 const AppliedTable = ({ jobList, table_head, new_table }) => {
-    console.log('====================================');
-    console.log("Applied", new_table);
-    console.log('====================================');
+  console.log("====================================");
+  console.log("Applied", new_table);
+  console.log("====================================");
   const [value, setValue] = React.useState("1");
   return (
     <Table>
@@ -44,9 +39,15 @@ const AppliedTable = ({ jobList, table_head, new_table }) => {
                 return (
                   <Tr key={list.id}>
                     <Td>
-                      <RadioGroup onChange={setValue} value={value}>
-                        <Radio value={i + 1}></Radio>
-                      </RadioGroup>
+                      <Box>
+                        <Checkbox
+                          colorScheme="blue"
+                          id=""
+                          value={i + 1}
+                          name=""
+                          onChange={(e) => setValue(e.target.value)}
+                        ></Checkbox>
+                      </Box>
                     </Td>
                     <Td>
                       <Link>{list.reference}</Link>
