@@ -9,10 +9,12 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Flex,
 } from "@chakra-ui/react";
 import assets from "../assests";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import SideDrawer from "./SideDrawer";
 
 const NavBar = () => {
   const [getLogin, setGetLogin] = useState(false);
@@ -37,84 +39,94 @@ const NavBar = () => {
               <Image src={assets.images.COMMON.APP_LOGO} alt="Alchemus Logo" />
             </Link>
           </Box>
-          <Box
-            className="header_nav"
-            w={"70%"}
-            display={"flex"}
-            justifyContent={"center"}
+          <Flex
+            w={"85%"}
+            justifyContent={"space-between"}
             alignItems={"center"}
+            className="header-navBar"
           >
-            <UnorderedList
+            <Box
+              className="header_nav"
+              w={"82%"}
               display={"flex"}
-              justifyContent={"space-between"}
+              justifyContent={"center"}
               alignItems={"center"}
-              columnGap={"9px"}
             >
-              <ListItem>
-                <NavLink to="/my-profile">
-                  <Box>My Profile</Box>
-                </NavLink>
-              </ListItem>
-              <ListItem>
-                <NavLink to="/search">
-                  <Box>Search Jobs</Box>
-                </NavLink>
-              </ListItem>
-              <ListItem>
-                <NavLink to="/referred-jobs">
-                  <Box>Referred Jobs</Box>
-                </NavLink>
-              </ListItem>
-              <ListItem>
-                <NavLink to="/savejob">
-                  <Box>Saved Jobs</Box>
-                </NavLink>
-              </ListItem>
-              <ListItem>
-                <NavLink to="/job-description">
-                  <Box>Jobs Applied</Box>
-                </NavLink>
-              </ListItem>
-              <ListItem>
-                <NavLink to="/repository">
-                  <Box>Document Repository</Box>
-                </NavLink>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-          <Box
-            className="nav_account"
-            w={"15%"}
-            display={"flex"}
-            justifyContent={"flex-end"}
-            alignItems={"center"}
-          >
-            <Menu>
-              <MenuButton>
-                <Box
-                  w={"100%"}
-                  display={"flex"}
-                  justifyContent={"flex-end"}
-                  alignItems={"center"}
-                >
-                  <Image
-                    src={assets.images.PROFILE.PROFILE_IMG}
-                    alt="profile png"
-                    className="profile_img"
-                  />
-                  <Text>Vishal</Text>
-                </Box>
-              </MenuButton>
-              <MenuList>
-                <MenuItem
-                  as="a"
-                  href="/"
-                  onClick={() => localStorage.removeItem("login")}
-                >
-                  Logout
-                </MenuItem>
-              </MenuList>
-            </Menu>
+              <UnorderedList
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                columnGap={"9px"}
+              >
+                <ListItem>
+                  <NavLink to="/my-profile">
+                    <Box>My Profile</Box>
+                  </NavLink>
+                </ListItem>
+                <ListItem>
+                  <NavLink to="/search">
+                    <Box>Search Jobs</Box>
+                  </NavLink>
+                </ListItem>
+                <ListItem>
+                  <NavLink to="/referred-jobs">
+                    <Box>Referred Jobs</Box>
+                  </NavLink>
+                </ListItem>
+                <ListItem>
+                  <NavLink to="/savejob">
+                    <Box>Saved Jobs</Box>
+                  </NavLink>
+                </ListItem>
+                <ListItem>
+                  <NavLink to="/job-description">
+                    <Box>Jobs Applied</Box>
+                  </NavLink>
+                </ListItem>
+                <ListItem>
+                  <NavLink to="/repository">
+                    <Box>Document Repository</Box>
+                  </NavLink>
+                </ListItem>
+              </UnorderedList>
+            </Box>
+            <Box
+              className="nav_account"
+              w={"15%"}
+              display={"flex"}
+              justifyContent={"flex-end"}
+              alignItems={"center"}
+            >
+              <Menu>
+                <MenuButton>
+                  <Box
+                    w={"100%"}
+                    display={"flex"}
+                    justifyContent={"flex-end"}
+                    alignItems={"center"}
+                  >
+                    <Image
+                      src={assets.images.PROFILE.PROFILE_IMG}
+                      alt="profile png"
+                      className="profile_img"
+                    />
+                    <Text>Vishal</Text>
+                  </Box>
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    as="a"
+                    href="/"
+                    onClick={() => localStorage.removeItem("login")}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Box>
+          </Flex>
+          <Box className="sideDrawer--NavBar">
+            <SideDrawer />
           </Box>
         </Box>
       ) : (

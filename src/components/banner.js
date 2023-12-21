@@ -8,7 +8,7 @@ export const Banner = () => {
     <Box className="category_flex">
       <Box className="banner-wrapper">
         <div className="">
-          <div className="">
+          <div className="banner-svg-wrapper">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="1440"
