@@ -32,6 +32,11 @@ const Loginbox = () => {
       [name]: value,
     }));
   };
+
+  // console.log('====================================');
+  // console.log("Login: ", login);
+  // console.log('====================================');
+  
   const loginHandle = () => {
     console.log("sign up");
     localStorage.setItem("login", true);
@@ -63,7 +68,7 @@ const Loginbox = () => {
         <FormLabel>Enter your Password</FormLabel>
         <PasswordInput
           handleChange={(e) => handleChange(e)}
-          value={login.userId}
+          value={login.password}
           name="password"
           id="password"
         />
