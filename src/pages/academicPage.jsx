@@ -48,7 +48,7 @@ const AcademicPage = (props) => {
   const [value, setValue] = useState(0);
 
   console.log("====================================");
-  console.log("State", value);
+  console.log("State", nav_title);
   console.log("====================================");
 
   const [page, setPage] = useState(0);
@@ -112,128 +112,255 @@ const AcademicPage = (props) => {
           {multiGrid.length > 0
             ? multiGrid.map((view, i) => {
                 return view.table_title === nav_title ? (
-                  <TableContainer pl={2} pr={2} key={i + 1}>
-                    <Table variant="simple">
-                      <Thead>
-                        <Tr>
-                          <Th></Th>
-                          {view.table_head.length > 0
-                            ? view.table_head.map((head, i) => {
-                                return (
-                                  <Th key={i + 1}>
-                                    <Box>
-                                      <Text as={"span"}>{head.thead}</Text>
-                                    </Box>
-                                  </Th>
-                                );
+                  view.formShow != true ? (
+                    <TableContainer pl={2} pr={2} key={i + 1}>
+                      <Table variant="simple">
+                        <Thead>
+                          <Tr>
+                            <Th></Th>
+                            {view.table_head.length > 0
+                              ? view.table_head.map((head, i) => {
+                                  return (
+                                    <Th key={i + 1}>
+                                      <Box>
+                                        <Text as={"span"}>{head.thead}</Text>
+                                      </Box>
+                                    </Th>
+                                  );
+                                })
+                              : null}
+                            <Th>
+                              <Box>
+                                <Text as={"span"}>Summary</Text>
+                              </Box>
+                            </Th>
+                            <Th></Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {filterData.length > 0
+                            ? filterData.map((body, i) => {
+                                if (i < 5) {
+                                  return (
+                                    <Tr key={i + 1}>
+                                      <Td>
+                                        <Box>
+                                          <Checkbox
+                                            colorScheme="blue"
+                                            id=""
+                                            value={i + 1}
+                                            name=""
+                                            onChange={(e) =>
+                                              setValue(e.target.value)
+                                            }
+                                          ></Checkbox>
+                                        </Box>
+                                      </Td>
+                                      {body.tbody.length > 0
+                                        ? body.tbody.map((items, i) => {
+                                            return (
+                                              <Td key={i + 1}>
+                                                <Box>
+                                                  <Text
+                                                    fontSize={13}
+                                                    as={"span"}
+                                                  >
+                                                    {items}
+                                                  </Text>
+                                                </Box>
+                                              </Td>
+                                            );
+                                          })
+                                        : null}
+                                      <Td></Td>
+                                      <Td>
+                                        <Box className="edit_Btn">
+                                          <Button
+                                            borderRadius={"10px"}
+                                            onClick={onOpen}
+                                            minW={8}
+                                            h={8}
+                                            pl={1}
+                                            pr={1}
+                                            bg={"#2d43b3"}
+                                            color="#fff"
+                                          >
+                                            <EditIcon fontSize="14px" />
+                                          </Button>
+                                        </Box>
+                                      </Td>
+                                    </Tr>
+                                  );
+                                }
                               })
                             : null}
-                          <Th>
-                            <Box>
-                              <Text as={"span"}>Summary</Text>
-                            </Box>
-                          </Th>
-                          <Th></Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {filterData.length > 0
-                          ? filterData.map((body, i) => {
-                              if (i < 5) {
-                                return (
-                                  <Tr key={i + 1}>
-                                    <Td>
-                                      <Box>
-                                        <Checkbox
-                                          colorScheme="blue"
-                                          id=""
-                                          value={i + 1}
-                                          name=""
-                                          onChange={(e) =>
-                                            setValue(e.target.value)
-                                          }
-                                        ></Checkbox>
-                                      </Box>
-                                    </Td>
-                                    {body.tbody.length > 0
-                                      ? body.tbody.map((items, i) => {
-                                          return (
-                                            <Td key={i + 1}>
-                                              <Box>
-                                                <Text fontSize={13} as={"span"}>
-                                                  {items}
-                                                </Text>
-                                              </Box>
-                                            </Td>
-                                          );
-                                        })
-                                      : null}
-                                    <Td></Td>
-                                    <Td>
-                                      <Box className="edit_Btn">
-                                        <Button
-                                          borderRadius={'10px'}
-                                          onClick={onOpen}
-                                          minW={8}
-                                          h={8}
-                                          pl={1}
-                                          pr={1}
-                                          bg={"#2d43b3"}
-                                          color="#fff"
-                                        >
-                                          <EditIcon fontSize="14px" />
-                                        </Button>
-                                      </Box>
-                                    </Td>
-                                  </Tr>
-                                );
-                              }
-                            })
-                          : null}
-                      </Tbody>
-                      <Tfoot>
-                        <Tr>
-                          <Th w={"100%"} colSpan="9">
-                            <Box>
-                              <Box
-                                display={"flex"}
-                                justifyContent={"flex-start"}
-                                alignItems={"flex-end"}
-                                flexDirection={"column"}
-                              >
-                                <ReactPaginate
-                                  containerClassName={"pagination"}
-                                  pageClassName={"page-item"}
-                                  activeClassName={"active"}
-                                  onPageChange={(event) =>
-                                    setPage(event.selected)
-                                  }
-                                  pageCount={Math.ceil(
-                                    view.table_body.length / n
-                                  )}
-                                  breakLabel="..."
-                                  previousLabel={
-                                    <IconContext.Provider
-                                      value={{ color: "#B8C1CC", size: "36px" }}
-                                    >
-                                      <AiFillLeftCircle />
-                                    </IconContext.Provider>
-                                  }
-                                  nextLabel={
-                                    <IconContext.Provider
-                                      value={{ color: "#B8C1CC", size: "36px" }}
-                                    >
-                                      <AiFillRightCircle />
-                                    </IconContext.Provider>
-                                  }
-                                />
+                        </Tbody>
+                        <Tfoot>
+                          <Tr>
+                            <Th w={"100%"} colSpan="9">
+                              <Box>
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"flex-start"}
+                                  alignItems={"flex-end"}
+                                  flexDirection={"column"}
+                                >
+                                  <ReactPaginate
+                                    containerClassName={"pagination"}
+                                    pageClassName={"page-item"}
+                                    activeClassName={"active"}
+                                    onPageChange={(event) =>
+                                      setPage(event.selected)
+                                    }
+                                    pageCount={Math.ceil(
+                                      view.table_body.length / n
+                                    )}
+                                    breakLabel="..."
+                                    previousLabel={
+                                      <IconContext.Provider
+                                        value={{
+                                          color: "#B8C1CC",
+                                          size: "36px",
+                                        }}
+                                      >
+                                        <AiFillLeftCircle />
+                                      </IconContext.Provider>
+                                    }
+                                    nextLabel={
+                                      <IconContext.Provider
+                                        value={{
+                                          color: "#B8C1CC",
+                                          size: "36px",
+                                        }}
+                                      >
+                                        <AiFillRightCircle />
+                                      </IconContext.Provider>
+                                    }
+                                  />
+                                </Box>
                               </Box>
-                            </Box>
-                          </Th>
-                        </Tr>
-                      </Tfoot>
-                    </Table>
-                  </TableContainer>
+                            </Th>
+                          </Tr>
+                        </Tfoot>
+                      </Table>
+                    </TableContainer>
+                  ) : (
+                    <TableContainer pl={2} pr={2} key={i + 1}>
+                      <Table variant="simple">
+                        <Thead>
+                          <Tr>
+                            <Th></Th>
+                            {view.table_head.length > 0
+                              ? view.table_head.map((head, i) => {
+                                  return (
+                                    <Th key={i + 1}>
+                                      <Box>
+                                        <Text as={"span"}>{head.thead}</Text>
+                                      </Box>
+                                    </Th>
+                                  );
+                                })
+                              : null}
+                            <Th>
+                              <Box>
+                                <Text as={"span"}>Summary</Text>
+                              </Box>
+                            </Th>
+                            <Th></Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {filterData.length > 0
+                            ? filterData.map((body, i) => {
+                                if (i < 5) {
+                                  return (
+                                    <Tr key={i + 1}>
+                                      <Td>
+                                        <Box>
+                                          <Checkbox
+                                            colorScheme="blue"
+                                            id=""
+                                            value={i + 1}
+                                            name=""
+                                            onChange={(e) =>
+                                              setValue(e.target.value)
+                                            }
+                                          ></Checkbox>
+                                        </Box>
+                                      </Td>
+                                      {body.tbody.length > 0
+                                        ? body.tbody.map((items, i) => {
+                                            return (
+                                              <Td key={i + 1}>
+                                                <Box>
+                                                  <Text
+                                                    fontSize={13}
+                                                    as={"span"}
+                                                  >
+                                                    {items}
+                                                  </Text>
+                                                </Box>
+                                              </Td>
+                                            );
+                                          })
+                                        : null}
+                                      <Td></Td>
+                                    </Tr>
+                                  );
+                                }
+                              })
+                            : null}
+                        </Tbody>
+                        <Tfoot>
+                          <Tr>
+                            <Th w={"100%"} colSpan="9">
+                              <Box>
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"flex-start"}
+                                  alignItems={"flex-end"}
+                                  flexDirection={"column"}
+                                >
+                                  <ReactPaginate
+                                    containerClassName={"pagination"}
+                                    pageClassName={"page-item"}
+                                    activeClassName={"active"}
+                                    onPageChange={(event) =>
+                                      setPage(event.selected)
+                                    }
+                                    pageCount={Math.ceil(
+                                      view.table_body.length / n
+                                    )}
+                                    breakLabel="..."
+                                    previousLabel={
+                                      <IconContext.Provider
+                                        value={{
+                                          color: "#B8C1CC",
+                                          size: "36px",
+                                        }}
+                                      >
+                                        <AiFillLeftCircle />
+                                      </IconContext.Provider>
+                                    }
+                                    nextLabel={
+                                      <IconContext.Provider
+                                        value={{
+                                          color: "#B8C1CC",
+                                          size: "36px",
+                                        }}
+                                      >
+                                        <AiFillRightCircle />
+                                      </IconContext.Provider>
+                                    }
+                                  />
+                                </Box>
+                              </Box>
+                            </Th>
+                          </Tr>
+                        </Tfoot>
+                      </Table>
+                    </TableContainer>
+                  )
                 ) : null;
               })
             : null}
@@ -244,7 +371,7 @@ const AcademicPage = (props) => {
         <ModalContent maxW={"55rem"} p={[4, 8]}>
           <ModalCloseButton />
           <ModalBody mt={2}>
-            <AllFormModal title={nav_title} numValue={count}/>
+            <AllFormModal title={nav_title} numValue={count} />
           </ModalBody>
         </ModalContent>
       </Modal>

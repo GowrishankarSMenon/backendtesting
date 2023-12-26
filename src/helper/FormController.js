@@ -6,21 +6,33 @@ import {
   Input,
   Checkbox,
   Box,
-  Button
-} from '@chakra-ui/react'
-import PasswordInput from './PasswordInput'
+  Button,
+} from "@chakra-ui/react";
+import PasswordInput from "./PasswordInput";
 
-const FormController = ({ lable, placeholder, handleChange }) => {
+const FormController = ({
+  label,
+  placeholder,
+  handleChange,
+  value,
+  name,
+  id,
+}) => {
   //console.log(placeholder, 'ff');
   return (
     <>
-      <FormControl isRequired my='1em'>
-        <FormLabel>{lable}</FormLabel>
-        <Input placeholder={placeholder} onChange={handleChange}/>
+      <FormControl isRequired my="1em">
+        <FormLabel>{label}</FormLabel>
+        <Input
+          placeholder={placeholder}
+          onChange={handleChange}
+          value={value}
+          name={name}
+          id={id}
+        />
       </FormControl>
-
     </>
-  )
-}
+  );
+};
 
 export default FormController;

@@ -8,9 +8,9 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-const SelectInputField = ({ label, placeholder, id, name, value, option, handleInputChange }) => {
+const SelectInputField = ({ label, placeholder, id, name, value, option, handleInputChange, Required }) => {
   return (
-    <FormControl isRequired mb={5}>
+    <FormControl isRequired={Required} mb={5}>
       {label != "" ? <FormLabel fontSize={"14px"}>{label}</FormLabel> : null}
       <Select
         placeholder={placeholder}

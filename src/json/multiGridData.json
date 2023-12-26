@@ -1,6 +1,7 @@
 [
   {
     "table_title": "education",
+    "formShow": false,
     "table_head": [
       { "thead": "School Type" },
       { "thead": "Education Level" },
@@ -66,6 +67,7 @@
   },
   {
     "table_title": "experience",
+    "formShow": false,
     "table_head": [
       { "thead": "Employer" },
       { "thead": "Start Date" },
@@ -84,6 +86,7 @@
   },
   {
     "table_title": "attachment",
+    "formShow": true,
     "table_head": [
       { "thead": "Requisition #" },
       { "thead": "Attachments" },
@@ -103,6 +106,7 @@
   },
   {
     "table_title": "skills",
+    "formShow": false,
     "table_head": [
       { "thead": "Skills" },
       { "thead": "Expertise Level" },
@@ -118,6 +122,7 @@
   },
   {
     "table_title": "relocation-preferences",
+    "formShow": false,
     "table_head": [
       { "thead": "City" },
       { "thead": "Country" },
@@ -133,6 +138,7 @@
   },
   {
     "table_title": "references",
+    "formShow": false,
     "table_head": [
       { "thead": "Confidential" },
       { "thead": "Reference Name" },
@@ -148,6 +154,7 @@
   },
   {
     "table_title": "certification",
+    "formShow": false,
     "table_head": [
       { "thead": "Certification Skill" },
       { "thead": "Certified" },
@@ -165,6 +172,7 @@
   },
   {
     "table_title": "security-credentials",
+    "formShow": false,
     "table_head": [
       { "thead": "Security Credential Name" },
       { "thead": "Issuing Authority" },
@@ -181,6 +189,7 @@
   },
   {
     "table_title": "resume",
+    "formShow": false,
     "table_head": [
       { "thead": "Item Type" },
       { "thead": "Education Level" },
@@ -192,5 +201,10 @@
       }
     ]
   },
-  { "table_title": "goals", "table_head": [], "table_body": [] }
+  {
+    "table_title": "goals",
+    "formShow": false,
+    "table_head": [],
+    "table_body": []
+  }
 ]

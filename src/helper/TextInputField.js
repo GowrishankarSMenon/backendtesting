@@ -7,7 +7,7 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 
-const TextInputField = ({ label, type, placeholder, Required, id, name, value, handleInputChange }) => {
+const TextInputField = ({ label, type, placeholder, Required, id, name, value, handleInputChange}) => {
 
   return (
     <FormControl isRequired={Required} mb={5}>

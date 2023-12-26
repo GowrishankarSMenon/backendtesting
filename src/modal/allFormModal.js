@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Flex, Text, Heading, Divider } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Country, State, City } from "country-state-city";
 import multiFormFields from "../json/mltiFormFields.json";
 
 // components
@@ -21,8 +22,36 @@ const AllFormModal = ({ title, numValue }) => {
       [name]: value,
     }));
   };
+  let stateCode = State.getStatesOfCountry(input.country);
+  let orgStateCode = State.getStatesOfCountry(input.Org_Country);
+
+  let option_Item = [];
+  let orgOption_state = [];
+
+  if (stateCode.length > 0) {
+    for (let i = 0; i < stateCode.length; i++) {
+      option_Item.push({
+        value: stateCode[i].isoCode,
+        title: stateCode[i].name,
+      });
+    }
+  } else {
+    option_Item.push({ value: "", title: "" });
+  }
+
+  if (orgStateCode.length > 0) {
+    for (let i = 0; i < orgStateCode.length; i++) {
+      orgOption_state.push({
+        value: orgStateCode[i].isoCode,
+        title: orgStateCode[i].name,
+      });
+    }
+  } else {
+    orgOption_state.push({ value: "", title: "" });
+  }
+
   console.log("====================================");
-  console.log(input);
+  console.log("input", input);
   console.log("====================================");
   return (
     <Box>
@@ -68,7 +97,14 @@ const AllFormModal = ({ title, numValue }) => {
                                               inputFields.placeholder
                                             }
                                             Required={inputFields.required}
-                                            option={inputFields.select_option}
+                                            option={
+                                              inputFields.list == "state"
+                                                ? option_Item
+                                                : inputFields.list ==
+                                                  "org_state"
+                                                ? orgOption_state
+                                                : inputFields.select_option
+                                            }
                                             handleInputChange={(e) =>
                                               onHandleChange(e)
                                             }
@@ -93,7 +129,17 @@ const AllFormModal = ({ title, numValue }) => {
                                         </Box>
                                       ) : inputFields.field === "radio" ? (
                                         <Box key={i + 1}>
-                                          <RadioInputField />
+                                          <RadioInputField
+                                            type={inputFields.type}
+                                            name={inputFields.name}
+                                            id={inputFields.id}
+                                            Required={false}
+                                            value={input.name}
+                                            handleInputChange={(e) =>
+                                              onHandleChange(e)
+                                            }
+                                            label={inputFields.label}
+                                          />
                                         </Box>
                                       ) : inputFields.field === "checked" ? (
                                         <Box key={i + 1}>Checked</Box>
@@ -150,7 +196,11 @@ const AllFormModal = ({ title, numValue }) => {
                                           value={input.name}
                                           placeholder={inputFields.placeholder}
                                           Required={inputFields.required}
-                                          option={inputFields.select_option}
+                                          option={
+                                            inputFields.list == "state"
+                                              ? option_Item
+                                              : inputFields.select_option
+                                          }
                                           handleInputChange={(e) =>
                                             onHandleChange(e)
                                           }
@@ -172,7 +222,19 @@ const AllFormModal = ({ title, numValue }) => {
                                         />
                                       </Box>
                                     ) : inputFields.field === "radio" ? (
-                                      <Box key={i + 1}>radio</Box>
+                                      <Box key={i + 1}>
+                                        <RadioInputField
+                                          type={inputFields.type}
+                                          name={inputFields.name}
+                                          id={inputFields.id}
+                                          Required={false}
+                                          value={input.name}
+                                          handleInputChange={(e) =>
+                                            onHandleChange(e)
+                                          }
+                                          label={inputFields.label}
+                                        />
+                                      </Box>
                                     ) : inputFields.field === "checked" ? (
                                       <Box key={i + 1}>Checked</Box>
                                     ) : inputFields.field === "textarea" ? (
@@ -183,6 +245,7 @@ const AllFormModal = ({ title, numValue }) => {
                                           value={input.name}
                                           label={inputFields.label}
                                           placeholder={inputFields.placeholder}
+                                          Required={inputFields.required}
                                           handleInputChange={(e) =>
                                             onHandleChange(e)
                                           }
@@ -212,11 +275,13 @@ const AllFormModal = ({ title, numValue }) => {
               </Button>
             </Box>
             <Box>
-              <Button>Clear</Button>
+              <Button fontSize={"14px"} color="white" colorScheme="teal">
+                Clear
+              </Button>
             </Box>
             <Box>
               <Button fontSize={"14px"} color="white" colorScheme="blackAlpha">
-                Back
+                Cancel
               </Button>
             </Box>
           </Flex>

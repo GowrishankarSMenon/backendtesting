@@ -34,7 +34,7 @@ const AccordianInput = ({ title, head, index, layout, table, view }) => {
                     as="span"
                     flex="1"
                     textAlign="left"
-                    fontSize={"18px"}
+                    fontSize={"16px"}
                     fontWeight="600"
                   >
                     {title}
@@ -92,7 +92,7 @@ const AccordianInput = ({ title, head, index, layout, table, view }) => {
                     as="span"
                     flex="1"
                     textAlign="left"
-                    fontSize={"18px"}
+                    fontSize={"16px"}
                     fontWeight="600"
                   >
                     {title}

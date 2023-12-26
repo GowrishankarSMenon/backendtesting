@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -18,10 +19,20 @@ import { useEffect } from "react";
 
 const Loginbox = () => {
   const navigate = useNavigate();
-  const handleChange = () => {
-    console.log("login up page");
+
+  const [login, setLogin] = useState({
+    userId: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLogin((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  const login = () => {
+  const loginHandle = () => {
     console.log("sign up");
     localStorage.setItem("login", true);
     navigate("/");
@@ -38,16 +49,24 @@ const Loginbox = () => {
   }, []);
 
   return (
-    <div className="login_box">
+    <Box className="login_box">
       <FormController
         lable="Login Id"
         placeholder="Enter your Login Id"
-        handleChange={handleChange}
+        handleChange={(e) => handleChange(e)}
+        value={login.userId}
+        name="userId"
+        id="userId"
       />
 
       <FormControl isRequired my="1em">
         <FormLabel>Enter your Password</FormLabel>
-        <PasswordInput />
+        <PasswordInput
+          handleChange={(e) => handleChange(e)}
+          value={login.userId}
+          name="password"
+          id="password"
+        />
       </FormControl>
 
       <Box className="checkBox_box">
@@ -65,12 +84,12 @@ const Loginbox = () => {
           size="md"
           my="1em"
           w="30%"
-          onClick={login}
+          onClick={loginHandle}
         >
           Log In
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 };
 

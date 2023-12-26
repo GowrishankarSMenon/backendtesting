@@ -15,11 +15,13 @@ const TextAreaField = ({
   name,
   value,
   handleInputChange,
+  Required 
 }) => {
   return (
-    <FormControl isRequired mb={5}>
+    <FormControl isRequired={Required} mb={5}>
       <FormLabel fontSize={"14px"}>{label}</FormLabel>
       <Textarea
+        maxBlockSize={2}
         placeholder={placeholder}
         fontSize={"14px"}
         id={id}
@@ -28,7 +30,7 @@ const TextAreaField = ({
         onChange={handleInputChange}
       />
       {label != "Address" ? (
-        <Text fontSize={"12px"} mt={0}>
+        <Text fontSize={"12px"} mt={1}>
           (Maximum limit is 1000 characters)
         </Text>
       ) : null}
