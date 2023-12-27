@@ -21,47 +21,49 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 //components
 import FormController from "../helper/FormController";
-import Alert_Popup from "../modal/Alert_Popup";
 import PasswordInput from "../helper/PasswordInput";
-
 
 const initialValues = {
   userId: "",
   password: "",
-}
+};
 
 const Loginbox = () => {
   const navigate = useNavigate();
 
+  // const [login, setLogin] = useState()
+
+  const onSubmit = (values) => {
+    if (values.userId !== "" && values.password !== "") {
+      console.log("sign in");
+      console.log("Formik Values", values);
+      // localStorage.setItem("login", true);
+      // navigate("/");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 100);
+    } else {
+      console.log("sign up");
+      console.log("Formik Values", values);
+    }
+  };
+
+  const validate = (values) => {
+    let errors = {};
+    if (!values.userId) {
+      errors.userId = "Required";
+    }
+    if (!values.password) {
+      errors.password = "Required";
+    }
+    return errors;
+  };
+
   const formik = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      if (values.userId !== "" && values.password !== "") {
-        console.log("sign in");
-        console.log("Formik Values", values);
-        setAlertError(false);
-        // localStorage.setItem("login", true);
-        // navigate("/");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 100);
-      } else {
-        console.log("sign up");
-        console.log("Formik Values", values);
-        setAlertError(true);
-      }
-    },
-    validate: values => {
-      
-    }
+    onSubmit,
+    validate,
   });
-
-  console.log("====================================");
-  console.log("Login: ", formik.values);
-  console.log("====================================");
-
-  const [alertError, setAlertError] = useState(false);
-  // const [login, setLogin] = useState()
 
   useEffect(() => {
     let login = localStorage.getItem("login");
@@ -72,9 +74,6 @@ const Loginbox = () => {
 
   return (
     <Box className="login_box">
-      {alertError != false ? (
-        <Alert_Popup title="Input Should not be empty!" error="error" />
-      ) : null}
       <form onSubmit={formik.handleSubmit}>
         <Box>
           <FormController

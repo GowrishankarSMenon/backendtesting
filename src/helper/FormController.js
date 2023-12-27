@@ -17,9 +17,10 @@ const FormController = ({
   value,
   name,
   id,
-  Required
+  Required,
+  error
 }) => {
-  //console.log(placeholder, 'ff');
+
   return (
     <>
       <FormControl isRequired={Required} my="1em">
