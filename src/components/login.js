@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import assets from "../assests";
+import instance from "../aiosApi/baseUrl";
 
 //chakar-ui
 import {
@@ -31,7 +32,25 @@ const initialValues = {
 const Loginbox = () => {
   const navigate = useNavigate();
 
-  // const [login, setLogin] = useState()
+  const loginApi = (values) => {
+    console.log("Login Api: ", values);
+    let data = JSON.stringify({
+      "username": values.userId,
+      "password": values.password,
+      "employers": "demotest"
+    });
+
+    instance.post('Auth/Login', data)
+      .then(response => {
+        // Handle the response
+        console.log("REquest Post", response.data);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
+
+  }
 
   const onSubmit = (values) => {
     if (values.userId !== "" && values.password !== "") {
@@ -42,6 +61,7 @@ const Loginbox = () => {
       // setTimeout(() => {
       //   window.location.reload();
       // }, 100);
+      loginApi(values);
     } else {
       console.log("sign up");
       console.log("Formik Values", values);
