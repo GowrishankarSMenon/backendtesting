@@ -1,50 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import * as Yup from "yup";
+import assets from "../assests";
+
+//chakar-ui
 import {
   FormControl,
   FormLabel,
   FormErrorMessage,
   FormHelperText,
-  Input,
   Checkbox,
   Box,
   Button,
 } from "@chakra-ui/react";
-import assets from "../assests";
-import PasswordInput from "../helper/PasswordInput";
-// import { Link } from "react-router-dom"
 import { Link } from "@chakra-ui/react";
+
+//react-router
+// import { Link } from "react-router-dom"
 import { NavLink, useNavigate } from "react-router-dom";
+
+//components
 import FormController from "../helper/FormController";
-import { useEffect } from "react";
+import Alert_Popup from "../modal/Alert_Popup";
+import PasswordInput from "../helper/PasswordInput";
+
+
+const initialValues = {
+  userId: "",
+  password: "",
+}
 
 const Loginbox = () => {
   const navigate = useNavigate();
 
-  const [login, setLogin] = useState({
-    userId: "",
-    password: "",
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values) => {
+      if (values.userId !== "" && values.password !== "") {
+        console.log("sign in");
+        console.log("Formik Values", values);
+        setAlertError(false);
+        // localStorage.setItem("login", true);
+        // navigate("/");
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 100);
+      } else {
+        console.log("sign up");
+        console.log("Formik Values", values);
+        setAlertError(true);
+      }
+    },
+    validate: values => {
+      
+    }
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLogin((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  console.log("====================================");
+  console.log("Login: ", formik.values);
+  console.log("====================================");
 
-  // console.log('====================================');
-  // console.log("Login: ", login);
-  // console.log('====================================');
-  
-  const loginHandle = () => {
-    console.log("sign up");
-    localStorage.setItem("login", true);
-    navigate("/");
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
+  const [alertError, setAlertError] = useState(false);
+  // const [login, setLogin] = useState()
 
   useEffect(() => {
     let login = localStorage.getItem("login");
@@ -55,45 +72,54 @@ const Loginbox = () => {
 
   return (
     <Box className="login_box">
-      <FormController
-        lable="Login Id"
-        placeholder="Enter your Login Id"
-        handleChange={(e) => handleChange(e)}
-        value={login.userId}
-        name="userId"
-        id="userId"
-      />
+      {alertError != false ? (
+        <Alert_Popup title="Input Should not be empty!" error="error" />
+      ) : null}
+      <form onSubmit={formik.handleSubmit}>
+        <Box>
+          <FormController
+            lable="Login Id"
+            placeholder="Enter your Login Id"
+            handleChange={formik.handleChange}
+            value={formik.values.userId}
+            name="userId"
+            id="userId"
+            Required={true}
+          />
 
-      <FormControl isRequired my="1em">
-        <FormLabel>Enter your Password</FormLabel>
-        <PasswordInput
-          handleChange={(e) => handleChange(e)}
-          value={login.password}
-          name="password"
-          id="password"
-        />
-      </FormControl>
+          <FormControl isRequired my="1em">
+            <FormLabel>Enter your Password</FormLabel>
+            <PasswordInput
+              handleChange={formik.handleChange}
+              value={formik.values.password}
+              name="password"
+              id="password"
+              Required={true}
+            />
+          </FormControl>
 
-      <Box className="checkBox_box">
-        <Checkbox size="sm" colorScheme="blue">
-          Remember credentials
-        </Checkbox>
-        <Link color="red.400" fontSize="sm" href="/password">
-          Forget Password
-        </Link>
-      </Box>
-      <Box className="login_submit">
-        <Button
-          colorScheme="blue"
-          bg="#4160D8"
-          size="md"
-          my="1em"
-          w="30%"
-          onClick={loginHandle}
-        >
-          Log In
-        </Button>
-      </Box>
+          <Box className="checkBox_box">
+            <Checkbox size="sm" colorScheme="blue">
+              Remember credentials
+            </Checkbox>
+            <Link color="red.400" fontSize="sm" href="/password">
+              Forget Password
+            </Link>
+          </Box>
+          <Box className="login_submit">
+            <Button
+              type="submit"
+              colorScheme="blue"
+              bg="#4160D8"
+              size="md"
+              my="1em"
+              w="30%"
+            >
+              Log In
+            </Button>
+          </Box>
+        </Box>
+      </form>
     </Box>
   );
 };

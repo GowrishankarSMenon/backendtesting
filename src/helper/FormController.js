@@ -17,11 +17,12 @@ const FormController = ({
   value,
   name,
   id,
+  Required
 }) => {
   //console.log(placeholder, 'ff');
   return (
     <>
-      <FormControl isRequired my="1em">
+      <FormControl isRequired={Required} my="1em">
         <FormLabel>{label}</FormLabel>
         <Input
           placeholder={placeholder}
