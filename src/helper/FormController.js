@@ -24,7 +24,7 @@ const FormController = ({
   return (
     <>
       <FormControl isRequired={Required} my="1em">
-        <FormLabel>{label}</FormLabel>
+        <FormLabel htmlFor={id}>{label}</FormLabel>
         <Input
           placeholder={placeholder}
           onChange={handleChange}

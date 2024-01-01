@@ -21,8 +21,14 @@ import {
 const SaveTable = ({ jobList, table_head, new_table }) => {
   const [value, setValue] = React.useState("1");
   return (
-    <TableContainer className="">
-      <Table className={new_table} mt={6}>
+    <TableContainer
+      className=""
+      borderWidth={1}
+      borderRadius={"10px"}
+      borderColor={"#e2e8f0"}
+      mt={6}
+    >
+      <Table className={new_table}>
         <Thead>
           <Tr>
             <Th></Th>

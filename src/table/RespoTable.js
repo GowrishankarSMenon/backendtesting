@@ -7,21 +7,16 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
-  TableContainer,
   Box,
-  Input,
   Text,
   Link,
-  Button,
-  Radio,
-  RadioGroup,
+  Button
 } from "@chakra-ui/react";
 
 const RespoTable = ({ jobList, head, new_table }) => {
   const [value, setValue] = React.useState("1");
   return (
-    <Table className={new_table} mt={6}>
+    <Table className={new_table} mt={2}>
       <Thead>
         <Tr>
           {head[2].header.map((title, i) => {

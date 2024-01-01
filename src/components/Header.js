@@ -15,8 +15,8 @@ const Header = () => {
       : "main-header--layout main-bg";
 
   return (
-    <Box>
-      <Box className={classes}>
+    <Box className={classes}>
+      <Box>
         <header className="header header_section header--bg header--layout header-responsive">
           <Box className="">
             <NavBar />

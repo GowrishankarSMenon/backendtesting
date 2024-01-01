@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import assets from "../assests";
-import instance from "../aiosApi/baseUrl";
+import instance from "../axiosApis/baseUrl";
 
 //chakar-ui
 import {
@@ -35,20 +35,22 @@ const Loginbox = () => {
   const loginApi = (values) => {
     console.log("Login Api: ", values);
     let data = JSON.stringify({
-      "username": values.userId,
-      "password": values.password,
-      "employers": "demotest"
+        "userName": values.userId,
+        "password": values.password,
+        "accID": "34",
+        "encryptID": "string",
+        "employers": "demotest"
     });
 
-    instance.post('Auth/Login', data)
-      .then(response => {
-        // Handle the response
-        console.log("REquest Post", response.data);
-      })
-      .catch(error => {
-        // Handle the error
-        console.error(error);
-      });
+    instance.post('LoginCandidate', data)
+    .then(response => {
+      // Handle the response
+      console.log("REquest Post", response.data);
+    })
+    .catch(error => {
+      // Handle the error
+      console.error(error);
+    });
 
   }
 
@@ -56,12 +58,12 @@ const Loginbox = () => {
     if (values.userId !== "" && values.password !== "") {
       console.log("sign in");
       console.log("Formik Values", values);
-      // localStorage.setItem("login", true);
-      // navigate("/");
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 100);
-      loginApi(values);
+      localStorage.setItem("login", true);
+      navigate("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+      // loginApi(values);
     } else {
       console.log("sign up");
       console.log("Formik Values", values);

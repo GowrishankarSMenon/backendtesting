@@ -11,7 +11,7 @@ const TextInputField = ({ label, type, placeholder, Required, id, name, value, h
 
   return (
     <FormControl isRequired={Required} mb={5}>
-      <FormLabel fontSize={"14px"}>{label}</FormLabel>
+      <FormLabel htmlFor={id} fontSize={"14px"}>{label}</FormLabel>
       <Input
         type={type}
         onChange={handleInputChange}

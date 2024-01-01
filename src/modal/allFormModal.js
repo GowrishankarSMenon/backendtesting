@@ -12,7 +12,7 @@ import TextAreaField from "../helper/TextAreaField";
 import RadioInputField from "../helper/RadioInputField";
 import CheckedField from "../helper/CheckedField";
 
-const AllFormModal = ({ title, numValue }) => {
+const AllFormModal = ({ title, numValue, index }) => {
   let field_Name = multiFormFields[parseInt(numValue)].initialValues;
   const [input, setInput] = useState(field_Name);
   const onHandleChange = (event) => {

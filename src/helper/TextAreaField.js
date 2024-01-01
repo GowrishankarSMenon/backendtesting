@@ -19,7 +19,7 @@ const TextAreaField = ({
 }) => {
   return (
     <FormControl isRequired={Required} mb={5}>
-      <FormLabel fontSize={"14px"}>{label}</FormLabel>
+      <FormLabel htmlFor={id} fontSize={"14px"}>{label}</FormLabel>
       <Textarea
         maxBlockSize={2}
         placeholder={placeholder}

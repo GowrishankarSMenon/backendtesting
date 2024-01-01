@@ -17,6 +17,7 @@ import SaveJobsPage from "../pages/saveJobsPage";
 import Protected from "../components/Protected";
 import { HomePage } from "../pages/Home";
 import AcademicPage from "../pages/academicPage";
+import PageNotFound from "../pages/PageNotFound";
 
 export default function AllRoutes() {
   //localStorage.removeItem("login");
@@ -61,6 +62,7 @@ export default function AllRoutes() {
         path={`/my-profile/:title`}
         element={<Protected Component={AcademicPage} />}
       />
+      <Route path='*' element={<Protected Component={PageNotFound} />}/>
     </Routes>
   );
 }

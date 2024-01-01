@@ -431,9 +431,13 @@ td.css-xumdn4 button {
   border: 1px solid #434343;
 }
 
-.chakra-table__container.job_Table.css-zipzvv {
+.applied_table .job_Table {
   border: 1px solid #e6e6e6;
   border-radius: 10px;
+}
+
+.form_tables{
+  border: 1px solid #e6e6e6;
 }
 
 .response-btn--wrapper button.chakra-button.css-1hfku88 {
@@ -562,9 +566,9 @@ td.css-xumdn4 button {
   color: blue !important;
 }
 
-.profile_container .page-width {
+/* .profile_container .page-width {
     background-color: #f0f5ff;
-}
+} */
 
 /* Pagination Style */
 .pagination {

@@ -11,7 +11,7 @@ import {
 const SelectInputField = ({ label, placeholder, id, name, value, option, handleInputChange, Required }) => {
   return (
     <FormControl isRequired={Required} mb={5}>
-      {label != "" ? <FormLabel fontSize={"14px"}>{label}</FormLabel> : null}
+      {label != "" ? <FormLabel htmlFor={id} fontSize={"14px"}>{label}</FormLabel> : null}
       <Select
         placeholder={placeholder}
         fontSize={"14px"}

@@ -50,6 +50,7 @@ const AccordianInput = ({ title, head, index, layout, table, view }) => {
                 pb={4}
                 pl={1.5}
                 pr={1.5}
+                mb={2}
                 className="inner_content"
               >
                 {head === false ? (
@@ -137,6 +138,7 @@ const AccordianInput = ({ title, head, index, layout, table, view }) => {
                 pl={1.5}
                 pr={1.5}
                 className="inner_content"
+                mb={2}
               >
                 <JobTable
                   jobList={jobList}

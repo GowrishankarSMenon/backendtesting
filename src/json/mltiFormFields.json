@@ -24,7 +24,7 @@
             "field": "select",
             "name": "school_Type",
             "id": "school_Type",
-            "value": "",
+            "value": "Secondary",
             "placeholder": "Select From List",
             "type": "",
             "label": "School Type",

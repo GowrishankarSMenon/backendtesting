@@ -103,7 +103,7 @@ const ProfilePage = () => {
           {inputGrid.length > 0
             ? inputGrid.map((item, i) => {
                 return (
-                  <Box key={i + 1}>
+                  <Box key={i + 1} className="accordian--box">
                     <AccordianInput
                       index={i + 1}
                       title={item.title}

@@ -50,7 +50,7 @@ const RadioInputField = ({
             onChange={handleInputChange}
           />
           <label
-            for="yes"
+            htmlFor="yes"
             style={{
               fontSize: "14px",
               marginLeft: "5px",
@@ -74,7 +74,7 @@ const RadioInputField = ({
             onChange={handleInputChange}
           />
           <label
-            for="no"
+            htmlFor="no"
             style={{
               fontSize: "14px",
               marginLeft: "5px",
