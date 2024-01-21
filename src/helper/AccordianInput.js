@@ -19,9 +19,7 @@ import profiles from "../json/profileTitles.json";
 import HeadTableLayout from "../components/HeadTableLayout";
 
 const AccordianInput = ({ title, head, index, layout, table, view, candidate }) => {
-  // console.log("====================================");
-  // console.log(layout);
-  // console.log("====================================");
+
   return (
     <>
       {layout === "Profile" ? (

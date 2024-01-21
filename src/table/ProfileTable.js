@@ -27,12 +27,9 @@ import { useDisclosure } from "@chakra-ui/react";
 
 /* components */
 import FormModal from "../modal/formModal";
-import JobForm from "../modal/JobForm";
-import ObjectForm from "../modal/ObjectForm";
 
-const ProfileTable = ({ tableView, tableName, details, candidate }) => {
+const ProfileTable = ({ tableView, tableName, candidate }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log("name:", tableName);
   return (
     <>
       <TableContainer className="grid-table">
@@ -1271,13 +1268,7 @@ const ProfileTable = ({ tableView, tableName, details, candidate }) => {
         <ModalContent maxW={"55rem"} p={[4, 8]}>
           <ModalCloseButton />
           <ModalBody mt={2}>
-            {tableView === "profile" ? (
-              <FormModal editForm={candidate[0]} />
-            ) : tableView === "job-profile" ? (
-              <JobForm />
-            ) : (
-              <ObjectForm />
-            )}
+            <FormModal editForm={candidate[0]} />
           </ModalBody>
         </ModalContent>
       </Modal>
