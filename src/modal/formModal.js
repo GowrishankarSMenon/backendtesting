@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import { Box, Button, Flex, Text, Heading, Divider } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 //import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -63,7 +64,7 @@ const initialValues = {
   chkPermanent: false,
 };
 
-const FormModal = () => {
+const FormModal = ({editForm}) => {
   // console.log("Country", Country.getAllCountries());
   // console.log("State", State.getStatesOfCountry("IN"));
   const [input, setInput] = useState(initialValues);
@@ -100,9 +101,42 @@ const FormModal = () => {
     console.log(e);
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-  }
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  // }
+
+  const onSubmit = (values) => {
+    // if (values.userId !== "" && values.password !== "") {
+    //   console.log("sign in");
+    //   console.log("Formik Values", values);
+    //   localStorage.setItem("login", true);
+    //   navigate("/");
+    //   setTimeout(() => {
+    //     window.location.reload();
+    //   }, 100);
+    //   // loginApi(values);
+    // } else {
+    //   console.log("sign up");
+    //   console.log("Formik Values", values);
+    // }
+  };
+
+  const validate = (values) => {
+    let errors = {};
+    // if (!values.userId) {
+    //   errors.userId = "Required";
+    // }
+    // if (!values.password) {
+    //   errors.password = "Required";
+    // }
+    return errors;
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validate,
+  });
   // console.log("====================================");
   // console.log(input);
   // console.log("====================================");
@@ -122,7 +156,7 @@ const FormModal = () => {
           <Text as={"span"}>4/6/2022 5:02:36 AM</Text>
         </Box>
       </Box>
-      <form onSubmit={(e) => handleFormSubmit(e)}>
+      <form onSubmit={formik.handleSubmit}>
         <TextInputField
           type="text"
           name="profile_name"

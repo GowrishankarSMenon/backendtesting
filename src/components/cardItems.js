@@ -42,7 +42,9 @@ const CardItems = () => {
             {jobsList.length > 0
               ? jobsList.map((list, i) => {
                   if (i < loadItems) {
-                    return <CardGrid title={list.title} id={list.id} />;
+                    return (
+                      <CardGrid title={list.title} id={list.id} key={i + 1} />
+                    );
                   }
                 })
               : null}

@@ -103,7 +103,10 @@ const SideDrawer = () => {
                   fontSize={'15px'}
                   fontWeight={'600'}
                   href="/"
-                  onClick={() => localStorage.removeItem("login")}
+                  onClick={() => {
+                    localStorage.removeItem("login");
+                    localStorage.removeItem("token_Key");
+                  }}
                 >
                   Logout
                 </Text>

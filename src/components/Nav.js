@@ -15,15 +15,22 @@ import assets from "../assests";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SideDrawer from "./SideDrawer";
+import countDown from "../hooks/countDown";
 
 const NavBar = () => {
+  
   const [getLogin, setGetLogin] = useState(false);
 
   useEffect(() => {
     let loginValue = localStorage.getItem("login");
     setGetLogin(loginValue);
-  });
-  console.log("gridTemplate: ", getLogin);
+  }, [getLogin]);
+
+  if (getLogin != false && getLogin != null) {
+    /* Start the timer with a duration of 30 minutes */
+    countDown(1800);
+  }
+
   return (
     <Box w={"100%"}>
       {getLogin == "true" ? (
@@ -117,7 +124,10 @@ const NavBar = () => {
                   <MenuItem
                     as="a"
                     href="/"
-                    onClick={() => localStorage.removeItem("login")}
+                    onClick={() => {
+                      localStorage.removeItem("login");
+                      localStorage.removeItem("token_Key");
+                    }}
                   >
                     Logout
                   </MenuItem>

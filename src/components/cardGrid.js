@@ -20,7 +20,7 @@ import location from "../assests/icons/location.jpeg";
 
 const CardGrid = ({ title, id }) => {
   return (
-    <Card minW="350px" className="card-grid-container" key={id}>
+    <Card minW="365px" className="card-grid-container" key={id}>
       <CardHeader className="card-frid-wrapper">
         <Flex
           flex="1"

@@ -12,7 +12,7 @@ const CategoryCard = () => {
             <Box
               w={"100%"}
               h={"190px"}
-              className="categoryCard_box"
+              className={`categoryCard_box cardBox_${i}`}
               key={i + 1}
             >
               <Link className="categoryCard_link">
@@ -34,6 +34,7 @@ const CategoryCard = () => {
                       textAlign="center"
                       color="#141414"
                       className="subText_title"
+                      wordBreak="break-all"
                     >
                       {item.title}
                     </Text>

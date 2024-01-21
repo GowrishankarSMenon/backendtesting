@@ -186,7 +186,7 @@ const AllFormModal = ({ title, numValue, index }) => {
                           ? list.multi_field[0].form_fields.map(
                               (inputFields, i) => {
                                 return (
-                                  <>
+                                  <div key={i + 1}>
                                     {inputFields.field === "select" ? (
                                       <Box key={i + 1}>
                                         <SelectInputField
@@ -252,7 +252,7 @@ const AllFormModal = ({ title, numValue, index }) => {
                                         />
                                       </Box>
                                     ) : null}
-                                  </>
+                                  </div>
                                 );
                               }
                             )

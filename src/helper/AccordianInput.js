@@ -18,7 +18,7 @@ import table_head from "../json/tableHeader.json";
 import profiles from "../json/profileTitles.json";
 import HeadTableLayout from "../components/HeadTableLayout";
 
-const AccordianInput = ({ title, head, index, layout, table, view }) => {
+const AccordianInput = ({ title, head, index, layout, table, view, candidate }) => {
   // console.log("====================================");
   // console.log(layout);
   // console.log("====================================");
@@ -63,6 +63,7 @@ const AccordianInput = ({ title, head, index, layout, table, view }) => {
                               tableView={view}
                               tableName={data.table}
                               details={data.details}
+                              candidate={candidate}
                             />
                           ) : null}
                         </Box>

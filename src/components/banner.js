@@ -634,7 +634,7 @@ export const Banner = () => {
                   gradientUnits="userSpaceOnUse"
                 >
                   <stop offset="0.387888" stopColor="#EFF1FF" />
-                  <stop offset="1" stopColor="#EFFEFF" stop-opacity="0" />
+                  <stop offset="1" stopColor="#EFFEFF" stopOpacity="0" />
                 </linearGradient>
                 <clipPath id="clip0_15_1655">
                   <rect width="1440" height="585" fill="white" />

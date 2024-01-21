@@ -13,6 +13,7 @@ import {
   Checkbox,
   Box,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
 
@@ -30,41 +31,48 @@ const initialValues = {
 };
 
 const Loginbox = () => {
+  
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const loginApi = (values) => {
     console.log("Login Api: ", values);
     let data = JSON.stringify({
-        "userName": values.userId,
-        "password": values.password,
-        "accID": "34",
-        "encryptID": "string",
-        "employers": "demotest"
+      username: values.userId,
+      password: values.password,
+      employers: "demotest",
     });
 
-    instance.post('LoginCandidate', data)
-    .then(response => {
-      // Handle the response
-      console.log("REquest Post", response.data);
-    })
-    .catch(error => {
-      // Handle the error
-      console.error(error);
-    });
-
-  }
+    instance
+      .post("Auth/Login", data)
+      .then((response) => {
+        // Handle the response
+        console.log("REquest Post", response);
+        if (response.status === 200) {
+          localStorage.setItem("login", true);
+          localStorage.setItem("token_Key", response.data.token);
+          setTimeout(() => {
+            setLoading(false);
+            navigate("/");
+            setTimeout(() => {
+              window.location.reload();
+            }, 100);
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        // Handle the error
+        console.error(error);
+      });
+  };
 
   const onSubmit = (values) => {
     if (values.userId !== "" && values.password !== "") {
-      console.log("sign in");
-      console.log("Formik Values", values);
-      localStorage.setItem("login", true);
-      navigate("/");
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-      // loginApi(values);
+      loginApi(values);
+      setLoading(!false);
     } else {
+      setLoading(false);
       console.log("sign up");
       console.log("Formik Values", values);
     }
@@ -136,7 +144,17 @@ const Loginbox = () => {
               my="1em"
               w="30%"
             >
-              Log In
+              {loading !== true ? (
+                "Log In"
+              ) : (
+                <Spinner
+                  thickness="2px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="md"
+                />
+              )}
             </Button>
           </Box>
         </Box>

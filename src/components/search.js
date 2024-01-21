@@ -4,7 +4,7 @@ import { select_sector } from "../selectData/selectOption";
 import { select_country } from "../selectData/selectCountry";
 
 const SearchSection = () => {
-  console.log(select_sector);
+  // console.log(select_sector);
   return (
     <Box className="search-bar-container">
       <Box className="search-bar-box">

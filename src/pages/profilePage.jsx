@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
+import instance from "../axiosApis/getUrl";
 import { Box, Flex, Accordion, Text } from "@chakra-ui/react";
 import AccordianInput from "../helper/AccordianInput";
 
@@ -81,10 +82,35 @@ const inputGrid = [
 
 const ProfilePage = () => {
   const location = useLocation();
+  const [candidate, setCandidate] = useState({});
 
-  console.log("====================================");
-  console.log("params: ", location);
-  console.log("====================================");
+  let token_key = localStorage.getItem("token_Key");
+
+  useEffect(() => {
+    if (localStorage.getItem("token_Key") != null) {
+      instance
+        .get(`getCandidate?CandidateID=${96}`)
+        .then((response) => {
+          // Handle the response
+          //console.log(response.status);
+
+          if (response.status === 200) {
+            setTimeout(() => {
+              setCandidate(response.data.Table0);
+            }, 100);
+          }
+        })
+        .catch((error) => {
+          // Handle the error
+          console.error(error);
+        });
+    } else {
+      console.log("TOKEN KEY: ", token_key);
+    }
+  }, []);
+
+  console.log("DATA: ", candidate);
+
   return (
     <Box w={"100%"} className="profile_container">
       <Box w={"100%"} bg={"#fafcff"}>
@@ -111,6 +137,7 @@ const ProfilePage = () => {
                       layout={item.layout}
                       table=""
                       view={item.tableView}
+                      candidate={candidate}
                     />
                   </Box>
                 );
