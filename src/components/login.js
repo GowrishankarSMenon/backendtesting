@@ -121,6 +121,7 @@ const Loginbox = () => {
             <PasswordInput
               handleChange={formik.handleChange}
               value={formik.values.password}
+              placeholder={"Enter password"}
               name="password"
               id="password"
               Required={true}
