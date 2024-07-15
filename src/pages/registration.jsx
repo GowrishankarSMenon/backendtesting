@@ -28,17 +28,21 @@ const Registration = () => {
   // }, [status, statusLink]);
 
   return (
-    <div className="register_box">
-      <div>
+    <div className="flex overflow-hidden md:gap-5 p-7 md:p-0">
+      <div className="md:block hidden">
         <img src={assets.images.LOGIN.BANNER} alt="" />
       </div>
-      <div className="register_container">
-        <Text as="b" fontSize="3xl" m="3">
+      <div className="md:w-1/2 w-full h-1/3 md:p-8 md:border-2 md:mr-8 md:border-gray-300 md:rounded-2xl">
+        <Text className="md:text-2xl text-lg font-bold md:text-left">
           Welcome to Alchemus
         </Text>
         <div className="login_signupToggle">
-          <NavLink to="/login" onClick={() => console.log("Login page")}>Login</NavLink>
-          <NavLink to="/registration" onClick={() => console.log("Register")}>Registration</NavLink>
+          <NavLink to="/login" onClick={() => console.log("Login page")}>
+            Login
+          </NavLink>
+          <NavLink to="/registration" onClick={() => console.log("Register")}>
+            Registration
+          </NavLink>
           {/* <Button
               className="link-button"
               colorScheme={status ? "" : "blue"}

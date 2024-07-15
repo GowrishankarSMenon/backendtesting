@@ -11,7 +11,7 @@ function PasswordInput({ label, placeholder, handleChange, value, name, id,  Req
       <Input
         pr="4.5rem"
         type={show ? "text" : "password"}
-        placeholder="Enter password"
+        placeholder={placeholder}
         onChange={handleChange}
         value={value}
         name={name}
