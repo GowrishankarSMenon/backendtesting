@@ -18,7 +18,7 @@ const CardItems = () => {
   return (
     <Box className="react-job--container page-width">
       <Box className="job-grid--wrapper">
-        <Box mb={6} className="">
+        <Box mb={6} mt={6} className="">
           <Heading
             as={"h2"}
             fontSize="24px"
@@ -27,7 +27,7 @@ const CardItems = () => {
             textAlign="left"
             className=""
           >
-            React Jobs
+            Recent Jobs
           </Heading>
         </Box>
         <Box className="">

@@ -11,14 +11,14 @@ export const Banner = () => {
           <div className="banner-svg-wrapper">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="1440"
+              width="1640"
               height="585"
-              viewBox="0 0 1440 585"
+              viewBox="0 0 1640 585"
               fill="none"
             >
               <g clipPath="url(#clip0_15_1655)">
                 <rect
-                  width="1440"
+                  width="1640"
                   height="585"
                   fill="url(#paint0_linear_15_1655)"
                 />
@@ -637,7 +637,7 @@ export const Banner = () => {
                   <stop offset="1" stopColor="#EFFEFF" stopOpacity="0" />
                 </linearGradient>
                 <clipPath id="clip0_15_1655">
-                  <rect width="1440" height="585" fill="white" />
+                  <rect width="1640" height="585" fill="white" />
                 </clipPath>
               </defs>
             </svg>

@@ -12,7 +12,7 @@ const CategoryCard = () => {
             <Box
               w={"100%"}
               h={"190px"}
-              className={`categoryCard_box cardBox_${i}`}
+              className={`categoryCard_box cardBox_${i} !bg-white`}
               key={i + 1}
             >
               <Link className="categoryCard_link">
@@ -47,6 +47,7 @@ const CategoryCard = () => {
       : null;
 
   return (
+    <Box className="bg-[#F5F7FF]">
     <Box className="product-category-container page-width">
       <Box className="categoryCard_container">
         <Box className="categoryCard_textWrapper">
@@ -58,7 +59,7 @@ const CategoryCard = () => {
             lineHeight="29px"
             textAlign="left"
           >
-            Product Categories
+            Popular Categories
           </Heading>
         </Box>
         <Box className="categoryCard_wrapper">
@@ -67,6 +68,7 @@ const CategoryCard = () => {
           </Box>
         </Box>
       </Box>
+    </Box>
     </Box>
   );
 };
