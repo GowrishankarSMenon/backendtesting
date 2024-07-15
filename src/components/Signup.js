@@ -15,24 +15,45 @@ const SignupBox = () => {
 
   return (
     <>
-      <FormController lable='Enter Email Address' placeholder='Enter Email Address' handleChange={handleChange}/>
-      <FormController lable='Enter Login ID ' placeholder='Enter your Login Id' handleChange={handleChange}/>
+      <FormController
+        label="Enter Email Address"
+        placeholder="Enter Email Address"
+        Required={true}
+        handleChange={handleChange}
+      />
+      <FormController
+        label="Enter Login ID "
+        Required={true}
+        placeholder="Enter Login Id"
+        undertext={"(Login ID should be atleast 5 characters)"}
+        handleChange={handleChange}
+      />
 
-      <FormControl isRequired my='1em'>
+      <FormControl isRequired my="1em">
         <FormLabel>Enter Password</FormLabel>
-        <PasswordInput />
+        <PasswordInput placeholder={"Enter Password"} />
+        <p className="p-1 text-gray-500 text-sm">
+          (Password should be atleast 5 character)
+        </p>
       </FormControl>
 
-      <FormControl isRequired my='1em'>
+      <FormControl isRequired my="1em">
         <FormLabel>Confirm Password</FormLabel>
-        <PasswordInput />
+        <PasswordInput placeholder={"Confirm Password"} />
       </FormControl>
-      <Box className="checkBox_box">
-        <Text size='sm'>By signing up, you are agreeing to <Link color='blue.900'>Privacy Policy</Link> </Text>
-        <Button colorScheme="blue" bg='#4160D8' w='35%'>Register Me</Button>
+      <Box className="md:flex justify-between items-center">
+        <Text size="sm">
+          By signing up, you are agreeing to{" "}
+          <Link>
+            <span className="text-blue-600 underline">Privacy Policy</span>
+          </Link>{" "}
+        </Text>
+        <Button colorScheme="blue" bg="#4160D8" className=" w-full md:w-40  mt-5 md:mt-0">
+          Register
+        </Button>
       </Box>
     </>
-  )
+  );
 }
 
 export default SignupBox;
