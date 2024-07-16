@@ -33,7 +33,7 @@ const NavBar = () => {
 
   return (
     <Box w={"100%"}>
-      {getLogin == "true" ? (
+      {getLogin !== "true" ? (
         <Box
           className="c_logo"
           w={"100%"}

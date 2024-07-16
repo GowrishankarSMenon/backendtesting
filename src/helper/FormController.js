@@ -18,6 +18,7 @@ const FormController = ({
   name,
   id,
   Required,
+  undertext,
   error
 }) => {
 
@@ -32,6 +33,7 @@ const FormController = ({
           name={name}
           id={id}
         />
+        {undertext && <p className="text-gray-500 text-sm p-1">{undertext}</p>}
       </FormControl>
     </>
   );

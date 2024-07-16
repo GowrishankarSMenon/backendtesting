@@ -103,11 +103,11 @@ const Loginbox = () => {
   }, []);
 
   return (
-    <Box className="login_box">
+    <Box className="w-full">
       <form onSubmit={formik.handleSubmit}>
-        <Box>
+        <Box >
           <FormController
-            lable="Login Id"
+            label="Login Id"
             placeholder="Enter your Login Id"
             handleChange={formik.handleChange}
             value={formik.values.userId}
@@ -121,6 +121,7 @@ const Loginbox = () => {
             <PasswordInput
               handleChange={formik.handleChange}
               value={formik.values.password}
+              placeholder={"Enter password"}
               name="password"
               id="password"
               Required={true}

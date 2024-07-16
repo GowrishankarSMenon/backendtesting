@@ -4,7 +4,7 @@ import people from "../assests/images/People.png";
 
 const SideImage = () => {
   return (
-    <Box className="people-image-container">
+    <Box className="people-image-container hidden md:flex">
       <Box className="people-image-wrapper">
         <Image src={people} alt="people.png" />
       </Box>
