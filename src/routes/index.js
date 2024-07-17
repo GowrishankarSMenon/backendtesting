@@ -18,10 +18,12 @@ import Protected from "../components/Protected";
 import { HomePage } from "../pages/Home";
 import AcademicPage from "../pages/academicPage";
 import PageNotFound from "../pages/PageNotFound";
+import jobDetails from "../pages/jobDetails";
+import MyResumes from "../pages/MyResumes";
 
 export default function AllRoutes() {
   //localStorage.removeItem("login");
-  
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -32,6 +34,10 @@ export default function AllRoutes() {
       <Route
         path="/category"
         element={<Protected Component={CategoryPage} />}
+      />
+      <Route
+        path="/my-resumes"
+        element={<Protected Component={MyResumes} />}
       />
       <Route
         path="/my-profile"
@@ -51,6 +57,10 @@ export default function AllRoutes() {
         element={<Protected Component={JobDescriptionPage} />}
       />
       <Route
+        path="/job-description/:id"
+        element={<Protected Component={jobDetails} />}
+      />
+      <Route
         path="/job-applied"
         element={<Protected Component={JobAppliedPage} />}
       />
@@ -62,7 +72,7 @@ export default function AllRoutes() {
         path={`/my-profile/:title`}
         element={<Protected Component={AcademicPage} />}
       />
-      <Route path='*' element={<Protected Component={PageNotFound} />}/>
+      <Route path="*" element={<Protected Component={PageNotFound} />} />
     </Routes>
   );
 }
