@@ -16,10 +16,12 @@
     "table": "Save",
     "header": [
       { "radio": true, "head_Title": "Reference #" },
+      { "radio": true, "head_Title": "Reference #" },
       { "radio": true, "head_Title": "Position Title" },
       { "radio": true, "head_Title": "Job Category" },
       { "radio": true, "head_Title": "Job Term" },
       { "radio": true, "head_Title": "Location" },
+      { "radio": true, "head_Title": "Alert" },
       { "radio": true, "head_Title": "Duration" },
       { "radio": true, "head_Title": "Date Added" }
     ]
