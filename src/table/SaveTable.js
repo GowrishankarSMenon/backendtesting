@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   Table,
   Thead,
@@ -14,12 +14,22 @@ import {
   Text,
   Link,
   Button,
-  Radio,
-  RadioGroup,
+  Checkbox
 } from "@chakra-ui/react";
+import { MdOutlineAddAlert } from "react-icons/md";
+import { MdAddAlert } from "react-icons/md";
+
+
 
 const SaveTable = ({ jobList, table_head, new_table }) => {
-  const [value, setValue] = React.useState("1");
+  const [selectedValues, setSelectedValues] = useState([]);
+
+  const handleCheckboxChange = (id) => {
+    setSelectedValues((prev) =>
+      prev.includes(id) ? prev.filter((value) => value !== id) : [...prev, id]
+    );
+  };
+
   return (
     <TableContainer
       className=""
@@ -40,13 +50,14 @@ const SaveTable = ({ jobList, table_head, new_table }) => {
         <Tbody>
           {jobList.length > 0
             ? jobList.map((list, i) => {
-                if (i < 1) {
+                 {
                   return (
                     <Tr key={list.id}>
                       <Td>
-                        <RadioGroup onChange={setValue} value={value}>
-                          <Radio value={i + 1}></Radio>
-                        </RadioGroup>
+                        <Checkbox
+                          isChecked={selectedValues.includes(list.id)}
+                          onChange={() => handleCheckboxChange(list.id)}
+                        />
                       </Td>
                       <Td>
                         <Link>{list.reference}</Link>
@@ -62,6 +73,9 @@ const SaveTable = ({ jobList, table_head, new_table }) => {
                       </Td>
                       <Td>
                         <Text>{list.type}</Text>
+                      </Td>
+                      <Td>
+                        <MdOutlineAddAlert />
                       </Td>
                       <Td>
                         <Link>{list.resume}</Link>
