@@ -10,7 +10,7 @@ const SaveJobsPage = () => {
   return (
     <Box mb={24} className="user-jobs-lists page-width">
       <Box>
-        <div className="gap-5 flex md:mt-20 mt-10 justify-start items-center">
+        <div className="gap-5 flex md:flex-row flex-col md:mt-20 mt-10 justify-start md:items-center">
           <Button
             className="w-40 !text-white !bg-[#FF3B3B]"
           >

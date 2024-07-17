@@ -63,25 +63,25 @@ const SaveTable = ({ jobList, table_head, new_table }) => {
                         <Link>{list.reference}</Link>
                       </Td>
                       <Td>
-                        <Text>{list.loaction}</Text>
-                      </Td>
-                      <Td>
-                        <Text>{list.date}</Text>
+                        <Text>{list.type}</Text>
                       </Td>
                       <Td>
                         <Text>{list.category}</Text>
                       </Td>
                       <Td>
-                        <Text>{list.type}</Text>
+                        <Text>{list.category}</Text>
+                      </Td>
+                      <Td>
+                        <Text>{list.location}</Text>
                       </Td>
                       <Td>
                         <MdOutlineAddAlert />
                       </Td>
                       <Td>
-                        <Link>{list.resume}</Link>
+                        <Link>-- --- -- </Link>
                       </Td>
                       <Td>
-                        <Button>{list.status}</Button>
+                        <Text>{list.date}</Text>
                       </Td>
                     </Tr>
                   );
