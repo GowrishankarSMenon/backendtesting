@@ -4,7 +4,7 @@ import { Box, Text, Button } from "@chakra-ui/react";
 
 import jobList from "../json/jobListData.json";
 import table_head from "../json/tableHeader.json";
-import SaveTable from "../table/SaveTable";
+import SaveTable from "../table/tableLayout";
 
 const SaveJobsPage = () => {
   return (
