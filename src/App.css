@@ -216,17 +216,17 @@ header.header_section {
 
 .search-bar-box {
   width: 100%;
-  max-width: 1080px;
+  max-width: 1160px;
   background-color: #a2b4fc;
   position: relative;
   border-radius: 10px;
 }
 
 .search-bar-layout.css-0 {
-  width: 90%;
+  width: 95%;
   background-color: #fff;
   margin: 2rem auto;
-  padding: 1.5rem 2.5rem;
+  padding: 1.5rem 1rem;
   border-radius: 10px;
 }
 
