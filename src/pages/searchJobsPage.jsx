@@ -7,10 +7,10 @@ import SearchSection from '../components/search';
 
 const SearchJobsPage = () => {
   return (
-    <Box w={'100%'} h={'100%'}>
-      <Banner/>
+    <Box w={'100%'} h={'100%'} padding={"15"}>
+      {/* <Banner/> */}
       <SearchSection/>
-      <CategoryCard/>
+      {/* <CategoryCard/> */}
       <CardItems/>
     </Box>
   )
