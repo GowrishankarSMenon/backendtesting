@@ -12,11 +12,11 @@ const SaveJobsPage = () => {
       <Box>
         <div className="gap-5 flex md:flex-row flex-col md:mt-20 mt-10 justify-start md:items-center">
           <Button
-            className="w-40 !text-white !bg-[#FF3B3B]"
+            className="w-40 !text-white !font-normal !bg-[#FF3B3B]"
           >
             Delete
           </Button>
-          <Button className="w-40  !text-white !bg-[#4160D8]">Add Alert</Button>
+          <Button className="w-40 !font-normal  !text-white !bg-[#4160D8]">Add Alert</Button>
         </div>
         <SaveTable jobList={jobList} table_head={table_head} table="Save" />
       </Box>

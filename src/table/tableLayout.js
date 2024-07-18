@@ -3,87 +3,88 @@ import {
   Table,
   Thead,
   Tbody,
+  Tfoot,
   Tr,
   Th,
   Td,
+  TableCaption,
   TableContainer,
-  Link,
-  Radio,
-  RadioGroup,
+  Box,
+  Input,
   Text,
+  Link,
+  Button,
+  Checkbox,
 } from "@chakra-ui/react";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { MdOutlineAddAlert } from "react-icons/md";
+import { MdAddAlert } from "react-icons/md";
 
-const SaveTable = ({ jobList, new_table }) => {
-  const [selectedValue, setSelectedValue] = useState(null);
-  const [primaryId, setPrimaryId] = useState(null);
+const SaveTable = ({ jobList, table_head, new_table }) => {
+  const [selectedValues, setSelectedValues] = useState([]);
 
-  const table_head = [
-    { head_Title: "Select" },
-    { head_Title: "Attachments" },
-    { head_Title: "Date Added" },
-    { head_Title: "Mark Primary" },
-  ];
-
-  const table_Data = [
-    { id: 1, attachments: "Resume", dateAdded: "2021-09-01" },
-    { id: 2, attachments: "Resume", dateAdded: "2021-09-01" },
-    { id: 3, attachments: "Resume", dateAdded: "2021-09-01" },
-  ];
-
-  const handleStarClick = (id) => {
-    setPrimaryId(id === primaryId ? null : id);
-  };
-
-  const handleRadioChange = (value) => {
-    setSelectedValue(value);
+  const handleCheckboxChange = (id) => {
+    setSelectedValues((prev) =>
+      prev.includes(id) ? prev.filter((value) => value !== id) : [...prev, id]
+    );
   };
 
   return (
     <TableContainer
+      className=""
       borderWidth={1}
-      borderRadius="10px"
-      borderColor="#e2e8f0"
+      borderRadius={"10px"}
+      borderColor={"#e2e8f0"}
       mt={6}
     >
       <Table className={new_table}>
         <Thead>
           <Tr>
-            {table_head.map((title, i) => (
-              <Th key={i}>{title.head_Title}</Th>
-            ))}
+            {table_head[1].header.map((title, i) => {
+              return <Th key={i + 1}>{title.head_Title}</Th>;
+            })}
           </Tr>
         </Thead>
         <Tbody>
-          {table_Data.length > 0 &&
-            table_Data.map((list) => (
-              <Tr key={list.id}>
-                <Td>
-                  <RadioGroup
-                    onChange={handleRadioChange}
-                    value={selectedValue}
-                  >
-                    <Radio value={String(list.id)} />
-                  </RadioGroup>
-                </Td>
-                <Td>
-                  <Link>{list.attachments}</Link>
-                </Td>
-                <Td>
-                  <Text>{list.dateAdded}</Text>
-                </Td>
-                <Td>
-                  {primaryId === list.id ? (
-                    <FaStar
-                      className="text-yellow-400"
-                      onClick={() => handleStarClick(list.id)}
-                    />
-                  ) : (
-                    <FaRegStar onClick={() => handleStarClick(list.id)} />
-                  )}
-                </Td>
-              </Tr>
-            ))}
+          {jobList.length > 0
+            ? jobList.map((list, i) => {
+                {
+                  return (
+                    <Tr key={list.id}>
+                      <Td>
+                        <Checkbox
+                          isChecked={selectedValues.includes(list.id)}
+                          onChange={() => handleCheckboxChange(list.id)}
+                        />
+                      </Td>
+                      <Td>
+                        <Link>{list.reference}</Link>
+                      </Td>
+                      <Td>
+                        <Text>{list.type}</Text>
+                      </Td>
+                      <Td>
+                        <Text>{list.category}</Text>
+                      </Td>
+                      <Td>
+                        <Text>{list.category}</Text>
+                      </Td>
+                      <Td>
+                        <Text>{list.location}</Text>
+                      </Td>
+                      <Td>
+                        <MdOutlineAddAlert />
+                      </Td>
+                      <Td>
+                        <Link>-- --- -- </Link>
+                      </Td>
+                      <Td>
+                        <Text>{list.date}</Text>
+                      </Td>
+                    </Tr>
+                  );
+                }
+              })
+            : null}
         </Tbody>
       </Table>
     </TableContainer>
