@@ -1,8 +1,6 @@
 import React from 'react'
 import { Box, Button } from '@chakra-ui/react'
-import SaveTable from '../table/tableLayout'
-import jobList from '../json/jobListData.json'
-import table_head from '../json/tableHeader.json'
+import ResumeTable from '../table/ResumeTable'
 
 
 function MyResumes() {
@@ -25,7 +23,7 @@ function MyResumes() {
             If you wish to use an existing resume, please select of from the
             list below and click apply
           </h3>
-          <SaveTable   />
+          <ResumeTable/>
         </div>
       </Box>
     </Box>
