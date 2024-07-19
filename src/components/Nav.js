@@ -24,7 +24,13 @@ import countDown from "../hooks/countDown";
 const NavBar = () => {
   const [getLogin, setGetLogin] = useState(false);
   const [notifications, setNotifications] = useState([
+    { id: 2, message: "Your application has been reviewed." },
+    { id: 2, message: "Your application has been reviewed." },
+    { id: 2, message: "Your application has been reviewed." },
+    { id: 2, message: "Your application has been reviewed." },
+    { id: 2, message: "Your application has been reviewed." },
     { id: 1, message: "New job posted!" },
+    { id: 2, message: "Your application has been reviewed." },
     { id: 2, message: "Your application has been reviewed." },
   ]);
 
@@ -129,11 +135,35 @@ const NavBar = () => {
                     </Badge>
                   )}
                 </MenuButton>
-                <MenuList>
+                <MenuList
+                  maxHeight="300px"
+                  overflowY="scroll"
+                  sx={{
+                    '&::-webkit-scrollbar': {
+                      width: '8px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                      background: '#f1f1f1',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                      background: '#888',
+                      borderRadius: '8px',
+                    },
+                    '&::-webkit-scrollbar-thumb:hover': {
+                      background: '#555',
+                    },
+                  }}
+                >
+                  <MenuItem className="text-base font-medium mb-2">
+                    All Notifications
+                  </MenuItem>
                   {notifications.map((notification) => (
-                    <MenuItem key={notification.id}>
-                      {notification.message}
-                    </MenuItem>
+                    <>
+                      <MenuItem key={notification.id} className="text-sm font-medium">
+                        {notification.message}
+                      </MenuItem>
+                      <MenuDivider />
+                    </>
                   ))}
                   {notifications.length === 0 && (
                     <MenuItem>No new notifications</MenuItem>
