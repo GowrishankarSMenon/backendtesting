@@ -8,6 +8,7 @@ import reference from '../assests/icons/jobDetails/reference.svg'
 import date from '../assests/icons/jobDetails/date.svg'
 import term from '../assests/icons/jobDetails/term.svg'
 import job from '../assests/icons/jobDetails/job.svg'
+import { Tooltip } from '@chakra-ui/react'
 
 
 const jobDetails = () => {
@@ -32,8 +33,12 @@ const jobDetails = () => {
                         <p className='text-base font-medium'>Software Engineer</p>
                         <p className='text-sm'>Accenture</p>
                         <div className='flex flex-row gap-4 md:mt-2 md:mb-3'>
-                            <img alt='description' src={mail} className='w-6 h-6 cursor-pointer' />
-                            <img alt='description' src={send} className='w-6 h-6 cursor-pointer' />
+                            <Tooltip label="Email to friend" aria-label="A tooltip">
+                                <img alt='description' src={mail} className='w-6 h-6 cursor-pointer' />
+                            </Tooltip>
+                            <Tooltip label="Send to friend" aria-label="A tooltip">
+                                <img alt='description' src={send} className='w-6 h-6 cursor-pointer' />
+                            </Tooltip>
                         </div>
                         <div className='flex flex-col md:flex-row gap-2 md:gap-6'>
                             <div className='py-2 px-10 text-white bg-[#4160D8] rounded cursor-pointer text-base text-center'>Apply</div>
@@ -45,32 +50,32 @@ const jobDetails = () => {
                 <div className='border rounded py-4 md:py-8 px-6 md:px-12 flex flex-wrap gap-y-5 md:gap-y-10 justify-between'>
                     <div className='flex flex-col items-center gap-2 md:gap-4'>
                         <img alt='description' src={technology} className='h-6 w-6 md:h-8 md:w-8 mb-1' />
-                            <p className='text-sm text-[#A3A3A3]'>Industry</p>
+                        <p className='text-sm text-[#A3A3A3]'>Industry</p>
                         <p className='text-sm md:text-base font-medium'>Technology</p>
                     </div>
                     <div className='flex flex-col items-center gap-2 md:gap-4'>
                         <img alt='description' src={job} className='h-6 w-6 md:h-8 md:w-8 mb-1' />
-                            <p className='text-sm text-[#A3A3A3]'>Job Type</p>
+                        <p className='text-sm text-[#A3A3A3]'>Job Type</p>
                         <p className='text-sm md:text-base font-medium'>Computer- Hardware</p>
                     </div>
                     <div className='flex flex-col items-center gap-2 md:gap-4'>
                         <img alt='description' src={term} className='h-6 w-6 md:h-8 md:w-8 mb-1' />
-                            <p className='text-sm text-[#A3A3A3]'>Job Term</p>
+                        <p className='text-sm text-[#A3A3A3]'>Job Term</p>
                         <p className='text-sm md:text-base font-medium'>Permanent</p>
                     </div>
                     <div className='flex flex-col items-center gap-2 md:gap-4'>
                         <img alt='description' src={date} className='h-6 w-6 md:h-8 md:w-8 mb-1' />
-                            <p className='text-sm text-[#A3A3A3]'>Posted Date</p>
+                        <p className='text-sm text-[#A3A3A3]'>Posted Date</p>
                         <p className='text-sm md:text-base font-medium'>01/29/2021</p>
                     </div>
                     <div className='flex flex-col items-center gap-2 md:gap-4'>
                         <img alt='description' src={reference} className='h-6 w-6 md:h-8 md:w-8 mb-1' />
-                            <p className='text-sm text-[#A3A3A3]'>Reference#</p>
+                        <p className='text-sm text-[#A3A3A3]'>Reference#</p>
                         <p className='text-sm md:text-base font-medium'>25-0254-0220</p>
                     </div>
                     <div className='flex flex-col items-center gap-2 md:gap-4'>
                         <img alt='description' src={location} className='h-6 w-6 md:h-8 md:w-8 mb-1' />
-                            <p className='text-sm text-[#A3A3A3]'>Location</p>
+                        <p className='text-sm text-[#A3A3A3]'>Location</p>
                         <p className='text-sm md:text-base font-medium'>Surat, Gujarat, India</p>
                     </div>
                 </div>

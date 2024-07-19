@@ -13,6 +13,7 @@ import {
   IconButton,
   Button,
   Image,
+  Tooltip,
 } from "@chakra-ui/react";
 import company from "../assests/icons/company.jpeg";
 import date from "../assests/icons/date.jpeg";
@@ -164,38 +165,43 @@ const CardGrid = ({ title, id }) => {
         <Button className="" flex="2" variant="ghost">
           Apply
         </Button>
-        <Button w={"60px"} className="" variant="outline">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M15.1432 20.4886L20.9605 2.98574C21.1547 2.40104 20.6001 1.84477 20.0171 2.03968L2.50997 7.89247C1.86829 8.10698 1.81991 8.99858 2.43459 9.28167L8.26788 11.9681C8.51517 12.082 8.80467 12.0518 9.02325 11.8892L17.2135 5.79756L11.4518 14.3748C11.3095 14.5866 11.2848 14.8565 11.3863 15.0908L13.7517 20.5501C14.0242 21.1792 14.9269 21.1392 15.1432 20.4886Z"
-              fill="#4160D8"
-            />
-          </svg>
-        </Button>
-        <Button w={"60px"} className="" variant="outline">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M10.1801 12.9427L11.3672 13.926C11.4404 13.9871 11.5313 14.0204 11.6249 14.0204C11.7185 14.0204 11.8094 13.9871 11.8826 13.926L13.0699 12.9427L20.9705 19.5H2.27952L10.1801 12.9427ZM21.75 19.0355V5.73986L13.7371 12.3875L21.75 19.0355ZM1.5 5.73986V19.0355L9.5129 12.3875L1.5 5.73986ZM11.625 13.0303L21.0018 5.25H2.24794L11.625 13.0303Z"
-              fill="#4160D8"
-            />
-          </svg>
-        </Button>
+        <Tooltip label="Email to Friend" aria-label="A tooltip">
+
+          <Button w={"60px"} className="" variant="outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M15.1432 20.4886L20.9605 2.98574C21.1547 2.40104 20.6001 1.84477 20.0171 2.03968L2.50997 7.89247C1.86829 8.10698 1.81991 8.99858 2.43459 9.28167L8.26788 11.9681C8.51517 12.082 8.80467 12.0518 9.02325 11.8892L17.2135 5.79756L11.4518 14.3748C11.3095 14.5866 11.2848 14.8565 11.3863 15.0908L13.7517 20.5501C14.0242 21.1792 14.9269 21.1392 15.1432 20.4886Z"
+                fill="#4160D8"
+              />
+            </svg>
+          </Button>
+        </Tooltip>
+        <Tooltip label="Email Resume" aria-label="A tooltip">
+          <Button w={"60px"} className="" variant="outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M10.1801 12.9427L11.3672 13.926C11.4404 13.9871 11.5313 14.0204 11.6249 14.0204C11.7185 14.0204 11.8094 13.9871 11.8826 13.926L13.0699 12.9427L20.9705 19.5H2.27952L10.1801 12.9427ZM21.75 19.0355V5.73986L13.7371 12.3875L21.75 19.0355ZM1.5 5.73986V19.0355L9.5129 12.3875L1.5 5.73986ZM11.625 13.0303L21.0018 5.25H2.24794L11.625 13.0303Z"
+                fill="#4160D8"
+              />
+            </svg>
+          </Button>
+        </Tooltip>
       </CardFooter>
     </Card>
   );
