@@ -60,7 +60,9 @@ const SearchSection = () => {
                   _expanded={{ bg: 'blue.400' }}
                   _focus={{ boxShadow: 'outline' }}
                 >
-                  {selectedJobOption || <>Job Category <ChevronDownIcon ml={6} /></>}
+                  <span className="flex justify-between w-full items-center">
+                    {selectedJobOption || <>Job Category <ChevronDownIcon /></>}
+                  </span>
                 </MenuButton>
                 <ScrollMenuList items={select_sector} onItemClick={setSelectedJobOption} />
               </Menu>
@@ -78,7 +80,9 @@ const SearchSection = () => {
                   _expanded={{ bg: 'blue.400' }}
                   _focus={{ boxShadow: 'outline' }}
                 >
-                  {selectedCountry || <>Select country <ChevronDownIcon ml={16} /></>}
+                  <span className="flex justify-between w-full items-center">
+                    {selectedCountry || <>Select country <ChevronDownIcon /></>}
+                  </span>
                 </MenuButton>
                 <ScrollMenuList items={select_country.map(c => c.country)} onItemClick={setSelectedCountry} />
               </Menu>
