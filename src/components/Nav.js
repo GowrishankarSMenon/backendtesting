@@ -10,7 +10,11 @@ import {
   MenuList,
   MenuItem,
   Flex,
+  IconButton,
+  Badge,
+  MenuDivider,
 } from "@chakra-ui/react";
+import { BellIcon } from "@chakra-ui/icons";
 import assets from "../assests";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -18,8 +22,11 @@ import SideDrawer from "./SideDrawer";
 import countDown from "../hooks/countDown";
 
 const NavBar = () => {
-  
   const [getLogin, setGetLogin] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: "New job posted!" },
+    { id: 2, message: "Your application has been reviewed." },
+  ]);
 
   useEffect(() => {
     let loginValue = localStorage.getItem("login");
@@ -99,11 +106,40 @@ const NavBar = () => {
             </Box>
             <Box
               className="nav_account"
-              w={"15%"}
+              w={"20%"}
               display={"flex"}
               justifyContent={"flex-end"}
               alignItems={"center"}
+              gap={'20px'}
+              ml={'20px'}
             >
+              <Menu>
+                <MenuButton as={Box} position="relative">
+                  <IconButton icon={<BellIcon />} variant="ghost" />
+                  {notifications.length > 0 && (
+                    <Badge
+                      colorScheme="red"
+                      borderRadius="full"
+                      position="absolute"
+                      top="0"
+                      right="0"
+                      fontSize="0.8em"
+                    >
+                      {notifications.length}
+                    </Badge>
+                  )}
+                </MenuButton>
+                <MenuList>
+                  {notifications.map((notification) => (
+                    <MenuItem key={notification.id}>
+                      {notification.message}
+                    </MenuItem>
+                  ))}
+                  {notifications.length === 0 && (
+                    <MenuItem>No new notifications</MenuItem>
+                  )}
+                </MenuList>
+              </Menu>
               <Menu>
                 <MenuButton>
                   <Box
