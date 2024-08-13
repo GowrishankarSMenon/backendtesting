@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Box, Heading, Flex, Button, Spinner } from "@chakra-ui/react";
+import { Box, Heading, Button, Spinner } from "@chakra-ui/react";
 import CardGrid from "./cardGrid";
 
-import jobsList from "../json/jobs.json";
-
-const CardItems = () => {
+const CardItems = ({recentJobs}) => {
   const [loadItems, setLoadItems] = useState(6);
   const [loader, setLoader] = useState(false);
+  
 
   const handleLoadMore = () => {
     setLoader(!loader);
@@ -15,6 +14,7 @@ const CardItems = () => {
       setLoadItems(loadItems + 3);
     }, 2000);
   };
+
   return (
     <Box className="react-job--container page-width">
       <Box className="job-grid--wrapper">
@@ -39,18 +39,27 @@ const CardItems = () => {
             gap="20px"
             className="jobList--flex"
           >
-            {jobsList.length > 0
-              ? jobsList.map((list, i) => {
-                  if (i < loadItems) {
-                    return (
-                      <CardGrid title={list.title} id={list.id} key={i + 1} />
-                    );
-                  }
+            {recentJobs.length > 0
+              ? recentJobs.map((job, i) => {
+                if (i < loadItems) {
+                  return (
+                    <CardGrid 
+                      title={job.Position_Title} 
+                      id={job.Requisition_Id} 
+                      key={job.Requisition_Id}
+                      term ={job.Job_Term_Id}
+                      branch={job.Branch_Name}
+                      date={job.Requisition_Received_Date}
+                      location={job.City+", " + job.Country}
+                    />
+                  );
+                }
                 })
+                
               : null}
           </Box>
         </Box>
-        {jobsList.length != loadItems ? (
+        {recentJobs.length != loadItems ? (
           <Box
             w={"100%"}
             mt={16}

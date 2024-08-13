@@ -12,7 +12,7 @@ import axios from "axios";
 // });
 const instance = axios.create({
   baseURL: "http://192.168.168.21/",
-  timeout: 5000,
+  timeout: 20000,
   withCredentials: false,
   mode: 'no-cors',
   headers: {

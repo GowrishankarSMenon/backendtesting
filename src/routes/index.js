@@ -18,7 +18,7 @@ import Protected from "../components/Protected";
 import { HomePage } from "../pages/Home";
 import AcademicPage from "../pages/academicPage";
 import PageNotFound from "../pages/PageNotFound";
-import jobDetails from "../pages/jobDetails";
+import JobDetails from "../pages/jobDetails";
 import MyResumes from "../pages/MyResumes";
 
 export default function AllRoutes() {
@@ -58,7 +58,7 @@ export default function AllRoutes() {
       />
       <Route
         path="/job-description/:id"
-        element={<Protected Component={jobDetails} />}
+        element={<Protected Component={JobDetails} />}
       />
       <Route
         path="/job-applied"

@@ -37,15 +37,16 @@ const Loginbox = () => {
   const [loading, setLoading] = useState(false);
 
   const loginApi = (values) => {
-    console.log("Login Api: ", values);
-    let data = JSON.stringify({
-      username: values.userId,
-      password: values.password,
-      employers: "demotest",
-    });
+    
+    let data = {
+      UserName: values.userId,
+      Password: values.password,
+      EncryptID: "[\\",
+    };
+    console.log("Login Api: ", data);
 
     instance
-      .post("Auth/Login", data)
+      .post("Auth/LoginPortalUser", data)
       .then((response) => {
         // Handle the response
         console.log("REquest Post", response);
@@ -54,7 +55,6 @@ const Loginbox = () => {
           localStorage.setItem("token_Key", response.data.token);
           setTimeout(() => {
             setLoading(false);
-            navigate("/");
             setTimeout(() => {
               window.location.reload();
             }, 100);
@@ -64,6 +64,7 @@ const Loginbox = () => {
       .catch((error) => {
         // Handle the error
         console.error(error);
+        setLoading(false);
       });
   };
 
@@ -97,7 +98,7 @@ const Loginbox = () => {
 
   useEffect(() => {
     let login = localStorage.getItem("login");
-    if (login) {
+    if (login=="true") {
       navigate("/");
     }
   }, []);
@@ -137,6 +138,7 @@ const Loginbox = () => {
             </Link>
           </Box>
           <Box className="login_submit">
+            
             <Button
               type="submit"
               colorScheme="blue"

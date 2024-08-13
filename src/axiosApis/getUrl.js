@@ -3,8 +3,8 @@ import axios from "axios";
 let token_key = localStorage.getItem("token_Key");
 console.log("params: ", token_key);
 const instance = axios.create({
-  baseURL: "http://192.168.168.21/ATS/Portal/",
-  timeout: 2000,
+  baseURL: "http://192.168.168.21/",
+  timeout: 10000,
   withCredentials: false,
   mode: 'no-cors',
   headers: {

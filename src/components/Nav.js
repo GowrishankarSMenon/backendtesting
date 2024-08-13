@@ -36,7 +36,7 @@ const NavBar = () => {
 
   useEffect(() => {
     let loginValue = localStorage.getItem("login");
-    setGetLogin(loginValue);
+    setGetLogin(loginValue=="true");
   }, [getLogin]);
 
   if (getLogin != false && getLogin != null) {
@@ -46,7 +46,7 @@ const NavBar = () => {
 
   return (
     <Box w={"100%"}>
-      {getLogin !== "true" ? (
+      {getLogin == true ? (
         <Box
           className="c_logo"
           w={"100%"}
@@ -193,6 +193,7 @@ const NavBar = () => {
                     onClick={() => {
                       localStorage.removeItem("login");
                       localStorage.removeItem("token_Key");
+                      setGetLogin(false)
                     }}
                   >
                     Logout

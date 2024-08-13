@@ -18,7 +18,7 @@ import table_head from "../json/tableHeader.json";
 import profiles from "../json/profileTitles.json";
 import HeadTableLayout from "../components/HeadTableLayout";
 
-const AccordianInput = ({ title, head, index, layout, table, view, candidate }) => {
+const AccordianInput = ({ title, head, index, layout, table, view, list, candidate="" }) => {
 
   return (
     <>
@@ -105,7 +105,7 @@ const AccordianInput = ({ title, head, index, layout, table, view, candidate }) 
                 </AccordionButton>
               </h3>
               <AccordionPanel pb={4} className="inner_content">
-                <Text>No Data Found"</Text>
+                <Text>No Data Found</Text>
               </AccordionPanel>
             </>
           )}
@@ -140,7 +140,7 @@ const AccordianInput = ({ title, head, index, layout, table, view, candidate }) 
                 mb={2}
               >
                 <JobTable
-                  jobList={jobList}
+                  jobList={list}
                   table_head={table_head}
                   table={table}
                 />

@@ -16,10 +16,13 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import company from "../assests/icons/company.jpeg";
-import date from "../assests/icons/date.jpeg";
-import location from "../assests/icons/location.jpeg";
+import dateimg from "../assests/icons/date.jpeg";
+import locationimg from "../assests/icons/location.jpeg";
+import { Link, useNavigate } from "react-router-dom";
 
-const CardGrid = ({ title, id }) => {
+const CardGrid = ({ title, id, term, branch, date, location }) => {
+  const navigate = useNavigate();
+
   return (
     <Card minW="365px" className="card-grid-container" key={id}>
       <CardHeader className="card-frid-wrapper">
@@ -84,7 +87,7 @@ const CardGrid = ({ title, id }) => {
                 textAlign="center"
                 className="card-badge--title"
               >
-                Permanent
+                {term}
               </Text>
             </Box>
           </Flex>
@@ -137,7 +140,7 @@ const CardGrid = ({ title, id }) => {
             alignItems={"center"}
           >
             <Image src={company} alt="company icon" />
-            <span className="">Mark Inc.</span>
+            <span className="">{branch}</span>
           </Box>
           <Box
             w={"50%"}
@@ -146,8 +149,8 @@ const CardGrid = ({ title, id }) => {
             justifyContent={"flex-start"}
             alignItems={"center"}
           >
-            <Image src={location} alt="location icon" />
-            <span className="">Mumbai, India</span>
+            <Image src={locationimg} alt="location icon" />
+            <span className="">{location}</span>
           </Box>
           <Box
             w={"100%"}
@@ -156,15 +159,20 @@ const CardGrid = ({ title, id }) => {
             justifyContent={"flex-start"}
             alignItems={"center"}
           >
-            <Image src={date} alt="date icon" />
-            <span className="">9th Dec 2023</span>
+            <Image src={dateimg} alt="date icon" />
+            <span className="">{date}</span>
           </Box>
         </Flex>
       </CardBody>
       <CardFooter justify="space-between" alignItems="center" gap="10px">
+      <Link className="" to={"/job-description/"+id}>
         <Button className="" flex="2" variant="ghost">
+          
           Apply
+          
+          
         </Button>
+        </Link>
         <Tooltip label="Email to Friend" aria-label="A tooltip">
 
           <Button w={"60px"} className="" variant="outline">
