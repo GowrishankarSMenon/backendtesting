@@ -3,6 +3,8 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import instance from "../axiosApis/getUrl";
 import { Box, Flex, Accordion, Text } from "@chakra-ui/react";
 import AccordianInput from "../helper/AccordianInput";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
+
 
 const inputGrid = [
   {
@@ -84,10 +86,10 @@ const ProfilePage = () => {
   const location = useLocation();
   const [candidate, setCandidate] = useState({});
 
-  let token_key = localStorage.getItem("token_Key");
+  let token_key = getCookie('token_Key');//localStorage.getItem("token_Key");
 
   useEffect(() => {
-    if (localStorage.getItem("token_Key") != null) {
+    if (token_key != null) {
       instance
         .get(`getCandidate?CandidateID=${96}`)
         .then((response) => {

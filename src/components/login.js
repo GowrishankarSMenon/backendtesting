@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
 import assets from "../assests";
 import instance from "../axiosApis/baseUrl";
 import { jwtDecode } from 'jwt-decode'
@@ -53,7 +54,7 @@ const Loginbox = () => {
         console.log("REquest Post", response);
         if (response.status === 200) {
           localStorage.setItem("login", true);
-          localStorage.setItem("token_Key", response.data.token);
+          setCookie("token_Key", response.data.token, 1)
           
           
           setTimeout(() => {

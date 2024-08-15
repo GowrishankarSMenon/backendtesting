@@ -1,6 +1,8 @@
 import axios from "axios";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
 
-let token_key = localStorage.getItem("token_Key");
+let token_key = getCookie("token_Key");
+
 console.log("params: ", token_key);
 const instance = axios.create({
   baseURL: "http://192.168.168.21/",

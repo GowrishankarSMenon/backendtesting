@@ -7,6 +7,8 @@ import table_head from "../json/tableHeader.json";
 import SaveTable from "../table/tableLayout";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
+
 import instance from "../axiosApis/getUrl";
 
 const SaveJobsPage = () => {
@@ -15,7 +17,7 @@ const SaveJobsPage = () => {
   const navigate = useNavigate()
   const getData = () => {
 
-    let token = localStorage.getItem("token_Key")
+    let token = getCookie('token_Key');//localStorage.getItem("token_Key")
     let user = jwtDecode(token)
     console.log(user)
     let candidateId = ""

@@ -17,6 +17,8 @@ import {
 import { BellIcon } from "@chakra-ui/icons";
 import assets from "../assests";
 import { Link, NavLink } from "react-router-dom";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
+
 import { useEffect, useState } from "react";
 import SideDrawer from "./SideDrawer";
 import countDown from "../hooks/countDown";
@@ -192,7 +194,7 @@ const NavBar = () => {
                     href="/"
                     onClick={() => {
                       localStorage.removeItem("login");
-                      localStorage.removeItem("token_Key");
+                      deleteCookie('token_Key');
                       setGetLogin(false)
                     }}
                   >

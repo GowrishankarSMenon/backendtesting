@@ -24,6 +24,8 @@ import {
 import assets from "../assests";
 import { Link, NavLink } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
+
 
 const SideDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -105,7 +107,8 @@ const SideDrawer = () => {
                   href="/"
                   onClick={() => {
                     localStorage.removeItem("login");
-                    localStorage.removeItem("token_Key");
+                    //localStorage.removeItem("token_Key");
+                    deleteCookie('token_Key');
                   }}
                 >
                   Logout

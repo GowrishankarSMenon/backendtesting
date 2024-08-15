@@ -7,13 +7,15 @@ import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import instance from '../axiosApis/getUrl';
 import AppliedTable from '../table/AppliedTable';
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
+
 
 const JobAppliedPage = () => {
   const navigate = useNavigate()
   const [candidate, setCandidate] = useState([])
   const getData = ()=>{
 
-    let token = localStorage.getItem("token_Key")
+    let token = getCookie('token_Key');//localStorage.getItem("token_Key")
     let user = jwtDecode(token)
     console.log(user)
     let candidateId = ""

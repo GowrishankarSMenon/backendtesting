@@ -1,4 +1,6 @@
 import React from "react";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
+
 
 const countDown = (durationInSeconds) => {
   let timerInterval = setInterval(() => {
@@ -18,7 +20,8 @@ const countDown = (durationInSeconds) => {
       localStorage.removeItem("timerStartTime");
       localStorage.removeItem("elapsedTime");
       localStorage.removeItem("login");
-      localStorage.removeItem("token_Key");
+      //localStorage.removeItem("token_Key");
+      deleteCookie('token_Key');
       window.location.href = "/";
     }
   }, 1000);

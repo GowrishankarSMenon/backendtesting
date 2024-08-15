@@ -4,6 +4,7 @@ import AccordianInput from "../helper/AccordianInput";
 import instance from "../axiosApis/getUrl";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
 
 const inputGrid = [
   { title: "Employment Offer Letter", "table-head": true, layout: "Respository" },
@@ -39,7 +40,7 @@ const RepositoryPage = () => {
   const navigate = useNavigate()
   const getData = () => {
 
-    let token = localStorage.getItem("token_Key")
+    let token = getCookie('token_Key');//localStorage.getItem("token_Key")
     let user = jwtDecode(token)
     console.log(user)
     let candidateId = ""
