@@ -3,6 +3,7 @@ import { Box, Flex, Accordion, useStatStyles } from "@chakra-ui/react";
 import AccordianInput from "../helper/AccordianInput";
 import instance from "../axiosApis/getUrl";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const ReferredJobsPage = () => {
   const [candidate, setCandidate] = useState([])
@@ -10,8 +11,22 @@ const ReferredJobsPage = () => {
   const navigate = useNavigate()
 
   const getData = ()=>{
+
+    let token = localStorage.getItem("token_Key")
+    let user = jwtDecode(token)
+    console.log(user)
+    let candidateId = ""
+    
     instance
-          .get(`ATS/Portal/GetCandReferredReqList?candidateId=2170&dcId=34`)
+          .get(`Common/UserInfo/GetCandidateID?userID=${user.UserId}`)
+          .then((response) => {
+            // Handle the response
+            console.log("REquest Post", response);
+            if (response.status === 200) {
+              console.log(response.data)
+              candidateId = response.data.data
+              instance
+          .get(`ATS/Portal/GetCandReferredReqList?candidateId=${candidateId}&dcId=34`)
           .then((response) => {
             // Handle the response
             console.log("REquest Post", response);
@@ -30,7 +45,7 @@ const ReferredJobsPage = () => {
             console.error(error);
         });
     instance
-        .get(`ATS/Portal/GetVendorCandReferredReqList?candidateId=1034&dcId=34`)
+        .get(`ATS/Portal/GetVendorCandReferredReqList?candidateId=${candidateId}&dcId=34`)
         .then((response) => {
           // Handle the response
           console.log("REquest Post", response);
@@ -48,6 +63,17 @@ const ReferredJobsPage = () => {
           }
           console.error(error);
       });
+            }
+          })
+          .catch((error) => {
+            // Handle the error
+            if (error.response.status==401){
+              localStorage.setItem("login", false);
+              localStorage.setItem("token","")
+              navigate("/login")
+            }
+            console.error(error);
+        });
   }
 
   useEffect(()=>{

@@ -99,7 +99,7 @@ const NavBar = () => {
                   </NavLink>
                 </ListItem>
                 <ListItem>
-                  <NavLink to="/job-description">
+                  <NavLink to="/job-applied">
                     <Box>Jobs Applied</Box>
                   </NavLink>
                 </ListItem>

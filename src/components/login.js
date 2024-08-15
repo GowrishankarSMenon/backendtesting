@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import assets from "../assests";
 import instance from "../axiosApis/baseUrl";
+import { jwtDecode } from 'jwt-decode'
 
 //chakar-ui
 import {
@@ -53,6 +54,8 @@ const Loginbox = () => {
         if (response.status === 200) {
           localStorage.setItem("login", true);
           localStorage.setItem("token_Key", response.data.token);
+          
+          
           setTimeout(() => {
             setLoading(false);
             setTimeout(() => {
