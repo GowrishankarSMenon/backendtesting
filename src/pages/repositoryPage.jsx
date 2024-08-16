@@ -54,7 +54,7 @@ const RepositoryPage = () => {
               console.log(response.data)
               candidateId = response.data.data
               instance
-                .get(`ATS/Portal/GetEmployee_Attachment_Document?Candidate_ID=254&Requisition_ID=0`)
+                .get(`ATS/Portal/GetEmployee_Attachment_Document?Candidate_ID=${candidateId}&Requisition_ID=0`)
                 .then((response) => {
                   // Handle the response
                   console.log("REquest Post", response);

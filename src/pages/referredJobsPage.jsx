@@ -16,6 +16,7 @@ const ReferredJobsPage = () => {
 
     let token = getCookie('token_Key');//localStorage.getItem("token_Key")
     let user = jwtDecode(token)
+    console.log("sakjdaskjdhksadh")
     console.log(user)
     let candidateId = ""
     
@@ -28,7 +29,7 @@ const ReferredJobsPage = () => {
               console.log(response.data)
               candidateId = response.data.data
               instance
-          .get(`ATS/Portal/GetCandReferredReqList?candidateId=${candidateId}&dcId=34`)
+          .get(`ATS/Portal/GetCandReferredReqList?candidateId=${candidateId}&dcId=${user.DCID}`)
           .then((response) => {
             // Handle the response
             console.log("REquest Post", response);
@@ -47,7 +48,7 @@ const ReferredJobsPage = () => {
             console.error(error);
         });
     instance
-        .get(`ATS/Portal/GetVendorCandReferredReqList?candidateId=${candidateId}&dcId=34`)
+        .get(`ATS/Portal/GetVendorCandReferredReqList?candidateId=${candidateId}&dcId=${user.DCID}`)
         .then((response) => {
           // Handle the response
           console.log("REquest Post", response);
