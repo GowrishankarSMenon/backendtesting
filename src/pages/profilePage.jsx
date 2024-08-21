@@ -22,6 +22,7 @@ const ProfilePage = () => {
   const [inputdata, setinputdata] = useState([])
   const updateOrAddEntry = (targetTitle, newRows) => {
     console.log(targetTitle, newRows)
+    if(!Array.isArray(newRows)){return}
     setinputdata((prevData) => {
       const entryIndex = prevData.findIndex(item => item.title === targetTitle);
 
