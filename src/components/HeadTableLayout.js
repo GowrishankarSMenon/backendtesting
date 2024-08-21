@@ -43,6 +43,7 @@ const HeadTableLayout = ({
     content: "Data is sent from profile component",
     timestamp: Date.now(),
   };
+  
   return (
     <>
       {multiGrid.length > 0
