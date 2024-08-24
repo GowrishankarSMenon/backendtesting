@@ -72,7 +72,7 @@ const ProfilePage = () => {
                 .get(`ATS/Portal/GetCandidateExperience?candidateId=${candidateId}`)
                 .then((response) => {
                   // Handle the response
-                  //console.log(response.status);
+                  console.log(response.data,"Experience");
 
                   if (response.status === 200) {
                     setTimeout(() => {

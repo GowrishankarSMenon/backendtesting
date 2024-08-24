@@ -1,15 +1,13 @@
-import ReactPaginate from "react-paginate"; // for pagination
-import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"; // icons form react-icons
-import { IconContext } from "react-icons"; // for customizing icons
-import { useEffect, useState } from "react";
-import { Link, useParams, useLocation, NavLink } from "react-router-dom";
-/*Chakar UI*/
+import React, { useState, useRef } from "react";
+import ReactPaginate from "react-paginate";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import { IconContext } from "react-icons";
+import { Link } from "react-router-dom";
 import {
   Box,
   Button,
   Flex,
   Text,
-  Heading,
   Table,
   Thead,
   Tbody,
@@ -24,50 +22,54 @@ import {
   ModalBody,
   ModalCloseButton,
   Checkbox,
-  CheckboxGroup,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
-import { useDisclosure } from "@chakra-ui/react";
-// json
-import multiGrid from "../json/multiGridData.json";
-import AllFormModal from "../modal/allFormModal";
+import AllFormModal from "../modal/allFormModal"; 
 
-const AcademicPage = (props) => {
-  const location = useLocation();
+const AcademicPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const params = useParams();
-  const nav_title = params.title;
-  const search = location.search;
-  const num = search.split("=");
-  const count = num[num.length - 1];
-  const [value, setValue] = useState(0);
-  const [index, setIndex] = useState(0);
-
-  console.log("====================================");
-  console.log("State", index);
-  console.log("====================================");
-
+  const fileInputRef = useRef(null); // Reference for the file input
+  const [documents, setDocuments] = useState([]); // State to store uploaded documents
   const [page, setPage] = useState(0);
-  const [filterData, setFilterData] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [index, setIndex] = useState(0);
   const n = 5;
 
-  useEffect(() => {
-    setFilterData(
-      multiGrid[parseInt(count)].table_body.filter((item, index) => {
-        return (index >= page * n) & (index < (page + 1) * n);
-      })
-    );
-  }, [page]);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const newDocument = {
+        name: file.name,
+        details: ["Additional Data 1", "Additional Data 2", "Additional Data 3"],
+      };
+      setDocuments([...documents, newDocument]);
+    }
+  };
+
+  const handleAdd = () => {
+    fileInputRef.current.click(); // Trigger the file input
+  };
+
+  const handleDelete = () => {
+    setDocuments(documents.filter((_, idx) => !selectedItems.includes(idx)));
+    setSelectedItems([]);
+  };
+
+  const handleCheckboxChange = (idx) => {
+    if (selectedItems.includes(idx)) {
+      setSelectedItems(selectedItems.filter((item) => item !== idx));
+    } else {
+      setSelectedItems([...selectedItems, idx]);
+    }
+  };
+
+  const paginatedDocuments = documents.slice(page * n, (page + 1) * n);
 
   return (
     <Box className="academic_Container">
       <Box className="page-width">
-        <Flex
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          mt={4}
-          mb={4}
-        >
+        <Flex justifyContent={"space-between"} alignItems={"center"} mt={4} mb={4}>
           <Flex justifyContent={"flex-start"} alignItems={"center"}>
             <Button
               w={24}
@@ -77,6 +79,7 @@ const AcademicPage = (props) => {
               bg={"blue"}
               fontSize={13}
               textTransform={"uppercase"}
+              onClick={handleAdd}
             >
               Add
             </Button>
@@ -88,6 +91,8 @@ const AcademicPage = (props) => {
               bg={"red"}
               fontSize={13}
               textTransform={"uppercase"}
+              onClick={handleDelete}
+              disabled={selectedItems.length === 0}
             >
               Delete
             </Button>
@@ -106,275 +111,114 @@ const AcademicPage = (props) => {
             </Link>
           </Flex>
         </Flex>
-        <>
-          {multiGrid.length > 0
-            ? multiGrid.map((view, i) => {
-              return view.table_title === nav_title ? (
-                view.formShow != true ? (
-                  <TableContainer borderRadius={"10px"} key={i + 1} className="form_tables">
-                    <Table variant="simple">
-                      <Thead>
-                        <Tr>
-                          <Th></Th>
-                          {view.table_head.length > 0
-                            ? view.table_head.map((head, i) => {
-                              return (
-                                <Th key={i + 1}>
-                                  <Box>
-                                    <Text as={"span"}>{head.thead}</Text>
-                                  </Box>
-                                </Th>
-                              );
-                            })
-                            : null}
-                          <Th>
-                            <Box>
-                              <Text as={"span"}>Summary</Text>
-                            </Box>
-                          </Th>
-                          <Th></Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {filterData.length > 0
-                          ? filterData.map((body, num) => {
-                            if (num < 5) {
-                              return (
-                                <Tr key={num + 1}>
-                                  <Td>
-                                    <Box>
-                                      <Checkbox
-                                        colorScheme="blue"
-                                        id=""
-                                        value={num}
-                                        name=""
-                                        onChange={(e) =>
-                                          setValue(e.target.value)
-                                        }
-                                      ></Checkbox>
-                                    </Box>
-                                  </Td>
-                                  {body.tbody.length > 0
-                                    ? body.tbody.map((items, i) => {
-                                      return (
-                                        <Td key={i + 1}>
-                                          <Box>
-                                            <Text
-                                              fontSize={13}
-                                              as={"span"}
-                                            >
-                                              {items}
-                                            </Text>
-                                          </Box>
-                                        </Td>
-                                      );
-                                    })
-                                    : null}
-                                  <Td></Td>
-                                  <Td>
-                                    <Box className="edit_Btn" data-edit={num}>
-                                      {/* <Link to={{pathname: `/my-profile/${nav_title.toLowerCase()}/${i}`}}> */}
-                                      <Button
-                                        borderRadius={"10px"}
-                                        onClick={() => {
-                                          onOpen(i);
-                                          setIndex(num);
-                                        }}
-                                        minW={8}
-                                        h={8}
-                                        pl={1}
-                                        pr={1}
-                                        bg={"#2d43b3"}
-                                        color="#fff"
-                                      >
-                                        <EditIcon fontSize="14px" />
-                                      </Button>
-                                      {/* </Link> */}
-                                    </Box>
-                                  </Td>
-                                </Tr>
-                              );
-                            }
-                          })
-                          : null}
-                      </Tbody>
-                      <Tfoot>
-                        <Tr>
-                          <Th w={"100%"} colSpan="9">
-                            <Box>
-                              <Box
-                                display={"flex"}
-                                justifyContent={"flex-start"}
-                                alignItems={"flex-end"}
-                                flexDirection={"column"}
-                              >
-                                <ReactPaginate
-                                  containerClassName={"pagination"}
-                                  pageClassName={"page-item"}
-                                  activeClassName={"active"}
-                                  onPageChange={(event) =>
-                                    setPage(event.selected)
-                                  }
-                                  pageCount={Math.ceil(
-                                    view.table_body.length / n
-                                  )}
-                                  breakLabel="..."
-                                  previousLabel={
-                                    <IconContext.Provider
-                                      value={{
-                                        color: "#B8C1CC",
-                                        size: "36px",
-                                      }}
-                                    >
-                                      <AiFillLeftCircle />
-                                    </IconContext.Provider>
-                                  }
-                                  nextLabel={
-                                    <IconContext.Provider
-                                      value={{
-                                        color: "#B8C1CC",
-                                        size: "36px",
-                                      }}
-                                    >
-                                      <AiFillRightCircle />
-                                    </IconContext.Provider>
-                                  }
-                                />
-                              </Box>
-                            </Box>
-                          </Th>
-                        </Tr>
-                      </Tfoot>
-                    </Table>
-                  </TableContainer>
-                ) : (
-                  <TableContainer pl={2} pr={2} key={i + 1}>
-                    <Table variant="simple">
-                      <Thead>
-                        <Tr>
-                          <Th></Th>
-                          {view.table_head.length > 0
-                            ? view.table_head.map((head, i) => {
-                              return (
-                                <Th key={i + 1}>
-                                  <Box>
-                                    <Text as={"span"}>{head.thead}</Text>
-                                  </Box>
-                                </Th>
-                              );
-                            })
-                            : null}
-                          <Th>
-                            <Box>
-                              <Text as={"span"}>Summary</Text>
-                            </Box>
-                          </Th>
-                          <Th></Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {filterData.length > 0
-                          ? filterData.map((body, i) => {
-                            if (i < 5) {
-                              return (
-                                <Tr key={i + 1}>
-                                  <Td>
-                                    <Box>
-                                      <Checkbox
-                                        colorScheme="blue"
-                                        id=""
-                                        value={i + 1}
-                                        name=""
-                                        onChange={(e) =>
-                                          setValue(e.target.value)
-                                        }
-                                      ></Checkbox>
-                                    </Box>
-                                  </Td>
-                                  {body.tbody.length > 0
-                                    ? body.tbody.map((items, i) => {
-                                      return (
-                                        <Td key={i + 1}>
-                                          <Box>
-                                            <Text
-                                              fontSize={13}
-                                              as={"span"}
-                                            >
-                                              {items}
-                                            </Text>
-                                          </Box>
-                                        </Td>
-                                      );
-                                    })
-                                    : null}
-                                  <Td></Td>
-                                </Tr>
-                              );
-                            }
-                          })
-                          : null}
-                      </Tbody>
-                      <Tfoot>
-                        <Tr>
-                          <Th w={"100%"} colSpan="9">
-                            <Box>
-                              <Box
-                                display={"flex"}
-                                justifyContent={"flex-start"}
-                                alignItems={"flex-end"}
-                                flexDirection={"column"}
-                              >
-                                <ReactPaginate
-                                  containerClassName={"pagination"}
-                                  pageClassName={"page-item"}
-                                  activeClassName={"active"}
-                                  onPageChange={(event) =>
-                                    setPage(event.selected)
-                                  }
-                                  pageCount={Math.ceil(
-                                    view.table_body.length / n
-                                  )}
-                                  breakLabel="..."
-                                  previousLabel={
-                                    <IconContext.Provider
-                                      value={{
-                                        color: "#B8C1CC",
-                                        size: "36px",
-                                      }}
-                                    >
-                                      <AiFillLeftCircle />
-                                    </IconContext.Provider>
-                                  }
-                                  nextLabel={
-                                    <IconContext.Provider
-                                      value={{
-                                        color: "#B8C1CC",
-                                        size: "36px",
-                                      }}
-                                    >
-                                      <AiFillRightCircle />
-                                    </IconContext.Provider>
-                                  }
-                                />
-                              </Box>
-                            </Box>
-                          </Th>
-                        </Tr>
-                      </Tfoot>
-                    </Table>
-                  </TableContainer>
-                )
-              ) : null;
-            })
-            : null}
-        </>
+
+        {/* Hidden file input */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
+
+        <TableContainer borderRadius={"10px"} className="form_tables">
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th></Th>
+                <Th>Document Name</Th>
+                <Th>Details</Th>
+                <Th>Summary</Th>
+                <Th></Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {paginatedDocuments.map((doc, num) => (
+                <Tr key={num + 1}>
+                  <Td>
+                    <Box>
+                      <Checkbox
+                        colorScheme="blue"
+                        value={num}
+                        onChange={() => handleCheckboxChange(num)}
+                        isChecked={selectedItems.includes(num)}
+                      />
+                    </Box>
+                  </Td>
+                  <Td>
+                    <Box>
+                      <Text fontSize={13} as={"span"}>
+                        {doc.name}
+                      </Text>
+                    </Box>
+                  </Td>
+                  <Td>
+                    <Box>
+                      {doc.details.map((detail, idx) => (
+                        <Text key={idx} fontSize={13} as={"span"} display="block">
+                          {detail}
+                        </Text>
+                      ))}
+                    </Box>
+                  </Td>
+                  <Td></Td>
+                  <Td>
+                    <Box className="edit_Btn" data-edit={num}>
+                      <Button
+                        borderRadius={"10px"}
+                        onClick={() => {
+                          onOpen();
+                          setIndex(num);
+                        }}
+                        minW={8}
+                        h={8}
+                        pl={1}
+                        pr={1}
+                        bg={"#2d43b3"}
+                        color="#fff"
+                      >
+                        <EditIcon fontSize="14px" />
+                      </Button>
+                    </Box>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+            <Tfoot>
+              <Tr>
+                <Th w={"100%"} colSpan="9">
+                  <Box display={"flex"} justifyContent={"flex-start"} alignItems={"flex-end"} flexDirection={"column"}>
+                    <ReactPaginate
+                      containerClassName={"pagination"}
+                      pageClassName={"page-item"}
+                      activeClassName={"active"}
+                      onPageChange={(event) => setPage(event.selected)}
+                      pageCount={Math.ceil(documents.length / n)}
+                      breakLabel="..."
+                      previousLabel={
+                        <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+                          <AiFillLeftCircle />
+                        </IconContext.Provider>
+                      }
+                      nextLabel={
+                        <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+                          <AiFillRightCircle />
+                        </IconContext.Provider>
+                      }
+                    />
+                  </Box>
+                </Th>
+              </Tr>
+            </Tfoot>
+          </Table>
+        </TableContainer>
       </Box>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent maxW={"55rem"} p={[4, 8]}>
           <ModalCloseButton />
           <ModalBody mt={2}>
-            <AllFormModal title={nav_title} numValue={count} index={index}/>
+            <AllFormModal title="Edit Document" numValue={index} index={index} />
           </ModalBody>
         </ModalContent>
       </Modal>

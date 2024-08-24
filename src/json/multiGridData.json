@@ -85,7 +85,7 @@
     ]
   },
   {
-    "table_title": "attachment",
+    "table_title": "attachments",
     "formShow": true,
     "table_head": [
       { "thead": "Requisition #" },

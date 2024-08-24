@@ -36,7 +36,7 @@ const SaveJobsPage = () => {
                   // Handle the response
                   console.log("REquest Post", response);
                   if (response.status === 200) {
-                    console.log(response.data.Table0)
+                    console.log(response.data.Table0,"saved jobs")
                     setData(response.data.Table0)
                   }
                 })

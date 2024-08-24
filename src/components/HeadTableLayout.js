@@ -103,7 +103,7 @@ const HeadTableLayout = ({
                   </Thead>
                   <Tbody>
                     {view.table_body.length > 0
-                      ? view.table_body.map((body, i) => {
+                      ? view?.table_body?.map((body, i) => {
                           if (i < 2) {
                             return (
                               <Tr key={i + 1}>

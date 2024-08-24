@@ -34,7 +34,7 @@ const ReferredJobsPage = () => {
             // Handle the response
             console.log("REquest Post", response);
             if (response.status === 200) {
-              console.log(response.data.Table0)
+              console.log(response.data.Table0,"candidate refered")
               setCandidate(response.data.Table0)
             }
           })
@@ -53,7 +53,7 @@ const ReferredJobsPage = () => {
           // Handle the response
           console.log("REquest Post", response);
           if (response.status === 200) {
-            console.log(response.data.Table0)
+            console.log(response.data.Table0,"vendor refered")
             setEmployee(response.data.Table0)
           }
         })
