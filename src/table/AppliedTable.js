@@ -14,10 +14,8 @@ import {
 } from "@chakra-ui/react";
 
 const AppliedTable = ({ jobList, table_head, new_table }) => {
-  console.log("====================================");
-  console.log("Applied", new_table);
-  console.log("====================================");
   const [value, setValue] = React.useState("1");
+
   return (
     <Table>
       <Thead>
@@ -32,49 +30,54 @@ const AppliedTable = ({ jobList, table_head, new_table }) => {
           <Th>Status</Th>
         </Tr>
       </Thead>
-      <Tbody>
-        {jobList.length > 0
-          ? jobList.map((list, i) => {
-              if (i < 10) {
-                return (
-                  <Tr key={list.id}>
-                    <Td>
-                      <Box>
-                        <Checkbox
-                          colorScheme="blue"
-                          id=""
-                          value={i + 1}
-                          name=""
-                          onChange={(e) => setValue(e.target.value)}
-                        ></Checkbox>
-                      </Box>
-                    </Td>
-                    <Td>
-                      <Link>{list.reference}</Link>
-                    </Td>
-                    <Td>
-                      <Text>{list.loaction}</Text>
-                    </Td>
-                    <Td>
-                      <Text>{list.date}</Text>
-                    </Td>
-                    <Td>
-                      <Text>{list.category}</Text>
-                    </Td>
-                    <Td>
-                      <Text>{list.type}</Text>
-                    </Td>
-                    <Td>
-                      <Link>{list.resume}</Link>
-                    </Td>
-                    <Td>
-                      <Button>{list.status}</Button>
-                    </Td>
-                  </Tr>
-                );
-              }
-            })
-          : null}
+      <Tbody className="text-black">
+        {jobList && jobList.length > 0 ? (
+          jobList.map((list, i) => {
+            if (i < 10) {
+              return (
+                <Tr key={list?.id}>
+                  <Td>
+                    <Box>
+                      <Checkbox
+                        colorScheme="blue"
+                        value={i + 1}
+                        onChange={(e) => setValue(e.target.value)}
+                      />
+                    </Box>
+                  </Td>
+                  <Td>
+                    <Link>{list?.Reference_ID}</Link>
+                  </Td>
+                  <Td>
+                    <Text>{list?.Location}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{list?.Applied_Date}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{list?.Job_Category}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{list?.Job_Type}</Text>
+                  </Td>
+                  <Td>
+                    <Link>{list?.Resume_URL}</Link>
+                  </Td>
+                  <Td>
+                    <Button>{list?.Status}</Button>
+                  </Td>
+                </Tr>
+              );
+            }
+            return null;
+          })
+        ) : (
+          <Tr>
+            <Td colSpan="8">
+              <Text>No data available</Text>
+            </Td>
+          </Tr>
+        )}
       </Tbody>
     </Table>
   );

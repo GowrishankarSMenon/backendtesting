@@ -39,7 +39,7 @@ const CardItems = ({recentJobs}) => {
             gap="20px"
             className="jobList--flex"
           >
-            {recentJobs.length > 0
+            {recentJobs?.length > 0
               ? recentJobs.map((job, i) => {
                 if (i < loadItems) {
                   return (
@@ -59,7 +59,7 @@ const CardItems = ({recentJobs}) => {
               : null}
           </Box>
         </Box>
-        {recentJobs.length != loadItems ? (
+        {recentJobs?.length != loadItems ? (
           <Box
             w={"100%"}
             mt={16}
