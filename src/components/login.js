@@ -48,7 +48,7 @@ const Loginbox = () => {
     console.log("Login Api: ", data);
 
     instance
-      .post("Auth/LoginPortalUser", data)
+      .post("/Auth/LoginPortalUser", data)
       .then((response) => {
         // Handle the response
         console.log("REquest Post", response);

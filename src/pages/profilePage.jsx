@@ -194,6 +194,7 @@ const ProfilePage = () => {
                   if (response.status === 200) {
                     setTimeout(() => {
                       updateOrAddEntry("Goals", response.data.Table0)
+                      console.log(response.data)
                     }, 100);
                   }
                 })
