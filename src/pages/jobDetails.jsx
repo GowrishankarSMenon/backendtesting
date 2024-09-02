@@ -26,15 +26,15 @@ const JobDetails = () => {
           .get(`ATS/Requisition/GetRequisitionDetailInfo?uKey=''&RequisitionId=${id}&forViewOnly=true`)
           .then((response) => {
             // Handle the response
-            console.log("REquest Post", response);
-            if (response.status === 200) {
+            if (response && response.status ===200) {
               console.log(response.data.Table0[0])
               setData(response.data.Table0[0])
             }
           })
           .catch((error) => {
             // Handle the error
-            if (error.response.status==401){
+            console.log(error)
+            if (error.response.status===401){
               localStorage.setItem("login", false);
               localStorage.setItem("token","")
               navigate("/login")

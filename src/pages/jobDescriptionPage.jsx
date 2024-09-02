@@ -24,7 +24,7 @@ const JobDescriptionPage = () => {
       })
       .catch((error) => {
         // Handle the error
-        if (error.response.status==401){
+        if (error.response.status===401){
           localStorage.setItem("login", false);
           localStorage.setItem("token","")
           navigate("/login")

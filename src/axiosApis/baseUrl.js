@@ -2,7 +2,7 @@ import axios from "axios";
 
 // const instance = axios.create({
 //   baseURL: "http://192.168.168.21/",
-//   timeout: 1000,
+//   timeout: 20000,//1000 original
 //   headers: {
 //     "X-Custom-Header": "foobar",
 //     "apikey": "Alchemus_HilruTAPcY",
