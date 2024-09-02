@@ -26,7 +26,58 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import AllFormModal from "../modal/allFormModal"; 
+import { useParams } from "react-router-dom";
+import instance from "../axiosApis/baseUrl";
 
+
+const endpoints = {
+  skills: {
+    add: "/ATS/Candidate/InsertCandidateSkills",
+    update: "/ATS/Candidate/UpdateCandidateSkill",
+    delete: "/ATS/Candidate/DeleteSelectedCandidateSkills"
+  },
+  experience: {
+    add: "/ATS/Candidate/InsertCandidateWorkExperience",
+    update: "/ATS/Candidate/UpdateCandidateWorkExperience",
+    delete: "/ATS/Candidate/DeleteCandidateWorkExperience"
+  },
+  jobPreferences: {
+    add: "/ATS/Portal/insertCandidateJobPreferences",
+    update: "/ATS/Portal/updateCandidateJobPreferences",
+    delete: null // No delete endpoint available
+  },
+  relocation: {
+    add: "/ATS/Candidate/InsertCandidateRelocationPreferences",
+    update: "/ATS/Candidate/UpdateCandidateRelocationPreferences",
+    delete: "/ATS/Candidate/DeleteCandidateRelocationPreference"
+  },
+  certification: {
+    add: "/ATS/Candidate/InsertCandidateCertification",
+    update: "/ATS/Candidate/UpdateCandidateCertification",
+    delete: "/ATS/Candidate/DeleteCandidateCertification"
+  },
+  education: {
+    add: "/ATS/Candidate/InsertCandidateEducation",
+    update: "/ATS/Candidate/UpdateCandidateEducation",
+    delete: "/ATS/Candidate/DeleteCandidateEducation"
+  },
+  securityCredentials: {
+    add: "/ATS/Candidate/InsertCandidateSecurityCredentials",
+    update: "/ATS/Candidate/UpdateCandidateSecurityCredentials",
+    delete: "/ATS/Candidate/DeleteCandidateSecurityCredentials"
+  },
+  attachments: {
+    add: "/ATS/Candidate/InsertCandidateAttachments",
+    update: null, // No update endpoint available
+    delete: null // No delete endpoint available
+  },
+  goals: {
+    add: "/ATS/Candidate/InsertCandidateGoal",
+    update: "/ATS/Candidate/UpdateCandidateGoal",
+    delete: "/ATS/Candidate/DeleteCandidateGoal"
+  }
+};
+//
 const AcademicPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const fileInputRef = useRef(null); // Reference for the file input
@@ -35,18 +86,46 @@ const AcademicPage = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [index, setIndex] = useState(0);
   const n = 5;
-
-  const handleFileChange = (event) => {
+  const {title}=useParams();
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const newDocument = {
         name: file.name,
         details: ["Additional Data 1", "Additional Data 2", "Additional Data 3"],
       };
+
+      // <<<<<<<<<<< For example purposes, we'll create a mock object
+    const DataDocument = {
+      Candidate_Id: "123",
+      Country: "UK",
+      State: "CA",
+      Country_Name: "United States",
+      State_Name: "California",
+      City_Name: "Los Angeles",
+      Priority: "High",
+      Willing_To_Relocate: true,
+      Candidate_Relocation_ID: "456",
+    };
+  
       setDocuments([...documents, newDocument]);
+      const url =getEndpoint(title,"add");
+      console.log(url,":",title)
+      try {
+        const response=await instance.post(url,DataDocument);
+        console.log(response.data)
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+  //*************** */
 
+  const getEndpoint = (title, action) => {
+    const endpointsForTitle = endpoints[title.toLowerCase()];
+    return endpointsForTitle ? endpointsForTitle[action] : null;
+  };
+  //*************** */
   const handleAdd = () => {
     fileInputRef.current.click(); // Trigger the file input
   };
@@ -54,6 +133,8 @@ const AcademicPage = () => {
   const handleDelete = () => {
     setDocuments(documents.filter((_, idx) => !selectedItems.includes(idx)));
     setSelectedItems([]);
+    const url =getEndpoint(title,"delete");
+    console.log(url)
   };
 
   const handleCheckboxChange = (idx) => {

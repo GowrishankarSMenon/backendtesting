@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import { Box, Button, Flex, Text, Heading, Divider } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
+import instance from "../axiosApis/getUrl";
 //import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Country, State, City } from "country-state-city";
 
@@ -64,10 +65,31 @@ const initialValues = {
   chkPermanent: false,
 };
 
-const FormModal = ({editForm}) => {
-  // console.log("Country", Country.getAllCountries());
-  // console.log("State", State.getStatesOfCountry("IN"));
-  const [input, setInput] = useState(initialValues);
+// Function to capitalize the first letter of each key
+const smallLetter = (str) => {
+  if (typeof str !== 'string') return str;
+  return str.toLowerCase() ;
+};
+
+// Function to transform object keys to have first letter capitalized
+const transformKeysTo = (obj) => {
+  return Object.keys(obj).reduce((acc, key) => {
+    const newKey = smallLetter(key);
+    acc[newKey] = obj[key];
+    return acc;
+  }, {});
+};
+
+const FormModal = ({ editForm }) => {
+  console.log(editForm);
+
+  // Apply the transformation to editForm before merging
+  const transformedEditForm = transformKeysTo(editForm);
+
+  // Merge initialValues with transformedEditForm
+  const mergedValues = {  ...initialValues,...transformedEditForm };
+
+  const [input, setInput] = useState(mergedValues);
 
   const onHandleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -95,6 +117,59 @@ const FormModal = ({editForm}) => {
   }
 
   console.log("Input", input);
+  //********************
+// Save function to handle form submission via Axios
+const handleSave = async () => {
+  const contactDetails = {
+    First_Name: "vishal",
+    Last_Name: "desai",
+    Middle_Name: "desai",
+    Address1: "fsfs",
+    Address2: "sffsss",
+    Address_Type: 1,
+    Alternate_PhNo: "",
+    City: "NewYork",
+    Country: "IN",
+    Country_Name: "India",
+    Email_ID: "vishald@gmail.com",
+    Ext_Number: "",
+    Fax_No: "",
+    Mobile_No: "9 999-9999",
+    Nick_Name: "",
+    Pager_No: "",
+    Primary_PhNo: "12121",
+    State: "MH",
+    State_Name: "Maharashtra",
+    Work_PhNo: "",
+    Zipcode: "21"
+  };
+  
+console.log(input)  
+  try {
+    const response = await instance.put('/ATS/Candidate/UpdatePersonalInfoNew',{City: "NewYork"}); 
+    if (response.status === 200) {
+      console.log("Data saved successfully:", response.data);
+      
+    }
+  } catch (error) {
+    console.error("Error saving data:", error);
+    
+  }
+};
+
+
+const handleClear = () => {
+ setInput(initialValues)
+  console.log("Form cleared");
+};
+
+// Back function to handle form closing or navigation
+const handleBack = () => {
+  console.log("Back action triggered");
+  // Implement your back action, e.g., navigate to another page or close a modal
+};
+// ********************
+
 
   const onHandleCheckChange = (e) => {
     // setInput(e.target.value);
@@ -1250,17 +1325,17 @@ const FormModal = ({editForm}) => {
         <Box>
           <Flex justifyContent={"flex-start"} alignItems={"center"} gap={4}>
             <Box>
-              <Button fontSize={"14px"} color="white" colorScheme="blue">
+              <Button fontSize={"14px"} color="white" colorScheme="blue" onClick={()=>{handleSave()}}>
                 Save
               </Button>
             </Box>
             <Box>
-              <Button fontSize={"14px"} color="white" colorScheme="red">
+              <Button fontSize={"14px"} color="white" colorScheme="red" onClick={()=>{handleClear()}}>
                 Clear
               </Button>
             </Box>
             <Box>
-              <Button fontSize={"14px"} color="white" colorScheme="blackAlpha">
+              <Button fontSize={"14px"} color="white" colorScheme="blackAlpha" onClick={()=>{handleBack()}}>
                 Back
               </Button>
             </Box>
@@ -1268,7 +1343,7 @@ const FormModal = ({editForm}) => {
         </Box>
       </form>
     </Box>
-  );
+  )
 };
 
 export default FormModal;
