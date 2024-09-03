@@ -69,6 +69,7 @@ const HeadTableLayout = ({ title, rows }) => {
           >
             <Flex justifyContent={"flex-end"} alignItems={"center"} pt={1} pb={2}>
               <Link to={`/my-profile/${title.toLowerCase()}`}>
+   
                 <Button minW={8} h={8} pl={1} pr={1} bg={"#2d43b3"} color="#fff">
                   <EditIcon fontSize="14px" />
                 </Button>

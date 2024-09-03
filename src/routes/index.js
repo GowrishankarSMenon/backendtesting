@@ -20,6 +20,7 @@ import AcademicPage from "../pages/academicPage";
 import PageNotFound from "../pages/PageNotFound";
 import JobDetails from "../pages/jobDetails";
 import MyResumes from "../pages/MyResumes";
+import AcademicPageFormUI from "../ui/Relocation";
 
 export default function AllRoutes() {
   //localStorage.removeItem("login");
@@ -71,6 +72,10 @@ export default function AllRoutes() {
       <Route
         path={`/my-profile/:title`}
         element={<Protected Component={AcademicPage} />}
+      />
+      <Route
+        path={`/academicForm/:title`}
+        element={<Protected Component={AcademicPageFormUI} />}
       />
       <Route path="*" element={<Protected Component={PageNotFound} />} />
     </Routes>

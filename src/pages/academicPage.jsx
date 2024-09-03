@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
+import { setCookie,getCookie,deleteCookie } from "../helper/CookieStorage";
+import { jwtDecode } from "jwt-decode";
 import {
   Box,
   Button,
@@ -27,66 +29,136 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import AllFormModal from "../modal/allFormModal"; 
 import { useParams } from "react-router-dom";
-import instance from "../axiosApis/baseUrl";
+import instance from "../axiosApis/getUrl";
 
 
+//
 const endpoints = {
   skills: {
     add: "/ATS/Candidate/InsertCandidateSkills",
     update: "/ATS/Candidate/UpdateCandidateSkill",
-    delete: "/ATS/Candidate/DeleteSelectedCandidateSkills"
+    delete: "/ATS/Candidate/DeleteSelectedCandidateSkills",
+    get: (candidateId) => `/ATS/Candidate/GetAllCandidateSkills?candidateId=${candidateId}`,
   },
   experience: {
     add: "/ATS/Candidate/InsertCandidateWorkExperience",
     update: "/ATS/Candidate/UpdateCandidateWorkExperience",
-    delete: "/ATS/Candidate/DeleteCandidateWorkExperience"
+    delete: "/ATS/Candidate/DeleteCandidateWorkExperience",
+    get: (candidateId) => `/ATS/Portal/GetCandidateExperience?candidateId=${candidateId}`,
   },
-  jobPreferences: {
+  jobpreferences: {
     add: "/ATS/Portal/insertCandidateJobPreferences",
     update: "/ATS/Portal/updateCandidateJobPreferences",
-    delete: null // No delete endpoint available
+    delete: null, // No delete endpoint available
+    get: (candidateId) => `/ATS/Portal/GetCandidateJobPreference?candidateId=${candidateId}`,
   },
   relocation: {
     add: "/ATS/Candidate/InsertCandidateRelocationPreferences",
     update: "/ATS/Candidate/UpdateCandidateRelocationPreferences",
-    delete: "/ATS/Candidate/DeleteCandidateRelocationPreference"
-  },
-  certification: {
-    add: "/ATS/Candidate/InsertCandidateCertification",
-    update: "/ATS/Candidate/UpdateCandidateCertification",
-    delete: "/ATS/Candidate/DeleteCandidateCertification"
+    delete: "/ATS/Candidate/DeleteCandidateRelocationPreference",
+    get: (candidateId) => `/ATS/Candidate/GetAllCandidateRelocation?candidateId=${candidateId}`,
   },
   education: {
     add: "/ATS/Candidate/InsertCandidateEducation",
     update: "/ATS/Candidate/UpdateCandidateEducation",
-    delete: "/ATS/Candidate/DeleteCandidateEducation"
+    delete: "/ATS/Candidate/DeleteCandidateEducation",
+    get: (candidateId) => `/ATS/Portal/GetCandidateEducation?candidateId=${candidateId}`,
   },
-  securityCredentials: {
+  securitycredentials: {
     add: "/ATS/Candidate/InsertCandidateSecurityCredentials",
     update: "/ATS/Candidate/UpdateCandidateSecurityCredentials",
-    delete: "/ATS/Candidate/DeleteCandidateSecurityCredentials"
+    delete: "/ATS/Candidate/DeleteCandidateSecurityCredentials",
+    get: (candidateId) => `/ATS/Candidate/GetAllCandidateSecurityCredentials?candidateId=${candidateId}`,
   },
   attachments: {
     add: "/ATS/Candidate/InsertCandidateAttachments",
     update: null, // No update endpoint available
-    delete: null // No delete endpoint available
+    delete: null, // No delete endpoint available
+    get: (candidateId) => `/ATS/Candidate/GetAllCandidateAttachments?candidateId=${candidateId}`,
   },
   goals: {
     add: "/ATS/Candidate/InsertCandidateGoal",
     update: "/ATS/Candidate/UpdateCandidateGoal",
-    delete: "/ATS/Candidate/DeleteCandidateGoal"
-  }
+    delete: "/ATS/Candidate/DeleteCandidateGoal",
+    get: (candidateId) => `/ATS/Candidate/GetAllGoals?candidateId=${candidateId}`,
+  },
+  commonnotes: {
+    get: (candidateId, userId, dcId) => `/ATS/Portal/GetCommonNotesForCandidatePortal?dcId=${dcId}&dcUserID=${userId}&candidateID=${candidateId}`,
+  },
+  additionalitems: {
+    get: (candidateId) => `/ATS/Candidate/GetAllResumeAdditionalItems?candidateId=${candidateId}`,
+  },
 };
+
 //
 const AcademicPage = () => {
+  
+  let token_key = getCookie('token_Key');//localStorage.getItem("token_Key");
+  let user = jwtDecode(token_key)
   const { isOpen, onOpen, onClose } = useDisclosure();
   const fileInputRef = useRef(null); // Reference for the file input
   const [documents, setDocuments] = useState([]); // State to store uploaded documents
   const [page, setPage] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
   const [index, setIndex] = useState(0);
+  const [titleDetails,setTitileDetails]=useState({});
   const n = 5;
   const {title}=useParams();
+  //
+
+  const getEndpoint = (title, action) => {
+    const endpointsForTitle = endpoints[title.toLowerCase()];
+    return endpointsForTitle ? endpointsForTitle[action] : null;
+  };
+  const fetchEndpoint = (title, candidateId, additionalParams = {}) => {
+    const endpointConfig = endpoints[title.toLowerCase().trim()];
+    if (!endpointConfig) {
+      console.error(`No endpoint configuration found for title: ${title}`);
+      return null;
+    }
+  
+    const getEndpoint = endpointConfig.get;
+    if (!getEndpoint) {
+      console.error(`No GET endpoint configured for title: ${title}`);
+      return null;
+    }
+  
+    // Construct the URL with candidateId and additional parameters if needed
+    return typeof getEndpoint === 'function'
+      ? getEndpoint(candidateId, additionalParams.userId, additionalParams.dcId)
+      : getEndpoint;
+  };
+  
+//
+useEffect(() => {
+  const fetchCandidateData = async () => {
+    try {
+      console.log(user.UserId);
+      const response = await instance.get(`Common/UserInfo/GetCandidateID?userID=${user.UserId}`);
+      console.log("Response:", response);
+
+      if (response.status === 200 && response.data.data) {
+        const candidateId = response.data.data;
+        console.log("Candidate ID:", candidateId);
+
+        // Example of using fetchEndpoint with candidateId
+        const url = fetchEndpoint('experience', candidateId);
+        if (url) {
+          const experienceResponse = await instance.get(url);
+          console.log(title, experienceResponse.data.Table0[0]);
+          // Handle the response as needed
+        }
+      } else {
+        console.error("No candidate ID found in response.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  fetchCandidateData();
+}, []);
+  //
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -121,14 +193,12 @@ const AcademicPage = () => {
   };
   //*************** */
 
-  const getEndpoint = (title, action) => {
-    const endpointsForTitle = endpoints[title.toLowerCase()];
-    return endpointsForTitle ? endpointsForTitle[action] : null;
-  };
+
   //*************** */
-  const handleAdd = () => {
-    fileInputRef.current.click(); // Trigger the file input
-  };
+  // const handleAdd = () => {
+  //   fileInputRef.current.click(); // Trigger the file input
+    
+  // };
 
   const handleDelete = () => {
     setDocuments(documents.filter((_, idx) => !selectedItems.includes(idx)));
@@ -152,18 +222,20 @@ const AcademicPage = () => {
       <Box className="page-width">
         <Flex justifyContent={"space-between"} alignItems={"center"} mt={4} mb={4}>
           <Flex justifyContent={"flex-start"} alignItems={"center"}>
-            <Button
-              w={24}
-              h={10}
-              mr={2}
-              color={"#fff"}
-              bg={"blue"}
-              fontSize={13}
-              textTransform={"uppercase"}
-              onClick={handleAdd}
-            >
-              Add
-            </Button>
+       <Link to={`/academicForm/${title}`}
+       >     <Button
+       w={24}
+       h={10}
+       mr={2}
+       color={"#fff"}
+       bg={"blue"}
+       fontSize={13}
+       textTransform={"uppercase"}
+     >
+       Add
+     </Button></Link>
+
+
             <Button
               w={24}
               h={10}

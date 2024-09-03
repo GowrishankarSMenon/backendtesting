@@ -22,7 +22,6 @@ const countryStateData = {
 };
 
 const Relocation = ({ onSave, onCancel }) => {
-  const [selectedCountry, setSelectedCountry] = useState("");
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
@@ -49,14 +48,17 @@ const Relocation = ({ onSave, onCancel }) => {
 
   const handleSubmit = (values) => {
     setLoading(true);
+    console.log("Form Data: ", values); // This will log the form data to the console
     onSave(values);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   };
 
-  const handleCountryChange = (event) => {
-    setSelectedCountry(event.target.value);
+  const handleCountryChange = (event, setFieldValue) => {
+    const selectedCountry = event.target.value;
+    setFieldValue("country", selectedCountry);
+    setFieldValue("state", ""); // Clear the state value when the country changes
   };
 
   return (
@@ -65,7 +67,7 @@ const Relocation = ({ onSave, onCancel }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ resetForm, values }) => (
+      {({ resetForm, setFieldValue, values }) => (
         <Form>
           <Box>
             <FormControl my="1em" isInvalid={!!ErrorMessage.name}>
@@ -86,7 +88,7 @@ const Relocation = ({ onSave, onCancel }) => {
                 id="country"
                 name="country"
                 placeholder="Select Country"
-                onChange={handleCountryChange}
+                onChange={(e) => handleCountryChange(e, setFieldValue)}
               >
                 {Object.keys(countryStateData).map((country) => (
                   <option key={country} value={country}>
@@ -104,10 +106,10 @@ const Relocation = ({ onSave, onCancel }) => {
                 id="state"
                 name="state"
                 placeholder="Select State"
-                isDisabled={!selectedCountry}
+                isDisabled={!values.country}
               >
-                {selectedCountry &&
-                  countryStateData[selectedCountry].map((state) => (
+                {values.country &&
+                  countryStateData[values.country].map((state) => (
                     <option key={state} value={state}>
                       {state}
                     </option>

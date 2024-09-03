@@ -20,6 +20,7 @@ import { MdOutlineAddAlert } from "react-icons/md";
 import { MdAddAlert } from "react-icons/md";
 
 const SaveTable = ({ jobList, table_head, new_table }) => {
+  console.log("in lib ",jobList,table_head,new_table);
   const [selectedValues, setSelectedValues] = useState([]);
 
   const handleCheckboxChange = (id) => {
