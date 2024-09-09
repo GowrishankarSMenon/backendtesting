@@ -73,7 +73,7 @@ const smallLetter = (str) => {
 
 // Function to transform object keys to have first letter capitalized
 const transformKeysTo = (obj) => {
-  return Object.keys(obj).reduce((acc, key) => {
+  return Object.keys(obj)?.reduce((acc, key) => {
     const newKey = smallLetter(key);
     acc[newKey] = obj[key];
     return acc;
@@ -120,40 +120,109 @@ const FormModal = ({ editForm }) => {
   //********************
 // Save function to handle form submission via Axios
 const handleSave = async () => {
-  const contactDetails = {
-    First_Name: "vishal",
-    Last_Name: "desai",
-    Middle_Name: "desai",
-    Address1: "fsfs",
-    Address2: "sffsss",
-    Address_Type: 1,
-    Alternate_PhNo: "",
-    City: "NewYork",
-    Country: "IN",
-    Country_Name: "India",
-    Email_ID: "vishald@gmail.com",
-    Ext_Number: "",
-    Fax_No: "",
-    Mobile_No: "9 999-9999",
-    Nick_Name: "",
-    Pager_No: "",
-    Primary_PhNo: "12121",
-    State: "MH",
-    State_Name: "Maharashtra",
-    Work_PhNo: "",
-    Zipcode: "21"
+  const contactDetails= {
+    ProfileName: "",
+    Salutation: "",
+    FirstName: "vishal",          // Updated with value from contactDetails
+    LastName: "desai",            // Updated with value from contactDetails
+    MiddleName: "desai",          // Updated with value from contactDetails
+    KnowAs: "",                   // Added new field
+    Email: "vishald@gmail.com",   // Updated with value from contactDetails
+    MotherName: "",
+    Country: "IN",                // Updated with value from contactDetails
+    State: "MH",                  // Updated with value from contactDetails
+    City: "NewYork",              // Updated with value from contactDetails
+    Address1: "fsfs",             // Updated with value from contactDetails
+    Address2: "sffsss",           // Updated with Address2 value from contactDetails
+    Zip: 21,                    // Updated with Zip from contactDetails
+    Gender: "",
+    MaritalStatus: "",
+    BirthPlace: "",
+    BirthDate: "",
+    Nationality: "",
+    ResidencyCountry: "",
+    CitizenshipCountry: "",
+    IdentificationNumber: "",
+    CboEthnicity: "",
+    ContactPreference: "",
+    Phone: "12121",               // Updated with Primary_PhNo value from contactDetails
+    Mobile: "9 999-9999",         // Updated with value from contactDetails
+    AltPhone: "",                 // No corresponding value in contactDetails
+    BusinessPhone: "",            // No corresponding value in contactDetails
+    Pager: "",                    // Updated with Pager_No value from contactDetails
+    Extension: "",                // Updated with Ext_Number value from contactDetails
+    FaxNum: "",                   // Updated with Fax_No value from contactDetails
+    Website: "",
+    CareerLevel: "",
+    TotalExperience: "",
+    CurrentPosition: "",
+    CurrentSalary: "",
+    SalaryCurrencyCode: "",
+    SalaryMode: "",
+    AuthorizeWork: "",
+    WillingRelocate: "",
+    LegalIdentificationNumber: "",
+    CurrentRate: "",
+    DesiredWageCurrencyCode: "",
+    DesiredWageType: "",
+    DesiredSalary: "",
+    DesiredJob: "",
+    WillingRelocate: "",
+    RelocateComment: "",
+    ChkImmediate: false,
+    ChkPermanent: false,
+    AddressType: 1,               // Updated with Address_Type value from contactDetails
+    StateName: "Maharashtra",     // Updated with State_Name value from contactDetails
+    
+    // New fields added as per your list:
+    Availibility_End_Date: "",      // New field
+    Availibility_Start_Date: "",    // New field
+    currentPositionTitle: "",     // New field
+    DOB: "",                      // New field
+    SSN: "",                      // New field
+    confidential: "",             // New field
+    contact: "",                  // New field
+    currencyCode: "",             // New field
+    ethnicity: "",                // New field
+    eixt: "",                      // New field
+    fax: "",                      // New field
+    immigration: "",              // New field
+    knownAs: "",                  // New field
+    positionTitle: "",            // New field
+    prPhone: "",                  // New field
+    rating: "",                   // New field
+    salary: "",                   // New field
+    securityClear: "",            // New field
+    termOfNotice: "",             // New field
+    termOfNoticeIntv: "",         // New field
+    totXP: "",                    // New field
+    web: "",                      // New field
+    workPh: "",                   // New field
+    worktype: "",                  // New field
+    NickName:"",
+    ext:""
   };
-  
+
 console.log(input)  
   try {
-    const response = await instance.put('/ATS/Candidate/UpdatePersonalInfoNew',{City: "NewYork"}); 
+    const response = await instance.put('/ATS/Candidate/UpdatePersonalInfoNew',contactDetails); 
     if (response.status === 200) {
       console.log("Data saved successfully:", response.data);
       
     }
   } catch (error) {
-    console.error("Error saving data:", error);
-    
+    // Handle Axios error
+    if (error.response) {
+      // Server responded with a status other than 2xx
+      console.error("Error response data:", error.response.data);
+      console.error("Error status:", error.response.status);
+    } else if (error.request) {
+      // Request was made but no response received
+      console.error("Error request:", error.request);
+    } else {
+      // Something happened while setting up the request
+      console.error("Error message:", error.message);
+    }
   }
 };
 

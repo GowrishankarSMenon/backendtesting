@@ -12,6 +12,19 @@ import {
 } from "@chakra-ui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import instance from "../axiosApis/getUrl";
+import { useParams } from "react-router-dom";
+//
+const addEndpoints = {
+  skills: "/ATS/Candidate/InsertCandidateSkills",
+  experience: "/ATS/Candidate/InsertCandidateWorkExperience",
+  jobpreferences: "/ATS/Portal/insertCandidateJobPreferences",
+  relocation: "/ATS/Candidate/InsertCandidateRelocationPreferences",
+  education: "/ATS/Candidate/InsertCandidateEducation",
+  securitycredentials: "/ATS/Candidate/InsertCandidateSecurityCredentials",
+  attachments: "/ATS/Candidate/InsertCandidateAttachments",
+  goals: "/ATS/Candidate/InsertCandidateGoal"
+};
 
 // Example data for countries and states
 const countryStateData = {
@@ -23,7 +36,18 @@ const countryStateData = {
 
 const Relocation = ({ onSave, onCancel }) => {
   const [loading, setLoading] = useState(false);
-
+  const title=useParams()
+  const [DataDocument,setDataDocument]=useState();
+  const getAddEndpoint = (title) => {
+    const lowerCaseTitle = title.toLowerCase().trim();
+    const addUrl = addEndpoints[lowerCaseTitle];
+    if (!addUrl) {
+      console.error(`No add endpoint configured for title: ${title}`);
+      return null;
+    }
+    return addUrl;
+  };
+  
   const initialValues = {
     candidateId: "",
     country: "",
@@ -46,13 +70,30 @@ const Relocation = ({ onSave, onCancel }) => {
     willingToRelocate: Yup.string().required("Willingness to relocate is required"),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
+    const newDataDocument = {
+      Candidate_Id: values.candidateId,
+      Country: values.country,
+      State: values.state,
+      Country_Name: values.countryName,
+      State_Name: values.stateName,
+      City_Name: values.cityName,
+      Priority: values.priority,
+      Willing_To_Relocate: values.willingToRelocate === "yes", // Assuming "yes" means true
+    };
     setLoading(true);
     console.log("Form Data: ", values); // This will log the form data to the console
-    onSave(values);
-    setTimeout(() => {
+    const url = getAddEndpoint(title);
+    if (url) {
+      try {
+        const response = await instance.post(url, newDataDocument);
+        console.log("Response:", response.data);
+      } catch (error) {
+        console.error("Error adding data:", error);
+      }
+    finally {
       setLoading(false);
-    }, 1000);
+    }}
   };
 
   const handleCountryChange = (event, setFieldValue) => {

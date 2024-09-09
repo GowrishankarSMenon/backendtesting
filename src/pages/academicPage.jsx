@@ -3,7 +3,7 @@ import ReactPaginate from "react-paginate";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
-import { setCookie,getCookie,deleteCookie } from "../helper/CookieStorage";
+import { setCookie, getCookie, deleteCookie } from "../helper/CookieStorage";
 import { jwtDecode } from "jwt-decode";
 import {
   Box,
@@ -27,7 +27,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
-import AllFormModal from "../modal/allFormModal"; 
+import AllFormModal from "../modal/allFormModal";
 import { useParams } from "react-router-dom";
 import instance from "../axiosApis/getUrl";
 
@@ -46,7 +46,7 @@ const endpoints = {
     delete: "/ATS/Candidate/DeleteCandidateWorkExperience",
     get: (candidateId) => `/ATS/Portal/GetCandidateExperience?candidateId=${candidateId}`,
   },
-  jobpreferences: {
+  jobpreference: {
     add: "/ATS/Portal/insertCandidateJobPreferences",
     update: "/ATS/Portal/updateCandidateJobPreferences",
     delete: null, // No delete endpoint available
@@ -92,7 +92,7 @@ const endpoints = {
 
 //
 const AcademicPage = () => {
-  
+
   let token_key = getCookie('token_Key');//localStorage.getItem("token_Key");
   let user = jwtDecode(token_key)
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -101,13 +101,13 @@ const AcademicPage = () => {
   const [page, setPage] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
   const [index, setIndex] = useState(0);
-  const [titleDetails,setTitileDetails]=useState({});
+  const [titleDetails, setTitileDetails] = useState([]);
   const n = 5;
-  const {title}=useParams();
+  const { title } = useParams();
   //
 
-  const getEndpoint = (title, action) => {
-    const endpointsForTitle = endpoints[title.toLowerCase()];
+  const takeEndpoint = (title, action) => {
+    const endpointsForTitle = endpoints[title.toLowerCase().trim()];
     return endpointsForTitle ? endpointsForTitle[action] : null;
   };
   const fetchEndpoint = (title, candidateId, additionalParams = {}) => {
@@ -116,48 +116,62 @@ const AcademicPage = () => {
       console.error(`No endpoint configuration found for title: ${title}`);
       return null;
     }
-  
-    const getEndpoint = endpointConfig.get;
-    if (!getEndpoint) {
+
+    const getFetchEndpoint= endpointConfig.get;
+    if (!getFetchEndpoint) {
       console.error(`No GET endpoint configured for title: ${title}`);
       return null;
     }
-  
+
     // Construct the URL with candidateId and additional parameters if needed
-    return typeof getEndpoint === 'function'
-      ? getEndpoint(candidateId, additionalParams.userId, additionalParams.dcId)
-      : getEndpoint;
+    return typeof getFetchEndpoint === 'function'
+      ? getFetchEndpoint(candidateId, additionalParams.userId, additionalParams.dcId)
+      : getFetchEndpoint;
   };
-  
-//
-useEffect(() => {
-  const fetchCandidateData = async () => {
-    try {
-      console.log(user.UserId);
-      const response = await instance.get(`Common/UserInfo/GetCandidateID?userID=${user.UserId}`);
-      console.log("Response:", response);
 
-      if (response.status === 200 && response.data.data) {
-        const candidateId = response.data.data;
-        console.log("Candidate ID:", candidateId);
+  //
+  const getData=()=>{
+    
+  instance
+  .get(`Common/UserInfo/GetCandidateID?userID=${user.UserId}`)
+  .then((response) => {
+    // Handle the response
+    console.log("REquest Post", response);
+    if (response.status === 200) {
+      console.log(response.data)
+      const candidateId = response.data.data
+      const trimedTitle=title.replaceAll(' ', '');
+      console.log(trimedTitle)
+      const url=fetchEndpoint(trimedTitle,candidateId,user)
+    if(url){
+      instance
+      .get(url)
+      .then((response) => {
+        // Handle the response
+        console.log("Print", response);
+        if (response.status === 200) {
+          console.log(response.data.Table0[0])
+          setTitileDetails(response.data.Table0[0])
 
-        // Example of using fetchEndpoint with candidateId
-        const url = fetchEndpoint('experience', candidateId);
-        if (url) {
-          const experienceResponse = await instance.get(url);
-          console.log(title, experienceResponse.data.Table0[0]);
-          // Handle the response as needed
         }
-      } else {
-        console.error("No candidate ID found in response.");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
+      })
     }
-  };
+    }
+  })
+  .catch((error) => {
+  
+    console.error(error);
+});
+}
+  
 
-  fetchCandidateData();
-}, []);
+useEffect(()=>{
+getData()
+},[title])
+
+useEffect(() => {
+  console.log("Title Details Updated:", titleDetails);
+}, [titleDetails]); // Log titleDetails whenever it changes
   //
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -166,25 +180,12 @@ useEffect(() => {
         name: file.name,
         details: ["Additional Data 1", "Additional Data 2", "Additional Data 3"],
       };
-
-      // <<<<<<<<<<< For example purposes, we'll create a mock object
-    const DataDocument = {
-      Candidate_Id: "123",
-      Country: "UK",
-      State: "CA",
-      Country_Name: "United States",
-      State_Name: "California",
-      City_Name: "Los Angeles",
-      Priority: "High",
-      Willing_To_Relocate: true,
-      Candidate_Relocation_ID: "456",
-    };
-  
       setDocuments([...documents, newDocument]);
-      const url =getEndpoint(title,"add");
-      console.log(url,":",title)
+      const trimedTitle=title.trim();
+      const url = takeEndpoint(trimedTitle, "add");
+      console.log(url, ":", title.toLocaleLowerCase().trim())
       try {
-        const response=await instance.post(url,DataDocument);
+        const response = await instance.post(url,documents );
         console.log(response.data)
       } catch (error) {
         console.log(error);
@@ -195,15 +196,16 @@ useEffect(() => {
 
 
   //*************** */
-  // const handleAdd = () => {
-  //   fileInputRef.current.click(); // Trigger the file input
-    
-  // };
+  const handleAdd = () => {
+    fileInputRef.current.click(); // Trigger the file input
+
+  };
 
   const handleDelete = () => {
     setDocuments(documents.filter((_, idx) => !selectedItems.includes(idx)));
     setSelectedItems([]);
-    const url =getEndpoint(title,"delete");
+    const trimedTitle=title.trim();
+    const url = takeEndpoint(trimedTitle, "delete");
     console.log(url)
   };
 
@@ -216,26 +218,31 @@ useEffect(() => {
   };
 
   const paginatedDocuments = documents.slice(page * n, (page + 1) * n);
-
+console.log(paginatedDocuments)
   return (
     <Box className="academic_Container">
+<div>
+{Object.entries(titleDetails).map(([key, value], index) => (
+            <p key={index}>
+              <strong>{key.replace(/_/g, " ")}:</strong> {value || "N/A"}
+            </p>
+          ))}
+</div>
       <Box className="page-width">
         <Flex justifyContent={"space-between"} alignItems={"center"} mt={4} mb={4}>
-          <Flex justifyContent={"flex-start"} alignItems={"center"}>
-       <Link to={`/academicForm/${title}`}
-       >     <Button
-       w={24}
-       h={10}
-       mr={2}
-       color={"#fff"}
-       bg={"blue"}
-       fontSize={13}
-       textTransform={"uppercase"}
-     >
-       Add
-     </Button></Link>
-
-
+          <Flex justifyContent={"flex-start"} alignItems={"center"}>          
+             <Button
+              w={24}
+              h={10}
+              mr={2}
+              color={"#fff"}
+              bg={"blue"}
+              fontSize={13}
+              textTransform={"uppercase"}
+              onClick={handleAdd}
+            >
+                Add
+              </Button>
             <Button
               w={24}
               h={10}
@@ -272,7 +279,9 @@ useEffect(() => {
           style={{ display: "none" }}
           onChange={handleFileChange}
         />
-
+         
+        
+         
         <TableContainer borderRadius={"10px"} className="form_tables">
           <Table variant="simple">
             <Thead>
