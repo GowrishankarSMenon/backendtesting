@@ -30,6 +30,125 @@ import { EditIcon } from "@chakra-ui/icons";
 import AllFormModal from "../modal/allFormModal";
 import { useParams } from "react-router-dom";
 import instance from "../axiosApis/getUrl";
+//dummys
+const dummyExperiance = {
+  candidate_Id: 2170,
+  worked_For_Company: "New_Company",
+  company_Joining_Date: "02/01/2020",
+  company_Last_Working_Date: "01/01/2024",
+  candidates_Role: "test",
+  position_Title: "test",
+  functional_Description: "test11",
+  contact_Type: 1,  // Assuming Recruiter is mapped to 1
+  person_Name: "test",
+  contact_Address1: "N/A",
+  contact_Address2: "N/A",
+  contact_Country: "AF",
+  contact_State: "GHO",
+  contact_City: "N/A",
+  contact_Zip_Code: "34535",
+  contact_Telephone_No: "4534535",
+  contact_Email: "test@gmail.com",
+  contact_Position_Type: 1,  // Assuming this is mapped to 1
+  contact_CurrentEmployer: 1,  // Assuming "Yes" is mapped to 1
+  org_Address1: "N/A",
+  org_Address2: "N/A",
+  org_Country: "US",
+  org_State: "CA",
+  org_City: "N/A",
+  org_Zip_Code: "N/A",
+  org_Telephone_No: "N/A",
+  org_URL: "N/A",
+  industry_ID: 0,  // Assuming "Engineering" is mapped to 0 (should be the actual ID)
+  org_Size: "N/A"
+};
+const dummyGoals = {
+  candidate_Id: 2170,
+  career_Goal: "goal 1 for test",
+  goal_Priority: 0
+}
+const dummySkills = {
+  candidate_Id: 0,
+  skillDesc: "string",
+  experience_Grade: 0,
+  worked_On_This_For: 0,
+  grade_Willing_to_Work: 0,
+  last_Used: 0,
+  summary: "string",
+  request_Training: 0,
+  skills_ID: 0
+}
+const dummyAttachment = {
+  candidateId: 2170,
+  addedBy: 0,
+  addedDate: "2024-09-12T15:25:26.015Z",
+  file_Path: "Ma",
+  isUploaded: 0,
+  isDetached: 0,
+  isDefault: 0,
+  isFormatted: 0,
+  attachType: 0,
+  candidate_Visibility: 0,
+  is_Searchable: 0,
+  is_Primary: 0,
+  subContractorId: 0,
+  requisitionId: 0
+};
+const DummyJobPerifeance = {
+  candidateId: 2170,
+  positionTitle: 0,
+  desiredSalary: 10000,  // Not 0
+  desiredLocation: 0,
+  jobCategory: "Sales and Marketing",  // Not "string"
+  jobTermId: 0,
+  workType: 0,  // Could be different if mapped (e.g., Part Time)
+  jobTypeID: "N/A",  // Not "string"
+  willingToTeleCommute: 0,  // "Not Willing" mapped to 0
+  willingToTravel: 1,  // Not 0
+  idealCompCat: 0,
+  compSize: 0,  // Could be different if mapped (e.g., Unknown)
+  compDesc: "test",  // Not "string"
+  avFrom: 0,  // N/A represented as 0
+  avFromDate: "N/A",  // Not "string"
+  acctIds: "Administration, asasas",  // Not "string"
+  desiredPosTitle: "tester",  // Not "string"
+  altPostTitle: "tester",  // Not "string"
+  shift: "N/A",  // Not "string"
+  desWageAmount: 0,  // N/A represented as 0
+  desWageCurr: "0",  // Not "string"
+  desWagetype: 0,  // N/A represented as 0
+  workStyle: "Independent",  // Not "string"
+  dressCode: "Uniform",  // Not "string"
+  istravelApp: true,
+  trvFreq: 100,  // Not 0
+  trvCons: "test",  // Not "string"
+  willingToRelocate: true,
+  relocateComments: "test",  // Not "string"
+  prefLang: "Arabic",  // Not "string"
+  timeMax: 0,
+  timeUnit: 0,  // Assuming 0 corresponds to "Minutes"
+  distanceMax: 2,
+  disUnit: 0,  // Assuming 0 corresponds to "KMs"
+  commComment: "test",  // Not "string"
+  addInfo: "test",  // Not "string"
+  termOfNotice: 0,  // N/A represented as 0
+  termOfNotIntv: 0,  // N/A represented as 0
+  carrObj: "N/A",  // Not "string"
+  carrSumm: "N/A"  // Not "string"
+}
+const dummyCredentials ={
+  candidateId: 2170,
+  securityCredentialId: 1135,
+  securityCredentialName: 1,
+  securityCredentialNameDesc: "None",
+  issuingAuthority: "test111",
+  issuingCountry: "IN",
+  issuingCountryName: "India",
+  description: "N/A",
+  valid_Start_Date: "2024-09-13T12:51:48.127Z",
+  valid_End_Date: "2024-09-13T12:51:48.127Z",
+  first_Issue_Date: "2024-09-13T12:51:48.127"
+};
 
 
 //
@@ -41,7 +160,7 @@ const endpoints = {
     get: (candidateId) => `/ATS/Candidate/GetAllCandidateSkills?candidateId=${candidateId}`,
   },
   experience: {
-    add: "/ATS/Candidate/InsertCandidateWorkExperience",
+    add: "ATS/Candidate/InsertCandidateWorkExperience",
     update: "/ATS/Candidate/UpdateCandidateWorkExperience",
     delete: "/ATS/Candidate/DeleteCandidateWorkExperience",
     get: (candidateId) => `/ATS/Portal/GetCandidateExperience?candidateId=${candidateId}`,
@@ -117,7 +236,7 @@ const AcademicPage = () => {
       return null;
     }
 
-    const getFetchEndpoint= endpointConfig.get;
+    const getFetchEndpoint = endpointConfig.get;
     if (!getFetchEndpoint) {
       console.error(`No GET endpoint configured for title: ${title}`);
       return null;
@@ -130,48 +249,47 @@ const AcademicPage = () => {
   };
 
   //
-  const getData=()=>{
-    
-  instance
-  .get(`Common/UserInfo/GetCandidateID?userID=${user.UserId}`)
-  .then((response) => {
-    // Handle the response
-    console.log("REquest Post", response);
-    if (response.status === 200) {
-      console.log(response.data)
-      const candidateId = response.data.data
-      const trimedTitle=title.replaceAll(' ', '');
-      console.log(trimedTitle)
-      const url=fetchEndpoint(trimedTitle,candidateId,user)
-    if(url){
-      instance
-      .get(url)
+  const getData = () => {
+
+    instance
+      .get(`Common/UserInfo/GetCandidateID?userID=${user.UserId}`)
       .then((response) => {
         // Handle the response
-        console.log("Print", response);
+        console.log("REquest Post", response);
         if (response.status === 200) {
-          console.log(response.data.Table0[0])
-          setTitileDetails(response.data.Table0[0])
-
+          console.log(response.data)
+          const candidateId = response.data.data
+          const trimedTitle = title.replaceAll(' ', '');
+          console.log(trimedTitle)
+          const url = fetchEndpoint(trimedTitle, candidateId, user)
+          if (url) {
+            instance
+              .get(url)
+              .then((response) => {
+                // Handle the response
+                console.log("Print", response);
+                if (response.status === 200) {
+                  console.log(response.data.Table0[0])
+                  setTitileDetails(response.data.Table0[0])
+                }
+              })
+          }
         }
       })
-    }
-    }
-  })
-  .catch((error) => {
-  
-    console.error(error);
-});
-}
-  
+      .catch((error) => {
 
-useEffect(()=>{
-getData()
-},[title])
+        console.error(error);
+      });
+  }
 
-useEffect(() => {
-  console.log("Title Details Updated:", titleDetails);
-}, [titleDetails]); // Log titleDetails whenever it changes
+
+  useEffect(() => {
+    getData()
+  }, [title])
+
+  useEffect(() => {
+    console.log("Title Details Updated:", titleDetails);
+  }, [titleDetails]); // Log titleDetails whenever it changes
   //
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -181,14 +299,30 @@ useEffect(() => {
         details: ["Additional Data 1", "Additional Data 2", "Additional Data 3"],
       };
       setDocuments([...documents, newDocument]);
-      const trimedTitle=title.trim();
-      const url = takeEndpoint(trimedTitle, "add");
+
+      const trimedTitle = title.replaceAll(' ', '');
+      const url = takeEndpoint(trimedTitle, "update");
       console.log(url, ":", title.toLocaleLowerCase().trim())
       try {
-        const response = await instance.post(url,documents );
-        console.log(response.data)
+        const response = await instance.put(url, { ...dummyExperiance });
+        console.log(response)
       } catch (error) {
-        console.log(error);
+        console.error('Request failed with error:', error);
+
+        if (error.response) {
+          // Server responded with a status other than 2xx
+          console.error('Error Response Data:', error.response.data);
+          console.error('Error Response Status:', error.response.status);
+          console.error('Error Response Headers:', error.response.headers);
+        } else if (error.request) {
+          // No response received
+          console.error('Error Request:', error.request);
+        } else {
+          // Error setting up the request
+          console.error('Error Message:', error.message);
+        }
+
+        console.error('Error Config:', error.config);
       }
     }
   };
@@ -204,7 +338,7 @@ useEffect(() => {
   const handleDelete = () => {
     setDocuments(documents.filter((_, idx) => !selectedItems.includes(idx)));
     setSelectedItems([]);
-    const trimedTitle=title.trim();
+    const trimedTitle = title.trim();
     const url = takeEndpoint(trimedTitle, "delete");
     console.log(url)
   };
@@ -218,20 +352,20 @@ useEffect(() => {
   };
 
   const paginatedDocuments = documents.slice(page * n, (page + 1) * n);
-console.log(paginatedDocuments)
+  console.log(paginatedDocuments)
   return (
     <Box className="academic_Container">
-<div>
-{Object.entries(titleDetails).map(([key, value], index) => (
-            <p key={index}>
-              <strong>{key.replace(/_/g, " ")}:</strong> {value || "N/A"}
-            </p>
-          ))}
-</div>
+      <div>
+        {titleDetails ? (Object.entries(titleDetails)?.map(([key, value], index) => (
+          <p key={index}>
+            <strong>{key.replace(/_/g, " ")}:</strong> {value || "N/A"}
+          </p>
+        ))) : ("")}
+      </div>
       <Box className="page-width">
         <Flex justifyContent={"space-between"} alignItems={"center"} mt={4} mb={4}>
-          <Flex justifyContent={"flex-start"} alignItems={"center"}>          
-             <Button
+          <Flex justifyContent={"flex-start"} alignItems={"center"}>
+            <Button
               w={24}
               h={10}
               mr={2}
@@ -241,8 +375,8 @@ console.log(paginatedDocuments)
               textTransform={"uppercase"}
               onClick={handleAdd}
             >
-                Add
-              </Button>
+              Add
+            </Button>
             <Button
               w={24}
               h={10}
@@ -279,9 +413,9 @@ console.log(paginatedDocuments)
           style={{ display: "none" }}
           onChange={handleFileChange}
         />
-         
-        
-         
+
+
+
         <TableContainer borderRadius={"10px"} className="form_tables">
           <Table variant="simple">
             <Thead>
@@ -315,7 +449,7 @@ console.log(paginatedDocuments)
                   </Td>
                   <Td>
                     <Box>
-                      {doc.details.map((detail, idx) => (
+                      {doc.details?.map((detail, idx) => (
                         <Text key={idx} fontSize={13} as={"span"} display="block">
                           {detail}
                         </Text>

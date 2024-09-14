@@ -3,6 +3,9 @@ import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import { Box, Button, Flex, Text, Heading, Divider } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../axiosApis/getUrl";
+import {setCookie,getCookie,deleteCookie} from "../helper/CookieStorage";
+import {jwtDecode} from "jwt-decode";
+import {useNavigate} from "react-router-dom";
 //import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Country, State, City } from "country-state-city";
 
@@ -12,6 +15,7 @@ import SelectInputField from "../helper/SelectInputField";
 import TextAreaField from "../helper/TextAreaField";
 import RadioInputField from "../helper/RadioInputField";
 import CheckedField from "../helper/CheckedField";
+
 
 const initialValues = {
   profile_name: "",
@@ -81,8 +85,28 @@ const transformKeysTo = (obj) => {
 };
 
 const FormModal = ({ editForm }) => {
+  const navigate=useNavigate();
+  let candidateId;
   console.log(editForm);
-
+  const token=getCookie('token_Key');
+const user=jwtDecode(token);
+//
+ 
+instance
+.get(`Common/UserInfo/GetCandidateID?userID=${user.UserId}`)
+.then((response) => {
+  // Handle the response
+  console.log("REquest Post", response);
+  if (response.status === 200) {
+    console.log(response.data)
+    candidateId= response.data.data
+}}).catch((error)=>{if(error.response.status===401){
+  localStorage.setItem("login", false);
+  localStorage.setItem("token","");
+  navigate("/login");
+}
+console.error(error);
+});
   // Apply the transformation to editForm before merging
   const transformedEditForm = transformKeysTo(editForm);
 
@@ -120,92 +144,140 @@ const FormModal = ({ editForm }) => {
   //********************
 // Save function to handle form submission via Axios
 const handleSave = async () => {
-  const contactDetails= {
-    ProfileName: "",
-    Salutation: "",
-    FirstName: "vishal",          // Updated with value from contactDetails
-    LastName: "desai",            // Updated with value from contactDetails
-    MiddleName: "desai",          // Updated with value from contactDetails
-    KnowAs: "",                   // Added new field
-    Email: "vishald@gmail.com",   // Updated with value from contactDetails
-    MotherName: "",
-    Country: "IN",                // Updated with value from contactDetails
-    State: "MH",                  // Updated with value from contactDetails
-    City: "NewYork",              // Updated with value from contactDetails
-    Address1: "fsfs",             // Updated with value from contactDetails
-    Address2: "sffsss",           // Updated with Address2 value from contactDetails
-    Zip: 21,                    // Updated with Zip from contactDetails
-    Gender: "",
-    MaritalStatus: "",
-    BirthPlace: "",
-    BirthDate: "",
-    Nationality: "",
-    ResidencyCountry: "",
-    CitizenshipCountry: "",
-    IdentificationNumber: "",
-    CboEthnicity: "",
-    ContactPreference: "",
-    Phone: "12121",               // Updated with Primary_PhNo value from contactDetails
-    Mobile: "9 999-9999",         // Updated with value from contactDetails
-    AltPhone: "",                 // No corresponding value in contactDetails
-    BusinessPhone: "",            // No corresponding value in contactDetails
-    Pager: "",                    // Updated with Pager_No value from contactDetails
-    Extension: "",                // Updated with Ext_Number value from contactDetails
-    FaxNum: "",                   // Updated with Fax_No value from contactDetails
-    Website: "",
-    CareerLevel: "",
-    TotalExperience: "",
-    CurrentPosition: "",
-    CurrentSalary: "",
-    SalaryCurrencyCode: "",
-    SalaryMode: "",
-    AuthorizeWork: "",
-    WillingRelocate: "",
-    LegalIdentificationNumber: "",
-    CurrentRate: "",
-    DesiredWageCurrencyCode: "",
-    DesiredWageType: "",
-    DesiredSalary: "",
-    DesiredJob: "",
-    WillingRelocate: "",
-    RelocateComment: "",
-    ChkImmediate: false,
-    ChkPermanent: false,
-    AddressType: 1,               // Updated with Address_Type value from contactDetails
-    StateName: "Maharashtra",     // Updated with State_Name value from contactDetails
+  // const contactDetails= {
+  //   ProfileName: "",
+  //   Salutation: "",
+  //   FirstName: "vishal",          // Updated with value from contactDetails
+  //   LastName: "desai",            // Updated with value from contactDetails
+  //   MiddleName: "desai",          // Updated with value from contactDetails
+  //   KnowAs: "",                   // Added new field
+  //   Email: "vishald@gmail.com",   // Updated with value from contactDetails
+  //   MotherName: "",
+  //   Country: "IN",                // Updated with value from contactDetails
+  //   State: "MH",                  // Updated with value from contactDetails
+  //   City: "NewYork",              // Updated with value from contactDetails
+  //   Address1: "fsfs",             // Updated with value from contactDetails
+  //   Address2: "sffsss",           // Updated with Address2 value from contactDetails
+  //   Zip: 21,                    // Updated with Zip from contactDetails
+  //   Gender: "",
+  //   MaritalStatus: "",
+  //   BirthPlace: "",
+  //   BirthDate: "",
+  //   Nationality: "",
+  //   ResidencyCountry: "",
+  //   CitizenshipCountry: "",
+  //   IdentificationNumber: "",
+  //   CboEthnicity: "",
+  //   ContactPreference: "",
+  //   Phone: "12121",               // Updated with Primary_PhNo value from contactDetails
+  //   Mobile: "9 999-9999",         // Updated with value from contactDetails
+  //   AltPhone: "",                 // No corresponding value in contactDetails
+  //   BusinessPhone: "",            // No corresponding value in contactDetails
+  //   Pager: "",                    // Updated with Pager_No value from contactDetails
+  //   Extension: "",                // Updated with Ext_Number value from contactDetails
+  //   FaxNum: "",                   // Updated with Fax_No value from contactDetails
+  //   Website: "",
+  //   CareerLevel: "",
+  //   TotalExperience: "",
+  //   CurrentPosition: "",
+  //   CurrentSalary: "",
+  //   SalaryCurrencyCode: "",
+  //   SalaryMode: "",
+  //   AuthorizeWork: "",
+  //   WillingRelocate: "",
+  //   LegalIdentificationNumber: "",
+  //   CurrentRate: "",
+  //   DesiredWageCurrencyCode: "",
+  //   DesiredWageType: "",
+  //   DesiredSalary: "",
+  //   DesiredJob: "",
+  //   WillingRelocate: "",
+  //   RelocateComment: "",
+  //   ChkImmediate: false,
+  //   ChkPermanent: false,
+  //   AddressType: 1,               // Updated with Address_Type value from contactDetails
+  //   StateName: "Maharashtra",     // Updated with State_Name value from contactDetails
     
-    // New fields added as per your list:
-    Availibility_End_Date: "",      // New field
-    Availibility_Start_Date: "",    // New field
-    currentPositionTitle: "",     // New field
-    DOB: "",                      // New field
-    SSN: "",                      // New field
-    confidential: "",             // New field
-    contact: "",                  // New field
-    currencyCode: "",             // New field
-    ethnicity: "",                // New field
-    eixt: "",                      // New field
-    fax: "",                      // New field
-    immigration: "",              // New field
-    knownAs: "",                  // New field
-    positionTitle: "",            // New field
-    prPhone: "",                  // New field
-    rating: "",                   // New field
-    salary: "",                   // New field
-    securityClear: "",            // New field
-    termOfNotice: "",             // New field
-    termOfNoticeIntv: "",         // New field
-    totXP: "",                    // New field
-    web: "",                      // New field
-    workPh: "",                   // New field
-    worktype: "",                  // New field
-    NickName:"",
-    ext:""
+  //   // New fields added as per your list:
+  //   Availibility_End_Date: "",      // New field
+  //   Availibility_Start_Date: "",    // New field
+  //   currentPositionTitle: "",     // New field
+  //   DOB: "",                      // New field
+  //   SSN: "",                      // New field
+  //   confidential: "",             // New field
+  //   contact: "",                  // New field
+  //   currencyCode: "",             // New field
+  //   ethnicity: "",                // New field
+  //   eixt: "",                      // New field
+  //   fax: "",                      // New field
+  //   immigration: "",              // New field
+  //   knownAs: "",                  // New field
+  //   positionTitle: "",            // New field
+  //   prPhone: "",                  // New field
+  //   rating: "",                   // New field
+  //   salary: "",                   // New field
+  //   securityClear: "",            // New field
+  //   termOfNotice: "",             // New field
+  //   termOfNoticeIntv: "",         // New field
+  //   totXP: "",                    // New field
+  //   web: "",                      // New field
+  //   workPh: "",                   // New field
+  //   worktype: "",                  // New field
+  //   NickName:"",
+  //   ext:""
+  // };
+  console.log(candidateId)
+  const contactDetails = {
+    candidateID: 2170,
+    candidateType: 0,
+    firstName: "vishal",
+    middleName: "desai",
+    lastName: "desai",
+    nickName: "",
+    address1: "fsfss",
+    address2: "sffsss",
+    country: "IN",
+    state: "MH",
+    city: "faaf",
+    zip: "21",
+    prPhone: "",
+    altPhone: "",
+    workPh: "",
+    ext: "",
+    pager: "",
+    mobile: "9 999-9999",
+    fax: "",
+    email: "vishald@gmail.com",
+    positionTitle: "",
+    immigration: "",
+    worktype: "",
+    totXP: "",
+    confidential: "",
+    updatedBy: 0,
+    rating: "",
+    salaryMode: "",
+    salary: "",
+    web: "",
+    contact: "",
+    ethnicity: "",
+    gender: "",
+    profileName: "",
+    knownAs: "",
+    availibility_Start_Date: "",
+    availibility_End_Date: "",
+    termOfNotice: "",
+    termOfNoticeIntv: "",
+    securityClear: "",
+    currencyCode: "",
+    currentPositionTitle: "",
+    ssn: "",
+    dob: ""
   };
-
+  
 console.log(input)  
   try {
-    const response = await instance.put('/ATS/Candidate/UpdatePersonalInfoNew',contactDetails); 
+    const response = await instance.put('ATS/Candidate/UpdatePersonalInfoNew',{...contactDetails}); 
+    console.log(response)
     if (response.status === 200) {
       console.log("Data saved successfully:", response.data);
       
